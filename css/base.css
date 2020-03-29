@@ -1,0 +1,114 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.logo{
+	height: 100px;
+	background: #000;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+nav{
+	margin: auto;
+	width: 800px;
+	height: 100px;
+}
+
+a{
+	text-decoration: none;
+}
+
+.topnav{
+	background-color: #fff;
+	font-size: 14px;
+	margin-top: 40px;
+}
+
+.topnav a{
+	color: #000;
+	text-align: center;
+	padding: 14px 16px;
+	font-size: 15px; 
+}
+
+.topnav a:hover{
+	border-bottom: 2px solid #000;
+}
+
+.topnav .icon{
+	display: none;
+}
+
+table{
+	width: 100%;
+	/*display: grid;*/
+	/*grid-template-columns: repeat(7, 1fr);*/
+	padding: 15px;
+}
+
+table tr, table tbody{
+  	grid-column: 1 / -1;
+  	display: grid;
+ 	grid-template-columns: repeat(7, 1fr);
+	width: 100%;
+}
+
+caption{
+	text-align: center;
+ 	grid-column: 1 / -1;
+  	font-size: 130%;
+ 	font-weight: bold;
+ 	padding: 10px 0;
+}
+
+table td, table th{
+	padding: 5px;
+	box-sizing:border-box;
+	border: 1px solid #ccc;
+}
+
+table td {
+	min-height: 120px;
+  	display: flex;
+  	flex-direction: column;
+}
+
+.weekdays {
+	background: #8e352e;  
+}
+
+.weekdays th {
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 20px;
+	border: none !important;
+	padding: 10px 6px;
+	color: #fff;
+	font-size: 13px;
+}
+
+
+.day{
+	height: 100px;
+  	display: flex;
+  	flex-direction: column;
+}
+
+.date{
+	text-align: center;
+	margin-bottom: 5px;
+	padding: 4px;
+	background: #333;
+	color: #fff;
+	width: 20px;
+	border-radius: 50%;
+  	flex: 0 0 auto;
+  	align-self: flex-end;
+}
+
+/*.days li:hover {
+	background: #d3d3d3;
+}*/

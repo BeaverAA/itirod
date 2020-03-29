@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <script src="script.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="./../css/base.css">
+  </head>
+  <body>
+
+    <header>
+      <div class="logo">
+        <a href="base.html">
+          CALENDAR
+          <!-- <img class="imagelogo" src="./../images/logo.jpg" alt="Calendar"> -->
+        </a>
+      </div>
+      <nav>
+        <div class="topnav">
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+          <a href="#">Link 4</a>
+          <a class="icon" href="#">&#9776</a>
+        </div>
+      </nav>
+    </header>
+
+
+    <div class="container">
+      <h2>Calendar</h2>
+
+      <div>
+
+        <div>
+          <button id="previous" onclick="previous()"><-</button>
+
+          <button id="next" onclick="next()">-></button>
+        </div>
+        
+        <table class="table" id="calendar">
+          <caption id="monthAndYear"></caption>
+          <thead>
+            <tr class="weekdays">
+              <th scope="col">Воскресенье</th>
+              <th scope="col">Понедельник</th>
+              <th scope="col">Вторник</th>
+              <th scope="col">Среда</th>
+              <th scope="col">Четверг</th>
+              <th scope="col">Пятница</th>
+              <th scope="col">Суббота</th>
+            </tr>
+          </thead>
+
+          <tbody id="calendar-body">
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+    <script src="./../js/base.js"></script>
+    
+  </body>
+</html>
