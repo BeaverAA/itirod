@@ -1,4 +1,4 @@
-button {
+/*.day {
   background: none;
   border: 0;
   box-sizing: border-box;
@@ -10,62 +10,50 @@ button {
   font-weight: 700;
   position: relative;
   vertical-align: middle;
-}
-button::before, button::after {
+}*/
+
+
+.day::before, .day::after {
   box-sizing: inherit;
   content: '';
   position: absolute;
 }
 
-.draw {
+.day {
   transition: color 0.25s;
 }
-.draw::before, .draw::after {
+.day::before, .day::after {
   border: 2px solid transparent;
   width: 0;
   height: 0;
 }
-.draw::before {
+.day::before {
   top: 0;
   left: 0;
 }
-.draw::after {
+.day::after {
   bottom: 0;
   right: 0;
 }
-.draw:hover {
+.day:hover {
   color: #60daaa;
 }
-
-.draw:hover::before, .draw:hover::after {
+.day:hover::before, .day:hover::after {
   width: 100%;
   height: 100%;
 }
-
-.draw:hover::before {
+.day:hover::before {
   border-top-color: #60daaa;
   border-right-color: #60daaa;
   transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
 }
-.draw:hover::after {
+.day:hover::after {
   border-bottom-color: #60daaa;
   border-left-color: #60daaa;
   transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
 }
 
 
-.buttons {
+.day {
   isolation: isolate;
 }
-
-
-/*body {
-  background: #fefefe;
-  color: #4b507a;
-  font: 300 24px/1.5 Lato, sans-serif;
-  margin: 1em auto;
-  max-width: 36em;
-  padding: 1em 1em 2em;
-  text-align: center;
-}*/
-

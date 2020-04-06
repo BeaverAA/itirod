@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <title>title</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
-    <!-- <script src="script.js"></script> -->
+    <!-- <scripat src="script.js"></script> -->
     <link rel="stylesheet" type="text/css" href="./../css/common.css">
     <link rel="stylesheet" type="text/css" href="./../css/base.css">
+    <link rel="stylesheet" type="text/css" href="./../css/buttonAnimation.css">
+    <link rel="stylesheet" type="text/css" href="./../css/calendarDayAnimation.css">
   </head>
   <body>
 
@@ -14,7 +16,7 @@
       <div class="logo">
         <a href="base.html">
           CALENDAR
-          <!-- <img class="imagelogo" src="./../images/logo.jpg" alt="Calendar"> -->
+          <!-- <img class="imagelogo" src="./../images/logo.jpg" alt="Calendar"> hm... -->
         </a>
       </div>
       <nav>
@@ -30,18 +32,20 @@
 
 
     <div class="container">
-      <h2>Calendar</h2>
 
       <div>
 
-        <div>
-          <button id="previous" onclick="previous()"><-</button>
-
-          <button id="next" onclick="next()">-></button>
+        <div class="monthAndYear" id="monthAndYear"></div>
+        <div class="buttons">
+          <button id="previous" class="btn" onclick="previous()"><-</button>
+          <button id="currnet" class="btn" onclick="current()">x</button>
+          <button id="next" class="btn" onclick="next()">-></button>
         </div>
         
-        <table class="table" id="calendar">
-          <caption id="monthAndYear"></caption>
+        <table id="calendar">
+          <!-- <caption id="monthAndYear"></caption> -->
+          <!-- <button id="previous" onclick="previous()"><-</button> -->
+          <!-- <button id="next" onclick="next()">-></button> -->
           <thead>
             <tr class="weekdays">
               <th scope="col">Воскресенье</th>

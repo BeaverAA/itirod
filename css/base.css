@@ -1,11 +1,11 @@
 
-nav{
+nav {
 	margin: auto;
 	width: 800px;
 	height: 100px;
 }
 
-a{
+a {
 	text-decoration: none;
 }
 
@@ -19,7 +19,8 @@ a{
 	color: #000;
 	text-align: center;
 	padding: 14px 16px;
-	font-size: 15px; 
+	font-size: 15px;
+	transition: all .1s;
 }
 
 .topnav a:hover{
@@ -34,7 +35,9 @@ table{
 	width: 100%;
 	/*display: grid;*/
 	/*grid-template-columns: repeat(7, 1fr);*/
-	padding: 15px;
+	padding-top: 15px;
+	padding-left: 200px;
+	padding-right: 200px;
 }
 
 table tr, table tbody{
@@ -44,7 +47,7 @@ table tr, table tbody{
 	width: 100%;
 }
 
-caption{
+.monthAndYear{
 	text-align: center;
  	grid-column: 1 / -1;
   	font-size: 130%;
@@ -80,9 +83,10 @@ table td {
 
 
 .day{
-	height: 100px;
+	cursor: pointer;
   	display: flex;
   	flex-direction: column;
+  	position: relative;
 }
 
 .date{
@@ -95,6 +99,10 @@ table td {
 	border-radius: 50%;
   	flex: 0 0 auto;
   	align-self: flex-end;
+}
+
+.buttons {
+	text-align: center;
 }
 
 /*.days li:hover {
