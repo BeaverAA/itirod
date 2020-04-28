@@ -1,36 +1,4 @@
 
-nav {
-	margin: auto;
-	width: 800px;
-	height: 100px;
-}
-
-a {
-	text-decoration: none;
-}
-
-.topnav{
-	background-color: #fff;
-	font-size: 14px;
-	margin-top: 40px;
-}
-
-.topnav a{
-	color: #000;
-	text-align: center;
-	padding: 14px 16px;
-	font-size: 15px;
-	transition: all .1s;
-}
-
-.topnav a:hover{
-	border-bottom: 2px solid #000;
-}
-
-.topnav .icon{
-	display: none;
-}
-
 table{
 	width: 100%;
 	/*display: grid;*/

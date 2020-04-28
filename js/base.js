@@ -4,7 +4,7 @@ let currentYear = today.getFullYear();
 // let selectYear = document.getElementById("year");
 // let selectMonth = document.getElementById("month");
 
-let months = ["Январь", "Февраль", "Март", "Аперль", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+let months = ["January", "February", "March", "April", "May", "June", "July", "August", "August", "October", "November", "December"];
 
 let monthAndYear = document.getElementById("monthAndYear");
 showCalendar(currentMonth, currentYear);

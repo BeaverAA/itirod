@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <scripat src="script.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="./../css/common.css">
+    <link rel="stylesheet" type="text/css" href="./../css/taskList.css">
+  </head>
+  <body>
+
+    <header>
+      <!-- <div class="logo">
+        <a href="base.html">
+          CALENDAR
+          <img class="imagelogo" src="./../images/logo.jpg" alt="Calendar"> hm...
+        </a>
+      </div> -->
+      <nav>
+        <div class="topnav">
+          <a href="./base.html">Calendar</a>
+          <a href="./day.html">Day</a>
+          <a href="./taskList.html">Tasks</a>
+          <a class="mobile-icon" href="#">&#9776</a>
+        </div>
+      </nav>
+    </header>
+
+
+   <div id="container" class="container">
+      <p>
+        <label for="new-task">Add task</label><input id="new-task" type="text"><button id="addButton">Add</button>
+      </p>
+      
+      <details>
+        <summary>No date</summary>
+        <ul id="incomplete-tasks">
+          <li>
+            <input type="checkbox">
+            <label>Pay Bills</label>
+            <input type="text">
+            <button class="edit">Edit</button>
+            <button class="delete">Delete</button>
+          </li>
+        </ul>
+      </details>
+      
+      <details>
+        <summary>Completed</summary>
+        <ul id="completed-tasks">
+          <li>
+            <input type="checkbox" checked>
+            <label>See the Doctor</label>
+            <input type="text">
+            <button class="edit">Edit</button>
+            <button class="delete">Delete</button>
+          </li>
+        </ul>
+      </div>
+    </details>
+        
+
+    <script src="./../js/taskList.js"></script>
+    
+  </body>
+</html>
