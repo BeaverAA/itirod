@@ -3,9 +3,18 @@
 	padding: 0;
 }
 
+header {
+	background: #FFFFFF;
+	height: 100px;
+}
+
+body {
+	background-color: #96EAEA;
+}
+
 .topnav {
-	text-align: center;
 	height: 100;
+	margin-right: 31px;
     /*display:inline-block;*/
 }
 
@@ -38,7 +47,9 @@
 }
 
 .right-topnav {
-	float: right;
+	/*float: right;*/
+	text-align: right;
+	/*padding-bottom: 150px;*/
 	/*display: inline-block;*/
 	/*justify-content: right;*/
 	/*text-align: right;*/
@@ -56,7 +67,7 @@ a {
 .topnav{
 	background-color: #fff;
 	font-size: 14px;
-	margin-top: 40px;
+	padding-top: 40px;
 }
 
 .topnav a{
