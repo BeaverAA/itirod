@@ -27,7 +27,7 @@ table tr, table tbody{
 table td, table th{
 	padding: 5px;
 	box-sizing:border-box;
-	border: 1px solid #ccc;
+	border: 1px solid #8B8585;
 }
 
 table td {
@@ -65,6 +65,10 @@ table td {
   	display: flex;
   	flex-direction: column;
   	position: relative;
+}
+
+.day2{
+  	background: #D3D3D3;
 }
 
 .date{
