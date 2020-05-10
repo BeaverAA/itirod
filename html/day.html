@@ -2,210 +2,211 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Login</title>
+    <title>Day</title>
     <link rel="stylesheet" type="text/css" href="./../css/common.css">
     <link rel="stylesheet" type="text/css" href="./../css/day.css">
+    <link rel="stylesheet" type="text/css" href="./../css/buttonAnimation.css">
   </head>
   <body>
 
-    <header>
-      <div class="logo">
-        <a href="base.html">
-          CALENDAR
-          <!-- <img class="imagelogo" src="./../images/logo.jpg" alt="Calendar"> hm... -->
-        </a>
-      </div>
-      <nav>
-        <div class="topnav">
-          <a href="./base.html">Calendar</a>
-          <a href="./day.html">Day</a>
-          <a href="./taskList.html">Tasks</a>
-          <a class="icon" href="#">&#9776</a>
+   <header>
+      <nav class="topnav">
+        <div>
+          <a class="center-topnav" href="./base.html">Calendar</a>
+          <a class="center-topnav" href="./day.html">Day</a>
+          <a class="center-topnav" href="./taskList.html">Tasks</a>
+          <a class="right-topnav" href="#">Anton Bobr</a>
         </div>
       </nav>
     </header>
 
-    <div id="date" class="date"> 
-      4 Аперля 2020 (Черный день)  
-      <button id="previous" onclick="previous()"><-</button>
-      <button id="next" onclick="next()">-></button>
-    </dib>
+    <div class="container">
 
-    <div id="day-wrapper" class="wrapper">
+      <div id="date" class="date"> 
+        <h1> 4 Аперля 2020 (Черный день) </h1>
+        <button id="previous" class="btn" onclick="previous()"><-</button>
+        <button id="currnet" class="btn" onclick="current()">x</button>
+        <button id="next" class="btn" onclick="next()">-></button>
+      </dib>
 
-      <div class="box">
-        <span class="time">
-          00.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+      <div id="day-wrapper" class="wrapper">
 
-      <div class="box">
-        <span class="time">
-          01.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            00.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          02.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            01.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          03.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            02.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          04.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            03.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          05.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            04.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          06.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            05.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          07.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            06.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          08.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            07.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          09.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            08.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          10.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            09.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          11.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            10.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          12.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            11.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          13.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            12.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          14.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            13.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          15.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            14.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          16.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            15.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          17.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            16.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          18.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            17.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          19.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            18.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          20.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            19.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          21.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            20.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          22.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            21.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          23.00
-        </span>
-        <div class="nested"> <hr> </div>
-      </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            22.00
+          </span>
+        </div>
 
-      <div class="box">
-        <span class="time">
-          24.00
-        </span>
-        <div class="nested"> <hr> </div>
+        <div class="box">
+          <hr>
+          <span class="time">
+            23.00
+          </span>
+        </div>
+
+        <div class="box">
+          <hr>
+          <span class="time">
+            24.00
+          </span>
+          <hr>
+        </div>
+
       </div>
 
     </div>
