@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>title</title>
+    <title>Tasks</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
     <!-- <scripat src="script.js"></script> -->
     <link rel="stylesheet" type="text/css" href="./../css/common.css">
@@ -11,54 +11,53 @@
   <body>
 
     <header>
-      <!-- <div class="logo">
-        <a href="base.html">
-          CALENDAR
-          <img class="imagelogo" src="./../images/logo.jpg" alt="Calendar"> hm...
-        </a>
-      </div> -->
-      <nav>
-        <div class="topnav">
-          <a href="./base.html">Calendar</a>
-          <a href="./day.html">Day</a>
-          <a href="./taskList.html">Tasks</a>
-          <a class="mobile-icon" href="#">&#9776</a>
+      <nav class="topnav">
+        <div>
+          <a class="center-topnav" href="./base.html">Calendar</a>
+          <a class="center-topnav" href="./day.html">Day</a>
+          <a class="center-topnav" href="./taskList.html">Tasks</a>
+          <a class="right-topnav" href="#">Anton Bobr</a>
         </div>
       </nav>
     </header>
 
 
    <div id="container" class="container">
-      <p>
-        <label for="new-task">Add task</label><input id="new-task" type="text"><button id="addButton">Add</button>
-      </p>
-      
-      <details>
-        <summary>No date</summary>
-        <ul id="incomplete-tasks">
-          <li>
-            <input type="checkbox">
-            <label>Pay Bills</label>
-            <input type="text">
-            <button class="edit">Edit</button>
-            <button class="delete">Delete</button>
-          </li>
-        </ul>
+      <div id="container2" class="container2">
+        
+        <div class="add-container">
+          <input id="new-task" class="input-add-task" type="text">
+          <button id="addButton">Add</button>
+        </div>
+
+        <details>
+          <summary>No date</summary>
+          <ul id="incomplete-tasks">
+            <li>
+              <input type="checkbox">
+              <label class="task-label">Pay Bills</label>
+              <input type="text">
+              <button class="edit">Edit</button>
+              <button class="delete">Delete</button>
+            </li>
+          </ul>
+        </details>
+        
+        <details>
+          <summary>Completed</summary>
+          <ul id="completed-tasks">
+            <li>
+              <input type="checkbox" checked>
+              <label class="task-label">See the Doctor</label>
+              <input type="text">
+              <button class="edit">Edit</button>
+              <button class="delete">Delete</button>
+            </li>
+          </ul>
+        </div>
       </details>
-      
-      <details>
-        <summary>Completed</summary>
-        <ul id="completed-tasks">
-          <li>
-            <input type="checkbox" checked>
-            <label>See the Doctor</label>
-            <input type="text">
-            <button class="edit">Edit</button>
-            <button class="delete">Delete</button>
-          </li>
-        </ul>
-      </div>
-    </details>
+    </div>
+
         
 
     <script src="./../js/taskList.js"></script>

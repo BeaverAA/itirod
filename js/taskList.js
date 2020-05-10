@@ -3,7 +3,7 @@ var taskInput=document.getElementById("new-task");
 var addButton=document.getElementById("addButton");
 var incompleteTaskHolder=document.getElementById("incomplete-tasks");
 var completedTasksHolder=document.getElementById("completed-tasks");
-var container=document.getElementById("container");
+var container=document.getElementById("container2");
 
 
 var createNewTaskElement=function(taskString){
@@ -16,6 +16,10 @@ var createNewTaskElement=function(taskString){
 	var deleteButton=document.createElement("button");
 
 	label.innerText=taskString;
+	let labelClass = document.createAttribute("class");
+	labelClass.value = "task-label";
+    label.setAttributeNode(labelClass);
+
 	checkBox.type="checkbox";
 	editInput.type="text";
 	editButton.innerText="Edit";
@@ -113,7 +117,7 @@ for (var i = 0; i < completedTasksHolder.children.length; i++){
 var todayDate = new Date();
 var date = todayDate.getDate();
 var month = todayDate.getMonth() + 1;
-var item = createNewTaskElement("tmp item");
+var item = createNewTaskElement("da,smnflkahdlkhsadhfgkajdhgfkjasghdkjadkgkasjgkjskjhfgkjsdhfgkjdfhgkjsdfkghsdf;kgjhkfjhskzjhfgzkjd");
 var details=document.createElement("details");
 var summary=document.createElement("summary");
 var ul=document.createElement("ul");
