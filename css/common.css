@@ -27,6 +27,7 @@ body {
 }
 
 .center-topnav {
+	/* fix this */
 	float: center;
 	/*display: inline-block;*/
 	/*text-align: center;*/

@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="./../css/common.css">
     <link rel="stylesheet" type="text/css" href="./../css/day.css">
     <link rel="stylesheet" type="text/css" href="./../css/buttonAnimation.css">
+    <link rel="stylesheet" type="text/css" href="./../css/popupall.css">
+    <link rel="stylesheet" type="text/css" href="./../css/appointment.css">
   </head>
   <body>
 
@@ -29,9 +31,9 @@
         <button id="next" class="btn" onclick="next()">-></button>
       </dib>
 
-      <div id="day-wrapper" class="wrapper">
+      <div class="wrapper" id="wrapper">
 
-        <div class="box">
+        <div class="box" id="sec">
           <hr>
           <span class="time">
             00.00
@@ -209,6 +211,79 @@
 
       </div>
 
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="div-title">
+              <input class="input-title" type="text" placeholder="Title">
+            </div>
+
+            <div class="container-type-button">
+              <button id="appointment-button" class="type-button" onclick="activateAppointmentState()">appointment</button>
+              <button id="task-button" class="type-button" onclick="activateTaskState()">task</button>
+              <button id="reminder-button" class="type-button" onclick="activateReminderState()">reminder</button>
+            </div>
+
+            <div id="container-appointment" class="container-appointment">
+              <div>
+                <input class="appointment-input" type="text" placeholder="12:00">
+                <input class="appointment-input" type="text" placeholder="13:00">
+                <input class="appointment-input" type="text" placeholder="31.05.2020">
+              </div>
+              <div>
+                <input class="appointment-input" type="text" placeholder="remind in">
+                <input class="appointment-input" type="text" placeholder="30">
+              </div>
+              <div>
+                <input class="appointment-input-guest" type="text" placeholder="guest email">
+              </div>
+              <div id="container-guest" class="container-guest">
+                <!-- hardcode -->
+                <div>
+                  <span class="guest-span">lol1@gmail.coom</span>
+                  <button class="guest-button">Delete</button>
+                </div>
+                <div>
+                  <span class="guest-span">lol2@gmail.coom</span>
+                  <button class="guest-button">Delete</button>
+                </div>
+                <div>
+                  <span class="guest-span">lol3@gmail.coom</span>
+                  <button class="guest-button">Delete</button>
+                </div>
+                <div>
+                  <span class="guest-span">lol4@gmail.coom</span>
+                  <button class="guest-button">Delete</button>
+                </div>
+              </div>
+              <div>
+                <textarea class="description" placeholder="Description"></textarea>
+              </div>
+          </div>
+
+          <div id="container-task" class="container-task">
+            <div>
+              <input class="appointment-input" type="text" placeholder="31.05.2020">
+            </div>
+            <div>
+                <textarea class="description" placeholder="Description"></textarea>
+              </div>
+          </div>
+
+          <div id="container-reminder" class="container-reminder">
+            <div>
+              <input class="appointment-input" type="text" placeholder="12:00">
+              <input class="appointment-input" type="text" placeholder="31.05.2020">
+            </div>
+          </div>
+
+          <div class="container-result-button">
+            <button class="result-button">Cancel</button>
+            <button class="result-button">Ok</button>
+          </div>
+
+        </div>
     </div>
 
     <script src="./../js/day.js"></script>

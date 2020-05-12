@@ -8,7 +8,6 @@
   margin-top: 2vh;
   margin-left: 27%;
   margin-right: 27%;
-  /*padding-bottom: 15px;*/
   border-radius: 1.5em;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -20,14 +19,10 @@
   padding-top: 25px;
   padding-left: 15%;
   padding-right: 15%;
-  /*margin-left: 15%;*/
-  /*margin-right: 15%;*/
 }
 
 .task-label {
   width: 65%;
-  /*padding-top: 7px;*/
-  /*line-height: 25px;*/
   display: inline-block;
   word-wrap: break-word;
 }
@@ -78,15 +73,13 @@ label[for='new-task'] {
 
 input[type="text"] {
   width: 69%;
-  /*margin-left: 3%;*/
-  /*margin-right: 12%;*/
-   font-size: 18px;
-   line-height: 18px;
-   height: 35px;
-   border: 1px solid #ddd;
-   background: #fff;
-   border-radius: 6px;
-   color: #888;
+  font-size: 18px;
+  line-height: 18px;
+  height: 35px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 6px;
+  color: #888;
  }
 
 .input-add-task:focus {
@@ -96,9 +89,10 @@ input[type="text"] {
 /* New Task */
 label[for='new-task'] {
   display: block;
-  /*margin: 0 0 20px;*/
 }
 
+
+/* > переписать */
 p > button:hover {
   color: #0FC57C;
 }
@@ -125,13 +119,11 @@ li > .delete:hover {
   color: #CF2323;
 }
 
-/* Completed */
 #completed-tasks label {
   text-decoration: line-through;
   color: #888;
 }
 
-/* Edit Task */
 ul li input[type=text] {
   display:none;
 }

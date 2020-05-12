@@ -1,0 +1,35 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.appointment-input {
+	width: 15%;
+	font-size: 14px;
+	margin-top: 15px;
+	margin-right: 3%;
+}
+
+.appointment-input-guest {
+	height: 30px;
+	width: 70%;
+	margin-top: 15px;
+	font-size: 16px;
+}
+
+.container-guest {
+	margin-top: 15px;
+	max-height: 50px;
+	overflow-y: scroll;
+}
+
+.guest-span {
+	color: #9C9C9C;
+}
+
+.guest-button {
+	padding-left: 10px;
+	color: #9C9C9C;
+	box-shadow: none;
+	border: none;
+	outline: none;	
+}
