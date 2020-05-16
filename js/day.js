@@ -1,3 +1,5 @@
+let screenTitile = document.getElementById("screen-title");
+
 let wrapper = document.getElementById("wrapper");
 let modal = document.getElementById("modal")
 let containerTypeButton = document.getElementById("container-type-button")
@@ -12,6 +14,8 @@ let reminderButton = document.getElementById("reminder-button")
 
 // 0 - appointment, 1 - task, 2-reminder
 let popupState = 0
+
+let months = ["January", "February", "March", "April", "May", "June", "July", "August", "August", "October", "November", "December"];
 
 function togleModalEditEvent(type) {
     containerTypeButton.style.display = "none"
@@ -75,9 +79,12 @@ function activateReminderState() {
     appointmentContainer.style.display = "none"
 }
 
-console.log(wrapper)
-// wrapper.addEventListener("click", togleModalCreateEvent);
-// closeButton.addEventListener("click", togleModalCreateEvent);
 window.addEventListener("click", windowOnClick);
-
 activateAppointmentState();
+
+let today = new Date();
+let currentDate = today.getDate();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+let cellText = document.createTextNode(currentDate + ' ' + months[currentMonth] + ' ' + currentYear)
+screenTitile.appendChild(cellText)
