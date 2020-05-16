@@ -1,6 +1,5 @@
 let wrapper = document.getElementById("wrapper");
 let modal = document.getElementById("modal")
-let sec = document.getElementById("sec")
 
 let appointmentContainer = document.getElementById("container-appointment");
 let taskContainer = document.getElementById("container-task")
@@ -15,10 +14,6 @@ let popupState = 0
 
 function toggleModal() {
     modal.classList.toggle("show-modal");
-}
-
-function ak() {
-    alert("kek");
 }
 
 function windowOnClick(event) {
@@ -68,7 +63,6 @@ function activateReminderState() {
 
 console.log(wrapper)
 wrapper.addEventListener("click", toggleModal);
-sec.addEventListener("click", ak);
 // closeButton.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
 
