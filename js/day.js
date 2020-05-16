@@ -1,5 +1,6 @@
 let wrapper = document.getElementById("wrapper");
 let modal = document.getElementById("modal")
+let containerTypeButton = document.getElementById("container-type-button")
 
 let appointmentContainer = document.getElementById("container-appointment");
 let taskContainer = document.getElementById("container-task")
@@ -12,13 +13,26 @@ let reminderButton = document.getElementById("reminder-button")
 // 0 - appointment, 1 - task, 2-reminder
 let popupState = 0
 
-function toggleModal() {
+function togleModalEditEvent(type) {
+    containerTypeButton.style.display = "none"
+    togleModalCreateEvent()
+    if (type === 0) {
+        activateAppointmentState()
+    } else if (type === 1) {
+        activateTaskState()
+    } else if (type === 2) {
+        activateReminderState()
+    }
+}
+
+function togleModalCreateEvent() {
     modal.classList.toggle("show-modal");
 }
 
 function windowOnClick(event) {
     if (event.target === modal) {
-        toggleModal();
+        togleModalCreateEvent();
+        containerTypeButton.style.display = ""
     }
 }
 
@@ -62,8 +76,8 @@ function activateReminderState() {
 }
 
 console.log(wrapper)
-wrapper.addEventListener("click", toggleModal);
-// closeButton.addEventListener("click", toggleModal);
+// wrapper.addEventListener("click", togleModalCreateEvent);
+// closeButton.addEventListener("click", togleModalCreateEvent);
 window.addEventListener("click", windowOnClick);
 
 activateAppointmentState();
