@@ -23,6 +23,7 @@
 }
 
 .time {
+  font-size: 1vw;
   min-height: 50px;
   display: inline-flex;
   align-items: center;
@@ -66,24 +67,28 @@
   width: 50%;
   border-radius: 0.5rem;
 }
-
-.close-button {
-  float: right;
-  width: 1.5rem;
-  line-height: 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 0.25rem;
-  background-color: lightgray;
-}
-
-.close-button:hover {
-  background-color: darkgray;
-}
     
 .show-modal {
   opacity: 1;
   visibility: visible;
   transform: scale(1.0);
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+/**/
+
+@media (max-width: 990px) {
+
+  .time {
+    font-size: 2vw;
+  }
+
+  .container {
+    margin-left: 2%;
+    margin-right: 2%;
+  }    
+
+  .modal {
+    transform: scale(1.5);
+  }
 }

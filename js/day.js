@@ -41,6 +41,7 @@ function windowOnClick(event) {
 }
 
 function activateAppointmentState() {
+    console.log("ap")
     popupState = 0
     appointmentButton.style.background = "#E7A65B"
     appointmentButton.style.color = "#ffffff"
@@ -54,6 +55,7 @@ function activateAppointmentState() {
 }
 
 function activateTaskState() {
+    console.log("ta")
     popupState = 1
     taskButton.style.background = "#3489DA"
     taskButton.style.color = "#ffffff"
@@ -67,6 +69,7 @@ function activateTaskState() {
 }
 
 function activateReminderState() {
+    console.log("re")
     popupState = 2
     reminderButton.style.background = "#F56748"
     reminderButton.style.color = "#ffffff"

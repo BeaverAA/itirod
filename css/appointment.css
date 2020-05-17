@@ -27,6 +27,7 @@
 }
 
 .guest-button {
+	background: #fff;
 	padding-left: 10px;
 	color: #9C9C9C;
 	box-shadow: none;
@@ -44,6 +45,8 @@
   	text-overflow: ellipsis;
   	color: #fff;
 }
+
+/*//////////////////////*/
 
 .appointment-event {
 	cursor: pointer;
@@ -71,4 +74,18 @@
 	background: #E7A65B;
 	height: 70px;
 	margin-top: -70px;
+}
+
+@media (max-width: 990px) {
+
+  .appointment-event {
+  		font-size: 2vw;
+		left: 8%;
+		width: 34%;
+	}    
+
+	.appointment-event2 {
+		font-size: 2vw;
+		width: 34%;
+	}    
 }

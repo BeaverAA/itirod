@@ -1,8 +1,6 @@
 let today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
-// let selectYear = document.getElementById("year");
-// let selectMonth = document.getElementById("month");
 
 let months = ["January", "February", "March", "April", "May", "June", "July", "August", "August", "October", "November", "December"];
 
@@ -31,30 +29,20 @@ function showCalendar(month, year) {
     let prevMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
     let daysInPrevMoth = 32 - new Date(prevYear, prevMonth, 32).getDate();
 
-    // let nextYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
-    // let nextMonth = (currentMonth + 1) % 12;
-    // let daysInNextMoth = 32 - new Date(nextYear, nextMonth, 32).getDate();
-
     let tbl = document.getElementById("calendar-body");
 
     tbl.innerHTML = "";
 
-    // // filing data about month and in the page via DOM.
     monthAndYear.innerHTML = months[month] + " " + year;
-    // // selectYear.value = year;
-    // // selectMonth.value = month;
 
-    // // creating all cells
     let date = 1;
     let dateInNexMoth = 1;
     for (let i = 0; i < 6; i++) {
-        // creates a table row
         let row = document.createElement("tr");
         let rowClass = document.createAttribute("class");
         rowClass.value = "days";
         row.setAttributeNode(rowClass)
 
-        //creating individual cells, filing them up with data.
         for (let j = 0; j < 7; j++) {
         	
             if (i === 0 && j < firstDay) {
@@ -88,7 +76,6 @@ function showCalendar(month, year) {
 }
 
 function createDateCell(date, cellType) {
-    // console.log(cellType)
     let cell = document.createElement("td")
     let cellClass = document.createAttribute("class")
     cellClass.value = cellType

@@ -1,12 +1,12 @@
 
 var taskInput=document.getElementById("new-task");
 var addButton=document.getElementById("addButton");
-var incompleteTaskHolder=document.getElementById("incomplete-tasks");
-var completedTasksHolder=document.getElementById("completed-tasks");
+var incompleteTaskHolder;	//=document.getElementById("no-date-tasks");
+var completedTasksHolder; //document.getElementById("completed-tasks");
 var container=document.getElementById("container2");
 
 
-var createNewTaskElement=function(taskString){
+function createNewTaskElement(taskString) {
 
 	var listItem=document.createElement("li");
 	var checkBox=document.createElement("input");
@@ -35,23 +35,19 @@ var createNewTaskElement=function(taskString){
 	return listItem;
 }
 
-var addTask = function(){
-	console.log("Add Task...");
+function addTask() {
 	var listItem=createNewTaskElement(taskInput.value);
 	incompleteTaskHolder.appendChild(listItem);
 	bindTaskEvents(listItem, taskCompleted);
 	taskInput.value="";
 }
 
-var editTask=function(){
-console.log("Edit Task...");
-console.log("Change 'edit' to 'save'");
+function editTask() {
+	var listItem=this.parentNode;
 
-var listItem=this.parentNode;
-
-var editInput=listItem.querySelector('input[type=text]');
-var label=listItem.querySelector("label");
-var containsClass=listItem.classList.contains("editMode");
+	var editInput=listItem.querySelector('input[type=text]');
+	var label=listItem.querySelector("label");
+	var containsClass=listItem.classList.contains("editMode");
 	if(containsClass){
 		label.innerText=editInput.value;
 	}else{
@@ -60,22 +56,19 @@ var containsClass=listItem.classList.contains("editMode");
 	listItem.classList.toggle("editMode");
 }
 
-var deleteTask = function(){
-	console.log("Delete Task...");
+function deleteTask() {
 	var listItem=this.parentNode;
 	var ul=listItem.parentNode;
 	ul.removeChild(listItem);
 }
 
-var taskCompleted=function(){
-	console.log("Complete Task...");
+function taskCompleted() {
 	var listItem=this.parentNode;
 	completedTasksHolder.appendChild(listItem);
 	bindTaskEvents(listItem, taskIncomplete);
 }
 
-var taskIncomplete = function(){
-	console.log("Incomplete Task...");
+function taskIncomplete() {
 	var listItem=this.parentNode;
 	if (listItem.ownerList == null) {
 		incompleteTaskHolder.appendChild(listItem);
@@ -85,16 +78,10 @@ var taskIncomplete = function(){
 	bindTaskEvents(listItem,taskCompleted);
 }
 
-var ajaxRequest=function(){
-	console.log("AJAX Request");
-}
-
-addButton.onclick=addTask;
-addButton.addEventListener("click",ajaxRequest);
+addButton.onclick = addTask;
 
 
-var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
-	console.log("bind list item events");
+function bindTaskEvents(taskListItem,checkBoxEventHandler) {
 	var checkBox=taskListItem.querySelector("input[type=checkbox]");
 	var editButton=taskListItem.querySelector("button.edit");
 	var deleteButton=taskListItem.querySelector("button.delete");
@@ -103,21 +90,42 @@ var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
 	checkBox.onchange=checkBoxEventHandler;
 }
 
-for (var i = 0; i < incompleteTaskHolder.children.length; i++){
+// for (var i = 0; i < incompleteTaskHolder.children.length; i++){
 
-	bindTaskEvents(incompleteTaskHolder.children[i],taskCompleted);
-}
+// 	bindTaskEvents(incompleteTaskHolder.children[i],taskCompleted);
+// }
 
-for (var i = 0; i < completedTasksHolder.children.length; i++){
-	bindTaskEvents(completedTasksHolder.children[i],taskIncomplete);
-}
+// for (var i = 0; i < completedTasksHolder.children.length; i++){
+// 	bindTaskEvents(completedTasksHolder.children[i],taskIncomplete);
+// }
 
+
+/////////////////////////////////
+var item = createNewTaskElement("Task 1");
+// da,smnflkahdlkhsadhfgkajdhgfkjasghdkjadkgkasjgkjskjhfgkjsdhfgkjdfhgkjsdfkghsdf;kgjhkfjhskzjhfgzkjd
+var details=document.createElement("details");
+var summary=document.createElement("summary");
+var ul=document.createElement("ul");
+var todayTextNode = document.createTextNode("No date");
+
+incompleteTaskHolder = ul
+
+details.setAttribute("open", "true");
+
+summary.appendChild(todayTextNode);
+details.appendChild(summary);
+ul.appendChild(item);
+details.appendChild(ul);
+container.insertBefore(details, container.children[1]);
+item.ownerList = ul;
+bindTaskEvents(item, taskCompleted);
 
 ////////////////////////////////////////// hardcode
 var todayDate = new Date();
 var date = todayDate.getDate();
 var month = todayDate.getMonth() + 1;
-var item = createNewTaskElement("da,smnflkahdlkhsadhfgkajdhgfkjasghdkjadkgkasjgkjskjhfgkjsdhfgkjdfhgkjsdfkghsdf;kgjhkfjhskzjhfgzkjd");
+var item = createNewTaskElement("Pa,smnfl");
+// da,smnflkahdlkhsadhfgkajdhgfkjasghdkjadkgkasjgkjskjhfgkjsdhfgkjdfhgkjsdfkghsdf;kgjhkfjhskzjhfgzkjd
 var details=document.createElement("details");
 var summary=document.createElement("summary");
 var ul=document.createElement("ul");
@@ -132,5 +140,28 @@ details.appendChild(ul);
 container.insertBefore(details, container.children[2]);
 item.ownerList = ul;
 bindTaskEvents(item, taskCompleted);
-/////////////////////////////////////////////////////
+///////////////////////////////////
+
+
+// var item = createNewTaskElement("completed");
+// da,smnflkahdlkhsadhfgkajdhgfkjasghdkjadkgkasjgkjskjhfgkjsdhfgkjdfhgkjsdfkghsdf;kgjhkfjhskzjhfgzkjd
+var details=document.createElement("details");
+var summary=document.createElement("summary");
+var ul=document.createElement("ul");
+let ulClass = document.createAttribute("class");
+ulClass.value = "completed-tasks";
+ul.setAttributeNode(ulClass);
+var todayTextNode = document.createTextNode("Completed");
+
+completedTasksHolder = ul
+
+details.setAttribute("open", "true");
+
+summary.appendChild(todayTextNode);
+details.appendChild(summary);
+// ul.appendChild(item);
+details.appendChild(ul);
+container.insertBefore(details, container.children[3]);
+// item.ownerList = ul;
+// bindTaskEvents(item, taskCompleted);
 

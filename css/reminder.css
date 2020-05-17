@@ -11,3 +11,10 @@
 	height: 20px;
 	margin-top: -20px;
 }
+
+@media (max-width: 990px) {
+
+  .reminder-event {
+  		font-size: 2vw;
+	}    
+}

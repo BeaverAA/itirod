@@ -1,18 +1,15 @@
     
     .container {
+        text-align: center;
         background-color: #FFFFFF;
-        width: 400px;
-        height: 350px;
-        margin: 7em auto;
+        margin-top: 10%;
+        margin-left: 25%;
+        margin-right: 25%;
         border-radius: 1.5em;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 
-    .container-registartion {
-        height: 500px;
-    }
-
-    .span-container {
+    .title-container {
         text-align: center;
         padding-top: 40px;
         padding-bottom: 20px;
@@ -26,7 +23,7 @@
     
     .textfield {
         width: 76%;
-        margin-left: 12%;
+        /*margin-left: 12%;*/
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         color: rgb(38, 50, 56);
         font-weight: 700;
@@ -44,6 +41,7 @@
     }
     
     .form1 {
+        text-align: center;
         padding-top: 40px;
     }
     
@@ -53,7 +51,7 @@
     }
     
     .submit {
-        /*border-radius: 1.5em;*/
+        text-align: center;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         width: 50%;
         cursor: pointer;
@@ -61,30 +59,20 @@
         border-radius: 5em;
         color: #fff;
         background: #73CECE;
-        /*border: 0;*/
-        padding-left: 40px;
-        padding-right: 40px;
         padding-bottom: 10px;
         padding-top: 10px;
         margin-top: 10px;
-        margin-left: 25%;
-        /*margin-bottom: 5px;*/
+        margin-bottom: 25px;
         font-size: 13px;
-        /*box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);*/
     }
 
-    /*
-    a {
-        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-        color: #E1BEE7;
-        text-decoration: none
-    }*/
 
-    /*
-    
-    @media (max-width: 600px) {
-        .main {
-            border-radius: 0px;
-        }*/
-        
-        
+@media screen and (max-width: 990px) {
+
+    .container {
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+
+}
+
