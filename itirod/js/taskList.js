@@ -1,9 +1,10 @@
 
-var taskInput=document.getElementById("new-task");
-var addButton=document.getElementById("addButton");
-var incompleteTaskHolder;	//=document.getElementById("no-date-tasks");
-var completedTasksHolder; //document.getElementById("completed-tasks");
-var container=document.getElementById("container2");
+let taskInput=document.getElementById("new-task");
+let addButton=document.getElementById("addButton");
+let container=document.getElementById("container2");
+
+let incompleteTaskHolder;
+let completedTasksHolder;
 
 
 function createNewTaskElement(taskString) {
@@ -82,9 +83,9 @@ addButton.onclick = addTask;
 
 
 function bindTaskEvents(taskListItem,checkBoxEventHandler) {
-	var checkBox=taskListItem.querySelector("input[type=checkbox]");
-	var editButton=taskListItem.querySelector("button.edit");
-	var deleteButton=taskListItem.querySelector("button.delete");
+	let checkBox=taskListItem.querySelector("input[type=checkbox]");
+	let editButton=taskListItem.querySelector("button.edit");
+	let deleteButton=taskListItem.querySelector("button.delete");
 	editButton.onclick=editTask;
 	deleteButton.onclick=deleteTask;
 	checkBox.onchange=checkBoxEventHandler;
@@ -121,9 +122,9 @@ item.ownerList = ul;
 bindTaskEvents(item, taskCompleted);
 
 ////////////////////////////////////////// hardcode
-var todayDate = new Date();
-var date = todayDate.getDate();
-var month = todayDate.getMonth() + 1;
+let todayDate = new Date();
+let date = todayDate.getDate();
+let month = todayDate.getMonth() + 1;
 var item = createNewTaskElement("Pa,smnfl");
 // da,smnflkahdlkhsadhfgkajdhgfkjasghdkjadkgkasjgkjskjhfgkjsdhfgkjdfhgkjsdfkghsdf;kgjhkfjhskzjhfgzkjd
 var details=document.createElement("details");

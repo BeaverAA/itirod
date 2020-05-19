@@ -4,17 +4,10 @@
 	position: relative;
 	border-radius: 15px;
 	z-index: 51;
-	top: 170px;
+	top: 175px;
 	left: 62%;
 	width: 38%;
 	background: #F56748;
-	height: 20px;
-	margin-top: -20px;
-}
-
-@media (max-width: 990px) {
-
-  .reminder-event {
-  		font-size: 2vw;
-	}    
+	height: 1.6em;
+	margin-top: -1.6em;
 }

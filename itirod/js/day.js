@@ -1,4 +1,4 @@
-let screenTitile = document.getElementById("screen-title");
+let monthAndDay = document.getElementById("monthAndDay");
 
 let wrapper = document.getElementById("wrapper");
 let modal = document.getElementById("modal")
@@ -90,4 +90,4 @@ let currentDate = today.getDate();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 let cellText = document.createTextNode(currentDate + ' ' + months[currentMonth] + ' ' + currentYear)
-screenTitile.appendChild(cellText)
+monthAndDay.appendChild(cellText)

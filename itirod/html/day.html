@@ -28,56 +28,56 @@
       </div>
     </header>
 
-    <div class="container">
+    <main class="container">
 
       <div id="date" class="date"> 
-        <h1 id="screen-title"></h1>
+        <time class="monthAndDay" id="monthAndDay"></time>
         <button id="previous" class="btn" onclick="previous()"><-</button>
         <button id="currnet" class="btn" onclick="current()">x</button>
         <button id="next" class="btn" onclick="next()">-></button>
       </dib>
 
       <div class="task-wrapper">
-        <div class="task" onclick="togleModalEditEvent(1)">
+        <article class="task" onclick="togleModalEditEvent(1)">
           task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
-        </div>
-        <div class="task" onclick="togleModalEditEvent(1)">
+        </article>
+        <article class="task" onclick="togleModalEditEvent(1)">
           task2
-        </div>
-        <div class="task" onclick="togleModalEditEvent(1)">
+        </article>
+        <article class="task" onclick="togleModalEditEvent(1)">
           task3
-        </div>
-        <div class="task" onclick="togleModalEditEvent(1)">
+        </article>
+        <article class="task" onclick="togleModalEditEvent(1)">
           task4
-        </div>
+        </article>
       </div>
 
       <div class="wrapper" id="wrapper">
 
-        <div class="appointment-event" onclick="togleModalEditEvent(0)">
-          <div class="appointment-text">
+        <article class="appointment-event" onclick="togleModalEditEvent(0)">
+          <h2 class="appointment-text">
             task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
-          </div>
+          </h2>
           <div class="appointment-text">
-            02.40-04.00
+            <time datetime="02:40">02.40</time>-<time datetime="04:00">04.00</time>
           </div>
-        </div>
+        </article>
 
-        <div class="appointment-event2" onclick="togleModalEditEvent(0)">
-          <div class="appointment-text">
+        <article class="appointment-event2" onclick="togleModalEditEvent(0)">
+          <h2 class="appointment-text">
             task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
-          </div>
+          </h2>
           <div class="appointment-text">
-            02.40-04.00
+            <time datetime="02:40">02.40</time>-<time datetime="04:00">04.00</time>
           </div>
-        </div>
+        </article>
 
 
-        <div class="reminder-event">
-          <div class="appointment-text" onclick="togleModalEditEvent(2)">
+        <article class="reminder-event">
+          <h2 class="appointment-text" onclick="togleModalEditEvent(2)">
             task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
-          </div>
-        </div>
+          </h2>
+        </article>
 
         <div class="box" onclick="togleModalCreateEvent()">
           <hr>
@@ -257,9 +257,10 @@
 
       </div>
 
-    </div>
+    </main>
 
     <div class="modal" id="modal">
+      <form>
         <div class="modal-content">
             <div class="div-title">
               <input class="input-title" type="text" placeholder="Title">
@@ -330,6 +331,7 @@
           </div>
 
         </div>
+      </form>
     </div>
 
     <script src="./../js/day.js"></script>

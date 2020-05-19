@@ -86,11 +86,11 @@ li {
   overflow: hidden;
   padding: 20px 0;
   border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
 }
 
 li > input[type="checkbox"] {
-  position: relative;
-  top: 5px;
   margin: 0 10px;
 }
 

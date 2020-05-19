@@ -79,13 +79,11 @@
 @media (max-width: 990px) {
 
   .appointment-event {
-  		font-size: 2vw;
 		left: 8%;
 		width: 34%;
 	}    
 
 	.appointment-event2 {
-		font-size: 2vw;
 		width: 34%;
 	}    
 }

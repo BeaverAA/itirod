@@ -18,7 +18,9 @@ table tr, table tbody{
  	grid-column: 1 / -1;
   	font-size: 25px;
  	font-weight: bold;
- 	padding: 10px 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: block;
 }
 
 table td, table th{
@@ -34,6 +36,7 @@ table td {
 }
 
 .container {
+	text-align: center;
 	background-color: #FFFFFF;
    	margin-top: 40px;
    	margin-left: 3%;

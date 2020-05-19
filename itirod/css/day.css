@@ -75,6 +75,16 @@
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
+.monthAndDay{
+  text-align: center;
+  grid-column: 1 / -1;
+  font-size: 25px;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: block;
+}
+
 /**/
 
 @media (max-width: 990px) {
