@@ -1,0 +1,51 @@
+
+.day::before, .day::after {
+  box-sizing: inherit;
+  content: '';
+  position: absolute;
+}
+
+.day {
+  transition: color 0.25s;
+}
+
+.day::before, .day::after {
+  border: 2px solid transparent;
+  width: 0;
+  height: 0;
+}
+
+.day::before {
+  top: 0;
+  left: 0;
+}
+
+.day::after {
+  bottom: 0;
+  right: 0;
+}
+
+.day:hover {
+  color: #60daaa;
+}
+
+.day:hover::before, .day:hover::after {
+  width: 100%;
+  height: 100%;
+}
+
+.day:hover::before {
+  border-top-color: #60daaa;
+  border-right-color: #60daaa;
+  transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+}
+
+.day:hover::after {
+  border-bottom-color: #60daaa;
+  border-left-color: #60daaa;
+  transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+}
+
+.day {
+  isolation: isolate;
+}

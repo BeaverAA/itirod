@@ -1,0 +1,35 @@
+.task-wrapper {
+	margin-top: 2vh;
+	max-height: 100px;
+	overflow-y: scroll;
+}
+
+.task {
+	text-align: left;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	color: #ffffff;
+	border-radius: 15px;
+	background: #3489DA;
+	height: 25px;
+	margin-left: 2%;
+	margin-right: 2%;
+	margin-top: 1px;
+
+  	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+
+  	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  	cursor: pointer;
+}
+
+@media (max-width: 990px) {
+
+  	.task {
+  		font-size: 2vw;
+  		height: 50px;
+	}    
+}

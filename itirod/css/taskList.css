@@ -1,0 +1,156 @@
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  background-color: #FFFFFF;
+  margin-top: 2vh;
+  margin-left: 24%;
+  margin-right: 24%;
+  border-radius: 1.5em;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.container2 {
+  display: block;
+  overflow-y: scroll;
+  height: 80vh;
+  padding-top: 25px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.task-label {
+  width: 60%;
+  word-wrap: break-word;
+}
+
+li * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+li, h3, summary {
+  clear:both;
+  list-style:none;
+}
+
+input, button {
+  outline: none;
+}
+
+button {
+  background: none;
+  border: 0px;
+  color: #888;
+  font-size: 15px;
+  width: 60px;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #333;
+}
+
+h3,
+summary,
+label[for='new-task'] {
+  color: #333;
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 2px solid #333;
+  padding: 30px 0 10px;
+  text-transform: uppercase;
+}
+
+.add-container {
+  text-align: center;
+}
+
+input[type="text"] {
+  width: 65%;
+  font-size: 18px;
+  height: 35px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 6px;
+  color: #888;
+ }
+
+.input-add-task:focus {
+  color: #333;
+}
+
+li {
+  overflow: hidden;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+li > input[type="checkbox"] {
+  margin: 0 10px;
+}
+
+li > label {
+  font-size: 18px;
+  padding: 0 0 0 11px;
+}
+
+li > .delete:hover {
+  color: #CF2323;
+}
+
+.completed-tasks label {
+  text-decoration: line-through;
+  color: #888;
+}
+
+ul li input[type=text] {
+  display:none;
+}
+
+ul li.editMode input[type=text] {
+  display: inline-block;
+}
+
+ul li.editMode label {
+  display:none;
+}
+
+summary:focus {
+  outline: 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 990px) {
+
+    .container {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .container2 {
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+
+    li > label {
+      font-size: 25px;
+    }
+
+    li > button {
+      font-size: 23px;
+    }
+
+    li > input[type="checkbox"] {
+      height: 20px;
+      width: 20px;
+    }
+
+}

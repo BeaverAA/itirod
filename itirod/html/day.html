@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Day</title>
+    <link rel="stylesheet" type="text/css" href="./../css/common.css">
+    <link rel="stylesheet" type="text/css" href="./../css/day.css">
+    <link rel="stylesheet" type="text/css" href="./../css/buttonAnimation.css">
+    <link rel="stylesheet" type="text/css" href="./../css/popupall.css">
+    <link rel="stylesheet" type="text/css" href="./../css/appointment.css">
+    <link rel="stylesheet" type="text/css" href="./../css/task.css">
+    <link rel="stylesheet" type="text/css" href="./../css/reminder.css">
+  </head>
+  <body>
+
+   <header>
+      <div class="image-container">
+        <img src="./../calendar.jpg">
+      </div>
+      <nav class="topnav">
+        <a href="./calendar.html">Calendar</a>
+        <a href="./day.html">Day</a>
+        <a href="./taskList.html">Tasks</a>
+      </nav>
+      <div class="line-break"></div>
+      <div class="user-name">
+          Anton Bobr
+      </div>
+    </header>
+
+    <main class="container">
+
+      <div id="date" class="date"> 
+        <time class="monthAndDay" id="monthAndDay"></time>
+        <button id="previous" class="btn" onclick="previous()"><-</button>
+        <button id="currnet" class="btn" onclick="current()">x</button>
+        <button id="next" class="btn" onclick="next()">-></button>
+      </dib>
+
+      <div class="task-wrapper">
+        <article class="task" onclick="togleModalEditEvent(1)">
+          task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
+        </article>
+        <article class="task" onclick="togleModalEditEvent(1)">
+          task2
+        </article>
+        <article class="task" onclick="togleModalEditEvent(1)">
+          task3
+        </article>
+        <article class="task" onclick="togleModalEditEvent(1)">
+          task4
+        </article>
+      </div>
+
+      <div class="wrapper" id="wrapper">
+
+        <article class="appointment-event" onclick="togleModalEditEvent(0)">
+          <h2 class="appointment-text">
+            task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
+          </h2>
+          <div class="appointment-text">
+            <time datetime="02:40">02.40</time>-<time datetime="04:00">04.00</time>
+          </div>
+        </article>
+
+        <article class="appointment-event2" onclick="togleModalEditEvent(0)">
+          <h2 class="appointment-text">
+            task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
+          </h2>
+          <div class="appointment-text">
+            <time datetime="02:40">02.40</time>-<time datetime="04:00">04.00</time>
+          </div>
+        </article>
+
+
+        <article class="reminder-event">
+          <h2 class="appointment-text" onclick="togleModalEditEvent(2)">
+            task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
+          </h2>
+        </article>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="00:00">00.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="01:00">01.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="02:00">02.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="03:00">03.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="04:00">04.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="05:00">05.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="06:00">06.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="07:00">07.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="08:00">08.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="09:00">09.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="10:00">10.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="11:00">11.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="12:00">12.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="13:00">13.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="14:00">14.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="15:00">15.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="16:00">16.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="17:00">17.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="18:00">18.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="19:00">19.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="20:00">20.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="21:00">21.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="22:00">22.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="23:00">23.00</time>
+        </div>
+
+        <div class="box" onclick="togleModalCreateEvent()">
+          <hr>
+          <time class="time" datetime="24:00">24.00</time>
+          <hr>
+        </div>
+
+      </div>
+
+    </main>
+
+    <div class="modal" id="modal">
+      <form>
+        <div class="modal-content">
+            <div class="div-title">
+              <input class="input-title" type="text" placeholder="Title">
+            </div>
+
+            <div class="container-type-button" id="container-type-button">
+              <button id="appointment-button" class="type-button" onclick="activateAppointmentState()">appointment</button>
+              <button id="task-button" class="type-button" onclick="activateTaskState()">task</button>
+              <button id="reminder-button" class="type-button" onclick="activateReminderState()">reminder</button>
+            </div>
+
+            <div id="container-appointment" class="container-appointment">
+              <div>
+                <input class="appointment-input" type="text" placeholder="12:00">
+                <input class="appointment-input" type="text" placeholder="13:00">
+                <input class="appointment-input" type="text" placeholder="31.05.2020">
+              </div>
+              <div>
+                <input class="appointment-input" type="text" placeholder="remind in">
+                <input class="appointment-input" type="text" placeholder="30">
+              </div>
+              <div>
+                <input class="appointment-input-guest" type="text" placeholder="guest email">
+              </div>
+              <div id="container-guest" class="container-guest">
+                <!-- hardcode -->
+                <div>
+                  <span class="guest-span">lol1@gmail.coom</span>
+                  <button class="guest-button">Delete</button>
+                </div>
+                <div>
+                  <span class="guest-span">lol2@gmail.coom</span>
+                  <button class="guest-button">Delete</button>
+                </div>
+                <div>
+                  <span class="guest-span">lol3@gmail.coom</span>
+                  <button class="guest-button">Delete</button>
+                </div>
+                <div>
+                  <span class="guest-span">lol4@gmail.coom</span>
+                  <button class="guest-button">Delete</button>
+                </div>
+              </div>
+              <div>
+                <textarea class="description" placeholder="Description"></textarea>
+              </div>
+          </div>
+
+          <div id="container-task" class="container-task">
+            <div>
+              <input class="appointment-input" type="text" placeholder="31.05.2020">
+            </div>
+            <div>
+                <textarea class="description" placeholder="Description"></textarea>
+              </div>
+          </div>
+
+          <div id="container-reminder" class="container-reminder">
+            <div>
+              <input class="appointment-input" type="text" placeholder="12:00">
+              <input class="appointment-input" type="text" placeholder="31.05.2020">
+            </div>
+          </div>
+
+          <div class="container-result-button">
+            <button class="result-button">Cancel</button>
+            <button class="result-button">Ok</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <script src="./../js/day.js"></script>
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/7.14.4/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+    
+  </body>
+</html>

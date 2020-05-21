@@ -1,0 +1,104 @@
+.container {
+  background-color: #FFFFFF;
+  margin-top: 2vh;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-bottom: 40px;
+  border-radius: 1.5em;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.box {
+  cursor: pointer;
+  height: 50px;
+  text-align: left;
+}
+
+.wrapper {
+  margin-left: 2%;
+  margin-right: 2%;
+  border-radius: 5px;
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.time {
+  font-size: 1vw;
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.date {
+  padding-top: 2vh;
+  text-align: center;
+}
+
+.btn {
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+  background-color: #79D6D6;
+}
+
+/*popup*/
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1rem 1.5rem;
+  width: 50%;
+  border-radius: 0.5rem;
+}
+    
+.show-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.0);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.monthAndDay{
+  text-align: center;
+  grid-column: 1 / -1;
+  font-size: 25px;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: block;
+}
+
+/**/
+
+@media (max-width: 990px) {
+
+  .time {
+    font-size: 2vw;
+  }
+
+  .container {
+    margin-left: 2%;
+    margin-right: 2%;
+  }    
+
+  .modal {
+    transform: scale(1.5);
+  }
+}
