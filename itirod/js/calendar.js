@@ -5,7 +5,20 @@ let currentYear = today.getFullYear();
 let months = ["January", "February", "March", "April", "May", "June", "July", "August", "August", "October", "November", "December"];
 
 let monthAndYear = document.getElementById("monthAndYear");
-showCalendar(currentMonth, currentYear);
+// showCalendar(currentMonth, currentYear);
+
+var events = {}
+
+let colors = {
+    "000": "#ffffff",
+    "001": "rgba(245, 103, 72, 0.65)",
+    "011": "linear-gradient(rgba(124, 173, 250, 1), rgba(245, 103, 72, 0.65))",
+    "111": "linear-gradient(rgba(255, 197, 130, 0.65), rgba(124, 173, 250, 1), rgba(245, 103, 72, 0.65))",
+    "110": "linear-gradient(rgba(255, 197, 130, 0.65), rgba(124, 173, 250, 1))",
+    "100": "rgba(255, 197, 130, 0.65)",
+    "101": "linear-gradient(rgba(245, 103, 72, 0.65), rgba(245, 103, 72, 0.65))",
+    "010": "rgba(124, 173, 250, 1)"
+}
 
 
 function next() {
@@ -62,7 +75,9 @@ function showCalendar(month, year) {
             else {
                 let cellType = "day"
                 let cell = createDateCell(date, cellType)
-                setBackgroundColor(cell, date)
+                let fullDate = date + '.' + (month + 1) + '.' + year
+                // console.log(fullDate)
+                setBackgroundColor(cell, fullDate)
                 row.appendChild(cell)   
                 date++
             }
@@ -91,14 +106,51 @@ function createDateCell(date, cellType) {
 }
 
 function setBackgroundColor(cell, date) {
-    let color = colorForDate(date)
-    cell.style.background = color
+    // console.log(date)
+    var color = events[date]
+    // console.log(color)
+    if (color == null) {
+        color = '000'
+    }
+    cell.style.background = colors[color]
 }
 
-function colorForDate(date) {
-    if (date === today.getDate()) {
-        console.log(date)
-        return "linear-gradient(rgba(124, 173, 250, 1), rgba(245, 103, 72, 0.65), rgba(255, 197, 130, 0.65))"
+function addEvent(event) {
+    let date = event.date
+    var value = events[date];
+    if (value == null) {
+        value = '000'
     }
-    return "#ffffff"
+
+    if (event.type == 'appointment') {
+        value = '1' + value.substr(1, 2)
+    } else if (event.type == 'task') {
+        value = value.substr(0, 1) + '1' + value.substr(2, 1)
+    } else {
+        value = value.substr(0, 2) + '1'
+    }
+    events[date] = value
+    // console.log(events)
 }
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if(user) {
+
+    firebase.database().ref('users/' + user.uid + '/events').once('value').then(function(snapshot) {
+        let events = snapshot.val()
+        for (var event in events) {
+            addEvent(events[event])
+            // console.log(events[event]);
+        }
+        // console.log(events)
+        showCalendar(currentMonth, currentYear);
+        // console.log(snapshot.val())
+    });
+
+    // console.log(user.email)
+    // saveData(user)
+    // window.open("./../html/calendar.html","_self");
+  } else {
+    console.log("!")
+  }
+});
