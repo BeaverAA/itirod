@@ -139,7 +139,10 @@ if (currentUser == null) {
         let events = snapshot.val()
         for (var event in events) {
             addEvent(events[event])
+            // console.log(events[event]);
         }
+        console.log(events)
+        console.log("kek")
         showCalendar(currentMonth, currentYear);
         
     });

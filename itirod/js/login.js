@@ -13,8 +13,10 @@ function signin() {
 
 firebase.auth().onAuthStateChanged(function(user) {
   if(user) {
-  	console.log(firebase.auth().currentUser)
-  	window.open("./../html/calendar.html","_self");
+    currentUser = user
+  	// console.log(firebase.auth().currentUser)
+  	// window.open("./../html/calendar.html","_self");
+    openCalendar()
   } else {
   	console.log("!")
   }

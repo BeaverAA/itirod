@@ -1,6 +1,73 @@
 <!DOCTYPE html>
-<html>  
+<html id="html" lang="en">
+
+  <head id="head">
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel='stylesheet' type='text/css' href='./../css/common.css'>
+    <link rel='stylesheet' type='text/css' href='./../css/login.css'>
+  </head>
+
   <body>
-    <script src="./start.js"></script>
+    <header id="header">
+      <div class="image-container">
+        <img src="./../calendar.jpg">
+      </div>
+      <nav class="topnav">
+        <div class="right-container">
+          <a href="./login.html">Sign In</a>
+          <a href="./registration.html">Sign Up</a>     
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" class="container">
+      <div class="title-container">
+        <h1 class="title" align="center">Login</h1>
+      </div>
+      <form onsubmit="return false" class="form1">
+        <input id="email" class="textfield" type="text" align="center" placeholder="Email">
+        <input id="password" class="textfield" type="password" align="center" placeholder="Password">
+        <button class="submit" onclick="signin()">Sign in</button>
+      </form>
+    </main>
+
+    <div id="popups">
+    	
+    </div>
+
+     <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-database.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyCnVU0NX2XxC4d1pQvUHx6axM5lBhvUgQU",
+        authDomain: "itirod-49595.firebaseapp.com",
+        databaseURL: "https://itirod-49595.firebaseio.com",
+        projectId: "itirod-49595",
+        storageBucket: "itirod-49595.appspot.com",
+        messagingSenderId: "310781536188",
+        appId: "1:310781536188:web:1bc35f02460bb9f1fe6db9",
+        measurementId: "G-RZB8ZH4YD0"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
+    <div id="scripts">
+    	<script src="./js/login.js"></script>
+    </div>
+
+    <script src="main.js"></script>
+
   </body>
 </html>
