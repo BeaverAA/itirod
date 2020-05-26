@@ -1,35 +1,25 @@
-let today = new Date();
-let currentMonth = today.getMonth();
-let currentYear = today.getFullYear();
 
-let months = ["January", "February", "March", "April", "May", "June", "July", "August", "August", "October", "November", "December"];
-
-let monthAndYear = document.getElementById("monthAndYear");
+var calendar_currentMonth = null
+var calendar_currentYear = null
 
 var events = {}
 
-let colors = {
-    "000": "#ffffff",
-    "001": "rgba(245, 103, 72, 0.65)",
-    "011": "linear-gradient(rgba(124, 173, 250, 1), rgba(245, 103, 72, 0.65))",
-    "111": "linear-gradient(rgba(255, 197, 130, 0.65), rgba(124, 173, 250, 1), rgba(245, 103, 72, 0.65))",
-    "110": "linear-gradient(rgba(255, 197, 130, 0.65), rgba(124, 173, 250, 1))",
-    "100": "rgba(255, 197, 130, 0.65)",
-    "101": "linear-gradient(rgba(245, 103, 72, 0.65), rgba(245, 103, 72, 0.65))",
-    "010": "rgba(124, 173, 250, 1)"
+function initDate() {
+    let today = new Date();
+    calendar_currentMonth = today.getMonth();
+    calendar_currentYear = today.getFullYear();
 }
 
-
 function next() {
-    currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
-    currentMonth = (currentMonth + 1) % 12;
-    showCalendar(currentMonth, currentYear);
+    calendar_currentYear = (calendar_currentMonth === 11) ? calendar_currentYear + 1 : calendar_currentYear;
+    calendar_currentMonth = (calendar_currentMonth + 1) % 12;
+    showCalendar(calendar_currentMonth, calendar_currentYear);
 }
 
 function previous() {
-    currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-    currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-    showCalendar(currentMonth, currentYear);
+    calendar_currentYear = (calendar_currentMonth === 0) ? calendar_currentYear - 1 : calendar_currentYear;
+    calendar_currentMonth = (calendar_currentMonth === 0) ? 11 : calendar_currentMonth - 1;
+    showCalendar(calendar_currentMonth, calendar_currentYear);
 }   
 
 function showCalendar(month, year) {
@@ -37,14 +27,16 @@ function showCalendar(month, year) {
     let firstDay = (new Date(year, month)).getDay();
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-    let prevYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-    let prevMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+    let prevYear = (calendar_currentMonth === 0) ? calendar_currentYear - 1 : calendar_currentYear;
+    let prevMonth = (calendar_currentMonth === 0) ? 11 : calendar_currentMonth - 1;
     let daysInPrevMoth = 32 - new Date(prevYear, prevMonth, 32).getDate();
 
     let tbl = document.getElementById("calendar-body");
 
     tbl.innerHTML = "";
 
+
+    let monthAndYear = document.getElementById("monthAndYear");
     monthAndYear.innerHTML = months[month] + " " + year;
 
     let date = 1;
@@ -115,6 +107,7 @@ function setBackgroundColor(cell, date) {
 }
 
 function addEvent(event) {
+    // console.log(event)
     let date = event.date
     var value = events[date];
     if (value == null) {
@@ -132,27 +125,25 @@ function addEvent(event) {
     // console.log(events)
 }
 
+initDate()
+
 if (currentUser == null) {
 
 } else {
-    firebase.database().ref('users/' + currentUser.uid + '/events').once('value').then(function(snapshot) {
-        let events = snapshot.val()
-        for (var event in events) {
-            addEvent(events[event])
+    requestEvents(function(eventsMap){
+        for (var eventsArrayName in eventsMap) {
+            for (var eventNumber in eventsMap[eventsArrayName]) {
+                addEvent(eventsMap[eventsArrayName][eventNumber])
+            }
         }
-        showCalendar(currentMonth, currentYear);
-        
-    });
+        showCalendar(calendar_currentMonth, calendar_currentYear);
+    })
 }
 
 
 firebase.auth().onAuthStateChanged(function(user) {
   if(user) {
 
-
-    // console.log(user.email)
-    // saveData(user)
-    // window.open("./../html/calendar.html","_self");
   } else {
     console.log("!")
   }

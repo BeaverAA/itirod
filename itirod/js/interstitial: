@@ -1,0 +1,20 @@
+interstitial:
+	admob_show = 60
+	show = 60
+
+	facebook_show_finish = 311
+	show_finish = 312
+
+	mytarget_show_finish = 32
+	show_finish = 32
+
+native :
+
+	admob_bind_finish = 198
+	sdk_bind_finish = 198
+
+	facebook_bind_finish = 462
+	sdk_bind_finish = 462
+
+	mytarget_bind_finish = 1042
+	sdk_bind_finish = 1042

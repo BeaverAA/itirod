@@ -18,9 +18,9 @@
         <img src="./../calendar.jpg">
       </div>
       <nav class="topnav">
-        <a href="./calendar.html">Calendar</a>
-        <a href="./day.html">Day</a>
-        <a href="./taskList.html">Tasks</a>
+        <a class="link_internal" href="calendar">Calendar</a>
+        <a class="link_internal" href="day">Day</a>
+        <a class="link_internal" href="taskList">Tasks</a>
       </nav>
       <div class="line-break"></div>
       <div class="user-name">
@@ -37,8 +37,8 @@
         <button id="next" class="btn" onclick="next()">-></button>
       </dib>
 
-      <div class="task-wrapper">
-        <article class="task" onclick="togleModalEditEvent(1)">
+      <div id="task-wrapper" class="task-wrapper">
+   <!--      <article class="task" onclick="togleModalEditEvent(1)">
           task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
         </article>
         <article class="task" onclick="togleModalEditEvent(1)">
@@ -49,12 +49,12 @@
         </article>
         <article class="task" onclick="togleModalEditEvent(1)">
           task4
-        </article>
+        </article> -->
       </div>
 
       <div class="wrapper" id="wrapper">
 
-        <article class="appointment-event" onclick="togleModalEditEvent(0)">
+  <!--       <article class="appointment-event" onclick="togleModalEditEvent(0)">
           <h2 class="appointment-text">
             task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
           </h2>
@@ -62,22 +62,12 @@
             <time datetime="02:40">02.40</time>-<time datetime="04:00">04.00</time>
           </div>
         </article>
-
-        <article class="appointment-event2" onclick="togleModalEditEvent(0)">
-          <h2 class="appointment-text">
-            task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
-          </h2>
-          <div class="appointment-text">
-            <time datetime="02:40">02.40</time>-<time datetime="04:00">04.00</time>
-          </div>
-        </article>
-
 
         <article class="reminder-event">
           <h2 class="appointment-text" onclick="togleModalEditEvent(2)">
             task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
           </h2>
-        </article>
+        </article> -->
 
         <div class="box" onclick="togleModalCreateEvent()">
           <hr>
@@ -210,10 +200,10 @@
     </main>
 
     <div class="modal" id="modal">
-      <form>
+      <form onsubmit="return false">
         <div class="modal-content">
             <div class="div-title">
-              <input class="input-title" type="text" placeholder="Title">
+              <input id="title" class="input-title" type="text" placeholder="Title">
             </div>
 
             <div class="container-type-button" id="container-type-button">
@@ -224,13 +214,13 @@
 
             <div id="container-appointment" class="container-appointment">
               <div>
-                <input class="appointment-input" type="text" placeholder="12:00">
-                <input class="appointment-input" type="text" placeholder="13:00">
-                <input class="appointment-input" type="text" placeholder="31.05.2020">
+                <input id="ap-start-time" class="appointment-input" type="text" placeholder="12.00">
+                <input id="ap-end-time" class="appointment-input" type="text" placeholder="13.00">
+                <input id="ap-date" class="appointment-input" type="text" placeholder="31.05.2020">
               </div>
               <div>
-                <input class="appointment-input" type="text" placeholder="remind in">
-                <input class="appointment-input" type="text" placeholder="30">
+                <input class="appointment-input" type="text" placeholder="remind in 30">
+                <!-- <input class="appointment-input" type="text" placeholder="30"> -->
               </div>
               <div>
                 <input class="appointment-input-guest" type="text" placeholder="guest email">
@@ -255,29 +245,30 @@
                 </div>
               </div>
               <div>
-                <textarea class="description" placeholder="Description"></textarea>
+                <textarea id="ap-description" class="description" placeholder="Description"></textarea>
               </div>
           </div>
 
           <div id="container-task" class="container-task">
             <div>
-              <input class="appointment-input" type="text" placeholder="31.05.2020">
+              <input id="task-date" class="appointment-input" type="text" placeholder="31.05.2020">
             </div>
             <div>
-                <textarea class="description" placeholder="Description"></textarea>
+                <textarea id="task-description" class="description" placeholder="Description"></textarea>
               </div>
           </div>
 
           <div id="container-reminder" class="container-reminder">
             <div>
-              <input class="appointment-input" type="text" placeholder="12:00">
-              <input class="appointment-input" type="text" placeholder="31.05.2020">
+              <input id="re-time" class="appointment-input" type="text" placeholder="12:00">
+              <input id="re-date" class="appointment-input" type="text" placeholder="31.05.2020">
             </div>
           </div>
 
           <div class="container-result-button">
-            <button class="result-button">Cancel</button>
-            <button class="result-button">Ok</button>
+            <button class="result-button" onclick="deleteEvent()">Delete</button>
+            <button class="result-button" onclick="cancelPopUp()">Cancel</button>
+            <button class="result-button" onclick="saveEvent()">Ok</button>
           </div>
 
         </div>
@@ -285,15 +276,6 @@
     </div>
 
     <script src="./../js/day.js"></script>
-    
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="/__/firebase/7.14.4/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
-
-    <!-- Initialize Firebase -->
-    <script src="/__/firebase/init.js"></script>
     
   </body>
 </html>

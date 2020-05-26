@@ -14,9 +14,7 @@ function signin() {
 firebase.auth().onAuthStateChanged(function(user) {
   if(user) {
     currentUser = user
-  	// console.log(firebase.auth().currentUser)
-  	// window.open("./../html/calendar.html","_self");
-    openCalendar()
+    openScreen("calendar")
   } else {
   	console.log("!")
   }
