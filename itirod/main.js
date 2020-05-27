@@ -115,27 +115,27 @@ function openScreen(screen) {
 }
 
 function SendRequest(link, callback) {
-    let xhr = new XMLHttpRequest()
-    xhr.open("GET", link, true)
+  fetch(link)
+  .then(  
+    function(response) {  
+      if (response.status !== 200) {  
+        console.log('Looks like there was a problem. Status Code: ' +  
+          response.status);  
+        return;  
+      }
 
-    xhr.onreadystatechange = function() {
-   	 if (xhr.readyState != 4) return;
-   	 loaded = true;
-
-   	 if (xhr.status == 200) {
-       updatePage(xhr.responseText, link);
-       callback()
-   	 } else {
-   		 alert("Loading error! Try again later.");
-   		 console.log(xhr.status + ": " + xhr.statusText);
-   	 }
-    }
+      // Examine the text in the response  
+      response.text().then(function(data) {  
+        updatePage(data, link)
+        callback()
+      });  
+    }  
+  )  
 
     loaded = false; //Говорим, что идёт загрузка
 
     //Устанавливаем таймер, который покажет сообщение о загрузке, если она не завершится через 2 секунды
     // setTimeout(ShowLoading, 2000);
-    xhr.send(); //Отправляем запрос
 }
 
 function ShowLoading() {

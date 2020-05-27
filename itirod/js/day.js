@@ -43,6 +43,8 @@ function todayX() {
     day_date = today.getDate();
     day_month = today.getMonth();
     day_year = today.getFullYear();
+
+    changeSelectedDate()
     fillDay(day_date, day_month, day_year)
 }
 
@@ -57,6 +59,7 @@ function next() {
         day_date += 1
     }
 
+    changeSelectedDate()
     fillDay(day_date, day_month, day_year)
 }
 
@@ -70,8 +73,15 @@ function previous() {
         day_date -= 1
     }
 
+    changeSelectedDate()
     fillDay(day_date, day_month, day_year)
 }   
+
+function changeSelectedDate() {
+    selectedMonth = day_month
+    selectedYear = day_year
+    selectedDate = day_date
+}
 
 function togleModalEditEvent(type, event) {
     isEditMode = true
@@ -368,7 +378,6 @@ function insertAARInScreen(appointments, reminders, zIndex) {
 }
 
 function createAppointment(event) {
-    // console.log(event)
     let article = document.createElement("article")
     let h2 = document.createElement("h2")
     let div = document.createElement("div")
@@ -446,20 +455,173 @@ function saveEvent() {
         id = uuidv4()
     }
 
+    let event
+
     switch(popupState) {
         case 0:
-            saveAppointment(id)
+            event = isAppointmentValid()
+            if (event != false) {
+                event.id = id
+                saveAppointment(event)
+            } else {
+                alert("Incorrect Data")
+                return
+            }
             break
         case 1:
-            saveTask(id)
+            event = isTaskValid()
+            if (event != false) {
+                event.id = id
+                saveTask(event)
+            } else {
+                alert("Incorrect Data")
+                return
+            }
             break
         case 2:
-            saveReminder(id)
+            event = isReminderValid()
+            if (event != false) {
+                event.id = id
+                saveReminder(event)
+            } else {
+                alert("Incorrect Data")
+                return
+            }
             break
     }    
 
-    console.log(event)
     cancelPopUp()
+}
+
+function isAppointmentValid() {
+    let startTime = isTimeValid(apStartTime.value)
+    let endTime = isTimeValid(apEndTime.value)
+
+    if (startTime == false || endTime == false) {
+        console.log("time error")
+        return false
+    }
+
+    let stm = startTime[0] * 60 + startTime[1]
+    let etm = endTime[0] * 60 + endTime[1]
+
+    if (stm > etm) {
+        console.log("time error 2")
+        return false
+    }
+
+    let date = isDateValid(apDate.value)
+
+    if (date == false) {
+        console.log("date error")
+        return false
+    }
+
+    let title = popupTitle.value
+
+    if (title == "") {
+        console.log("title error")
+        return false
+    }
+
+    return {
+        title: title,
+        start: startTime[0] + "." + startTime[2],
+        end: endTime[0] + "." + endTime[2],
+        date: date[0] + "." + date[1] + "." + date[2],
+        description: apDescription.value
+    }
+}
+
+function isTaskValid() {
+    let date = isDateValid(taskDate.value)
+
+    if (date == false) {
+        return false
+    }
+
+    let title = popupTitle.value
+
+    if (title == "") {
+        return false
+    }
+
+    return {
+        title: title,
+        date: date[0] + "." + date[1] + "." + date[2],
+        description: apDescription.value
+    }
+    
+}
+
+function isReminderValid() {
+     let time = isTimeValid(reTime.value)
+
+    if (time == false) {
+        return false
+    }
+
+    let date = isDateValid(reDate.value)
+
+    if (date == false) {
+        return false
+    }
+
+    let title = popupTitle.value
+
+    if (title == "") {
+        return false
+    }
+
+    return {
+        title: title,
+        time: time[0] + "." + time[2],
+        date: date[0] + "." + date[1] + "." + date[2]
+    }
+    
+}
+
+function isTimeValid(time) {
+    let times = time.split('.')
+    if (times.length != 2) {
+        return false
+    }
+    let h = Number(times[0])
+    let m = Number(times[1])
+
+    if (Number.isNaN(h) || Number.isNaN(m)) {
+        return false
+    }
+
+    if (h < 0 || h > 23) {
+        return false
+    }
+
+    if (m < 0 || m > 59) {
+        return false
+    }
+
+    return [h, m, times[1]]
+}
+
+function isDateValid(date) {
+    let dateNumbers = date.split('.')
+    if (dateNumbers.length != 3) {
+        return false
+    }
+    let d = Number(dateNumbers[0])
+    let m = Number(dateNumbers[1])
+    let y = Number(dateNumbers[2])
+
+    if (Number.isNaN(d) || Number.isNaN(m) || Number.isNaN(y)) {
+        return false
+    }
+
+    if (d < 0 || m < 0 || y < 0) {
+        return false
+    }
+
+    return [d, m, y]
 }
 
 function deleteEvent() {
@@ -471,69 +633,62 @@ function cancelPopUp() {
     isEditMode = false
     togleModalCreateEvent();
     containerTypeButton.style.display = ""
-    // let deleteButton = document.getElementById("event-delete-button");
-    // deleteButton.style.display = "none"
 }
 
-function saveAppointment(id) {
-    firebase.database().ref('users/' + currentUser.uid + '/events/' + id).set({
+function saveAppointment(event) {
+    firebase.database().ref('users/' + currentUser.uid + '/events/' + event.id).set({
         type: "appointment",
-        id: id,
-        description: apDescription.value,
-        start: apStartTime.value,
-        end: apEndTime.value,
-        date: apDate.value,
-        title: popupTitle.value
+        id: event.id,
+        description: event.description,
+        start: event.start,
+        end: event.end,
+        date: event.date,
+        title: event.title
     })
 }
 
-function saveTask(id) {
-    firebase.database().ref('users/' + currentUser.uid + '/events/' + id).set({
+function saveTask(event) {
+    firebase.database().ref('users/' + currentUser.uid + '/events/' + event.id).set({
         type: "task",
-        id: id,
-        description: taskDescription.value,
-        date: taskDate.value,
-        title: popupTitle.value
+        id: event.id,
+        description: event.description,
+        date: event.date,
+        title: event.title
     })
 }
 
-function saveReminder(id) {
-    firebase.database().ref('users/' + currentUser.uid + '/events/' + id).set({
+function saveReminder(event) {
+    firebase.database().ref('users/' + currentUser.uid + '/events/' + event.id).set({
         type: "reminder",
-        id: id,
-        time: reTime.value,
-        date: reDate.value,
-        title: popupTitle.value
+        id: event.id,
+        time: event.time,
+        date: event.date,
+        title: event.title
     })
 }
 
 function fillDay(day, month, year) {
+    console.log(day, month, year)
     setTitle(day, month, year)
     while (day_taskWrapper.childElementCount > 0) {
         day_taskWrapper.removeChild(day_taskWrapper.firstChild);
     }
-    while (day_wrapper.childElementCount > 25) {
+    while (day_wrapper.childElementCount > 24) {
         day_wrapper.removeChild(day_wrapper.firstChild);
     }
     requestEvents(function(eventsMap){
-        // month = date.getMonth();
-        // year = date.getFullYear();
-        // day = date.getDate();
         let fullDate = day + '.' + (month + 1) + '.' + year
         console.log(fullDate)
         showEvents(eventsMap[fullDate])
     })
 }
 
-// setTitle()
-// window.addEventListener("click", windowOnClick);
 dbChangeListenner = null
 activateAppointmentState();
 
 if (currentUser == null) {
 
 } else {
-    // let today = new Date()
     dbChangeListenner = function() {
         day_month = selectedMonth
         day_year = selectedYear
@@ -543,7 +698,3 @@ if (currentUser == null) {
     dbChangeListenner()
 }
 
-console.log(uuidv4());
-
-
-// activateTaskState()

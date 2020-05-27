@@ -37,6 +37,7 @@ function createNewTaskElement(taskString) {
 
 function addTask() {
 	let title = taskInput.value
+	if (title == "") { return }
 	let task = {title: title, id: uuidv4(), completed: false, date: "No Date"}
 	var listItem=createNewTaskElement(title);
 	listItem.task = task

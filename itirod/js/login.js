@@ -6,8 +6,9 @@ function signin() {
 	let password = passwordInput.value
 
 	firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-  		var errorCode = error.code;
-  		var errorMessage = error.message;
+  		var errorCode = error.code
+  		var errorMessage = error.message
+  		alert(errorMessage)
 	});
 }
 

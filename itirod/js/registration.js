@@ -9,10 +9,18 @@ function register() {
 	let password1 = password1Input.value
 	let password2 = password2Input.value
 
+	let name = nameInput.value
+	let surname = surnameInput.value
+
+	if (name == "" || surname == "") {
+		alert("Invalid Data")
+		return
+	}
+
 	firebase.auth().createUserWithEmailAndPassword(email, password1).catch(function(error) {
-  		let errorCode = error.code;
-  		let errorMessage = error.message;
-  		console.log(errorMessage)
+  		let errorCode = error.code
+  		let errorMessage = error.message
+  		alert(errorMessage)
 	})
 }
 
