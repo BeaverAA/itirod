@@ -1,10 +1,8 @@
-let nameInput = document.getElementById("name");
-let surnameInput = document.getElementById("surname");
-let emailInput = document.getElementById("email");
-let password1Input = document.getElementById("password1");
-let password2Input = document.getElementById("password2");
-
-let database = firebase.database();
+var nameInput = document.getElementById("name");
+var surnameInput = document.getElementById("surname");
+var emailInput = document.getElementById("email");
+var password1Input = document.getElementById("password1");
+var password2Input = document.getElementById("password2");
 
 function register() {
 	let email = emailInput.value
@@ -23,31 +21,19 @@ function saveData(user) {
 	let surname = surnameInput.value
 	let email = emailInput.value
 
-	firebase.database().ref('users/' + user.uid + '/presonal').set({
+	firebase.database().ref('users/' + user.uid + '/personal').set({
     	name: name,
     	surname: surname,
     	email: email
   	});
-
 }
-
-// firebase.auth().signOut().then(function() {
-  
-// }).catch(function(error) {
-  
-// });
 
 firebase.auth().onAuthStateChanged(function(user) {
   if(user) {
-
- 	firebase.database().ref('users/' + user.uid + '/presonal').once('value').then(function(snapshot) {
- 		console.log(snapshot.val())
-	});
-
-  	// console.log(user.email)
-  	// saveData(user)
-  	// window.open("./../html/calendar.html","_self");
+    saveData(user)
   } else {
-  	console.log("!")
+    
   }
 });
+
+dbChangeListenner = null

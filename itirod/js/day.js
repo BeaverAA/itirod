@@ -22,7 +22,12 @@ var apDescription = document.getElementById("ap-description")
 var apStartTime = document.getElementById("ap-start-time")
 var apEndTime = document.getElementById("ap-end-time")
 var apDate = document.getElementById("ap-date")
+
 var popupTitle = document.getElementById("title")
+
+var day_month = null
+var day_year = null
+var day_date = null
 
 var global_test;
 
@@ -30,20 +35,89 @@ var global_test;
 
 // 0 - appointment, 1 - task, 2-reminder
 var popupState = 0
+var isEditMode = false
+var editableEvent = null
 
-function togleModalEditEvent(type) {
+function todayX() {
+    let today = new Date();
+    day_date = today.getDate();
+    day_month = today.getMonth();
+    day_year = today.getFullYear();
+    fillDay(day_date, day_month, day_year)
+}
+
+function next() {
+    let daysInMonth = 32 - new Date(day_year, day_month, 32).getDate();
+
+    if (day_date == daysInMonth) {
+        day_year = (day_month === 11) ? day_year + 1 : day_year;
+        day_month = (day_month + 1) % 12;
+        day_date = 1
+    } else {
+        day_date += 1
+    }
+
+    fillDay(day_date, day_month, day_year)
+}
+
+function previous() {
+    if (day_date == 1) {
+        day_year = (day_month === 0) ? day_year - 1 : day_year;
+        day_month = (day_month === 0) ? 11 : day_month - 1;
+        let daysInMonth = 32 - new Date(day_year, day_month, 32).getDate();
+        day_date = daysInMonth
+    } else {
+        day_date -= 1
+    }
+
+    fillDay(day_date, day_month, day_year)
+}   
+
+function togleModalEditEvent(type, event) {
+    isEditMode = true
+    editableEvent = event
+    console.log(editableEvent)
     containerTypeButton.style.display = "none"
     togleModalCreateEvent()
     if (type === 0) {
         activateAppointmentState()
+        configureAppointmentPopUp(event)
     } else if (type === 1) {
         activateTaskState()
+        configureTaskPopUp(event)
     } else if (type === 2) {
         activateReminderState()
+        configureReminderPopUp(event)
     }
 }
 
+function configureAppointmentPopUp(event) {
+    apDescription.value = event.description
+    apStartTime.value = event.start
+    apEndTime.value = event.end
+    apDate.value = event.date
+    popupTitle.value = event.title
+}
+
+function configureTaskPopUp(event) {
+    taskDescription.value = event.description
+    taskDate.value = event.date
+    popupTitle.value = event.title
+}
+
+function configureReminderPopUp(event) {
+    reTime.value = event.time
+    reDate.value = event.date
+    popupTitle.value = event.title
+}
+
 function togleModalCreateEvent() {
+    let deleteButton = document.getElementById("event-delete-button");
+    if (isEditMode) {
+        deleteButton.style.display = ""
+    } else {
+        deleteButton.style.display = "none"
+    }
     day_modal.classList.toggle("show-modal");
 }
 
@@ -96,13 +170,12 @@ function activateReminderState() {
     appointmentContainer.style.display = "none"
 }
 
-function setTitle() {
+function setTitle(day, month, year) {
     let monthAndDay = document.getElementById("monthAndDay");
-    let today = new Date();
-    let currentDate = today.getDate();
-    let currentMonth = today.getMonth();
-    let currentYear = today.getFullYear();
-    let cellText = document.createTextNode(currentDate + ' ' + months[currentMonth] + ' ' + currentYear)
+    let cellText = document.createTextNode(day + ' ' + months[month] + ' ' + year)
+    if (monthAndDay.firstChild != null) {
+        monthAndDay.removeChild(monthAndDay.firstChild);
+    }
     monthAndDay.appendChild(cellText)
 }
 
@@ -193,7 +266,7 @@ function insertAARInScreen(appointments, reminders, zIndex) {
     // console.log(reminders)
 
     var appointmentWidth = 75
-    var reminderWidth = 20
+    var reminderWidth = 40
 
     if (reminders == null) {
         appointmentWidth = 95
@@ -204,78 +277,92 @@ function insertAARInScreen(appointments, reminders, zIndex) {
         reminderWidth = 95
     }
 
+    let borderFactor = 2
+
 //////////////////////// appointment
 
-    let appointmentWidthForOne = appointmentWidth / appointments.length
-    var appointmentLeft = 4
+    if (appointments != null) {
+        let appointmentWidthForOne = appointmentWidth / appointments.length
+        var appointmentLeft = 4
 
-    for (var i in appointments) {
-        let event = appointments[i]
-        let eventElement = createAppointment(event)
-        eventElement.style.zIndex = zIndex.toString()
-        eventElement.style.left = appointmentLeft + "%"
-        eventElement.style.width = appointmentWidthForOne + "%"
+        for (var i in appointments) {
+            let event = appointments[i]
+            let eventElement = createAppointment(event)
+            eventElement.style.zIndex = zIndex.toString()
+            eventElement.style.left = appointmentLeft + "%"
+            eventElement.style.width = appointmentWidthForOne + "%"
 
-        // 1 h = 50 px
-        // 1 m = 0.8 px
-        let startTime = event.start.split(".")
-        let endTime = event.end.split(".")
+            // 1 h = 50 px
+            // 1 m = 0.8 px
+            let startTime = event.start.split(".")
+            let endTime = event.end.split(".")
 
-        var hour = parseInt(endTime[0], 10) - parseInt(startTime[0], 10)
-        var min = parseInt(endTime[1], 10) - parseInt(startTime[1], 10)
-        if (min < 0) {
-            hour -= 1
-            min += 60 
+            var hour = parseInt(endTime[0], 10) - parseInt(startTime[0], 10)
+            var min = parseInt(endTime[1], 10) - parseInt(startTime[1], 10)
+            if (min < 0) {
+                hour -= 1
+                min += 60 
+            }
+
+            let height = hour * 50 + min * 0.8
+
+            let top =  parseInt(startTime[0], 10) * 50 + parseInt(startTime[1], 10) * 0.8 + height
+
+            eventElement.style.top = top + "px"
+            eventElement.style.height = height + "px"
+            eventElement.style.marginTop = (-height - borderFactor) + "px"
+            day_wrapper.insertBefore(eventElement, day_wrapper.children[0])
+
+            appointmentLeft += appointmentWidthForOne
+            zIndex += 1
         }
-
-        let height = hour * 50 + min * 0.8
-
-        let top =  parseInt(startTime[0], 10) * 50 + parseInt(startTime[1], 10) * 0.8 + height
-
-        eventElement.style.top = top + "px"
-        eventElement.style.height = height + "px"
-        eventElement.style.marginTop = (-height - 2) + "px"
-        day_wrapper.insertBefore(eventElement, day_wrapper.children[0])
-
-        appointmentLeft += appointmentWidthForOne
-        zIndex += 1
     }
 
     //////////////////   reminder
 
-    let reminderWidthForOne = reminderWidth / reminders.length
-    // пересчитать
-    var reminderLeft = 4
+    if (reminders != null) {
 
-    for (var i in reminders) {
-        let event = reminders[i]
-        let eventElement = createReminder(event)
-        eventElement.style.zIndex = zIndex.toString()
-        eventElement.style.left = reminderLeft + "%"
-        eventElement.style.width = reminderWidthForOne + "%"
+        let reminderWidthForOne = reminderWidth / reminders.length
+        // пересчитать
+        var reminderLeft = 4
 
-        // 1 h = 50 px
-        // 1 m = 0.8 px
-        let time = event.time.split(".")
+        if (appointments != null) {
+            reminderLeft = 59
+        }
 
-        // var hour = parseInt(endTime[0], 10) - parseInt(startTime[0], 10)
-        // var min = parseInt(endTime[1], 10) - parseInt(startTime[1], 10)
-        // if (min < 0) {
-        //     hour -= 1
-        //     min += 60 
-        // }
+        for (var i in reminders) {
+            let event = reminders[i]
+            let eventElement = createReminder(event)
+            eventElement.style.zIndex = zIndex.toString()
+            eventElement.style.left = reminderLeft + "%"
+            eventElement.style.width = reminderWidthForOne + "%"
 
-        let height = 1.6;
+            // 1 h = 50 px
+            // 1 m = 0.8 px
+            let time = event.time.split(".")
 
-        let top =  parseInt(time[0], 10) * 50 + parseInt(time[1], 10) * 0.8// + height
+            // var hour = parseInt(endTime[0], 10) - parseInt(startTime[0], 10)
+            // var min = parseInt(endTime[1], 10) - parseInt(startTime[1], 10)
+            // if (min < 0) {
+            //     hour -= 1
+            //     min += 60 
+            // }
 
-        eventElement.style.top = top + "px"
-        eventElement.style.height = height + "em"
-        eventElement.style.marginTop = (-height - 2) + "px"
-        day_wrapper.insertBefore(eventElement, day_wrapper.children[0])
+            let height = 1.6
 
-        appointmentLeft += reminderWidthForOne
-        zIndex += 1
+            console.log(height)
+
+            let top = parseInt(time[0], 10) * 50 + parseInt(time[1], 10) * 0.8 + (height * 16)
+
+            eventElement.style.top = top + "px"
+            eventElement.style.height = height + "em"
+            eventElement.style.marginTop = (-(height * 16) - borderFactor) + "px"
+            day_wrapper.insertBefore(eventElement, day_wrapper.children[0])
+
+            reminderLeft += reminderWidthForOne
+            zIndex += 1
+        }
+
     }
 
 }
@@ -302,7 +389,7 @@ function createAppointment(event) {
     h2.setAttributeNode(h2Class)
     div.setAttributeNode(divClass)
 
-    article.addEventListener("click", function(){ togleModalEditEvent(0) })
+    article.addEventListener("click", function(){ togleModalEditEvent(0, event) })
 
     h2.appendChild(h2Text)
     time.appendChild(timeText)
@@ -315,7 +402,27 @@ function createAppointment(event) {
 }
 
 function createReminder(event) {
-    
+    let article = document.createElement("article")
+    let h2 = document.createElement("h2")
+
+    let articleClass = document.createAttribute("class")
+    let h2Class = document.createAttribute("class")
+
+    let h2Text = document.createTextNode(event.title + " " + event.time)
+
+    articleClass.value = "reminder-event"
+    h2Class.value = "appointment-text"
+
+    article.setAttributeNode(articleClass)
+    h2.setAttributeNode(h2Class)
+
+    h2.appendChild(h2Text)
+
+    article.appendChild(h2)
+
+    article.addEventListener("click", function(){ togleModalEditEvent(2, event) })
+
+    return article
 }
 
 function createTask(event) {
@@ -324,27 +431,30 @@ function createTask(event) {
     let articleText = document.createTextNode(event.title)
     articleClass.value = "task"
     article.setAttributeNode(articleClass)
-    article.addEventListener("click", function(){ togleModalEditEvent(1) })
+    article.addEventListener("click", function(){ togleModalEditEvent(1, event) })
     article.appendChild(articleText)
-    return article
-}
 
-function cancelPopUp() {
-    togleModalCreateEvent();
-    containerTypeButton.style.display = ""
+    return article
 }
 
 function saveEvent() {
 
+    let id
+    if (isEditMode) {
+        id = editableEvent.id
+    } else {
+        id = uuidv4()
+    }
+
     switch(popupState) {
         case 0:
-            saveAppointment()
+            saveAppointment(id)
             break
         case 1:
-            saveTask()
+            saveTask(id)
             break
         case 2:
-            saveReminder()
+            saveReminder(id)
             break
     }    
 
@@ -352,8 +462,20 @@ function saveEvent() {
     cancelPopUp()
 }
 
-function saveAppointment() {
-    let id = uuidv4()
+function deleteEvent() {
+    firebase.database().ref('users/' + currentUser.uid + '/events/' + editableEvent.id).remove()
+    cancelPopUp()
+}
+
+function cancelPopUp() {
+    isEditMode = false
+    togleModalCreateEvent();
+    containerTypeButton.style.display = ""
+    // let deleteButton = document.getElementById("event-delete-button");
+    // deleteButton.style.display = "none"
+}
+
+function saveAppointment(id) {
     firebase.database().ref('users/' + currentUser.uid + '/events/' + id).set({
         type: "appointment",
         id: id,
@@ -365,8 +487,7 @@ function saveAppointment() {
     })
 }
 
-function saveTask() {
-    let id = uuidv4()
+function saveTask(id) {
     firebase.database().ref('users/' + currentUser.uid + '/events/' + id).set({
         type: "task",
         id: id,
@@ -376,8 +497,7 @@ function saveTask() {
     })
 }
 
-function saveReminder() {
-    let id = uuidv4()
+function saveReminder(id) {
     firebase.database().ref('users/' + currentUser.uid + '/events/' + id).set({
         type: "reminder",
         id: id,
@@ -387,29 +507,40 @@ function saveReminder() {
     })
 }
 
+function fillDay(day, month, year) {
+    setTitle(day, month, year)
+    while (day_taskWrapper.childElementCount > 0) {
+        day_taskWrapper.removeChild(day_taskWrapper.firstChild);
+    }
+    while (day_wrapper.childElementCount > 25) {
+        day_wrapper.removeChild(day_wrapper.firstChild);
+    }
+    requestEvents(function(eventsMap){
+        // month = date.getMonth();
+        // year = date.getFullYear();
+        // day = date.getDate();
+        let fullDate = day + '.' + (month + 1) + '.' + year
+        console.log(fullDate)
+        showEvents(eventsMap[fullDate])
+    })
+}
 
-setTitle()
+// setTitle()
 // window.addEventListener("click", windowOnClick);
+dbChangeListenner = null
 activateAppointmentState();
 
 if (currentUser == null) {
 
 } else {
-    requestEvents(function(eventsMap){
-        let today = new Date();
-        month = today.getMonth();
-        year = today.getFullYear();
-        date = today.getDate();
-        let fullDate = date + '.' + (month + 1) + '.' + year
-        showEvents(eventsMap[fullDate])
-    })
-}
-
-function uuidv4() {
-  return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
+    // let today = new Date()
+    dbChangeListenner = function() {
+        day_month = selectedMonth
+        day_year = selectedYear
+        day_date = selectedDate
+        fillDay(day_date, day_month, day_year)
+    }
+    dbChangeListenner()
 }
 
 console.log(uuidv4());

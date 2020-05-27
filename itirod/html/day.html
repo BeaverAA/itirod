@@ -33,41 +33,14 @@
       <div id="date" class="date"> 
         <time class="monthAndDay" id="monthAndDay"></time>
         <button id="previous" class="btn" onclick="previous()"><-</button>
-        <button id="currnet" class="btn" onclick="current()">x</button>
+        <button id="currnet" class="btn" onclick="todayX()">x</button>
         <button id="next" class="btn" onclick="next()">-></button>
       </dib>
 
       <div id="task-wrapper" class="task-wrapper">
-   <!--      <article class="task" onclick="togleModalEditEvent(1)">
-          task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
-        </article>
-        <article class="task" onclick="togleModalEditEvent(1)">
-          task2
-        </article>
-        <article class="task" onclick="togleModalEditEvent(1)">
-          task3
-        </article>
-        <article class="task" onclick="togleModalEditEvent(1)">
-          task4
-        </article> -->
       </div>
 
       <div class="wrapper" id="wrapper">
-
-  <!--       <article class="appointment-event" onclick="togleModalEditEvent(0)">
-          <h2 class="appointment-text">
-            task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
-          </h2>
-          <div class="appointment-text">
-            <time datetime="02:40">02.40</time>-<time datetime="04:00">04.00</time>
-          </div>
-        </article>
-
-        <article class="reminder-event">
-          <h2 class="appointment-text" onclick="togleModalEditEvent(2)">
-            task1slmf;lamf;almf;lamf;lamf;adnmfkdn;lknfglnel;fnbjnwljnf;rjwnfjerkjnfvw;ncvejnv;k;vnwejvnwe;kvjnekjnvkwkejvejnvwkejnvw;wjfv;jnfkv;ejnwvlkjnv;vlejnvkejnvkejasnvlknasdlvknasd;lvnasdljnvsadaljkadnv;sdljkvna;ljsnva.s,jvnads,mvnds,mvnsa.,mvnsa,jdvnsdjvnsadkjvnsadv;snsaljknas;djnvsdjvsakdjvsakdjvsdkjvskdjvskdn
-          </h2>
-        </article> -->
 
         <div class="box" onclick="togleModalCreateEvent()">
           <hr>
@@ -266,7 +239,7 @@
           </div>
 
           <div class="container-result-button">
-            <button class="result-button" onclick="deleteEvent()">Delete</button>
+            <button id="event-delete-button" class="result-button" onclick="deleteEvent()">Delete</button>
             <button class="result-button" onclick="cancelPopUp()">Cancel</button>
             <button class="result-button" onclick="saveEvent()">Ok</button>
           </div>

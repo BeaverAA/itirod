@@ -15,7 +15,11 @@ let colors = {
     "010": "rgba(124, 173, 250, 1)"
 }
 
+var dbChangeListenner = null
 
+var selectedYear = null
+var selectedMonth = null
+var selectedDate = null
 
 var currentScreen = "login"
 
@@ -52,11 +56,37 @@ function requestEvents(callback) {
   }
 }
 
+function authorize() {
+
+  let today = new Date()
+  selectedYear = today.getFullYear()
+  selectedMonth = today.getMonth()
+  selectedDate = today.getDate()
+
+  let eventsRootRef = firebase.database().ref('users/' + currentUser.uid + '/events')
+  eventsRootRef.on('value', function(snapshot) {
+    let events = snapshot.val()
+    normalizeEvents(events)
+    console.log("db changed")
+    if (dbChangeListenner != null) {
+      dbChangeListenner()
+    }
+  });
+}
+
+function logout() {
+  firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+  }).catch(function(error) {
+    // An error happened.
+  });
+}
+
 function normalizeEvents(events) {
   userEvents = {}
   for (var eventName in events) {
     let event = events[eventName]
-    event.eventName = eventName
+    let date = event.date != null ? event.date : "No Date"
     if (userEvents[event.date] == null) {
       userEvents[event.date] = []
     }
@@ -64,9 +94,17 @@ function normalizeEvents(events) {
   }
 }
 
+function uuidv4() {
+  return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 function openScreen(screen) {
   console.log(screen)
   if (screen != currentScreen) {
+    dbChangeListenner = null
     currentScreen = screen
     SendRequest("https://newboba-itirod.web.app/html/" + screen + ".html", function() {
       let newScript = document.createElement("script");
@@ -111,4 +149,25 @@ function updatePage(response, link) {
   initLinks()
 }
 
+function displayUserName() {
+  let element = document.getElementById("user-name")
+  firebase.database().ref('users/' + currentUser.uid + '/personal').once('value').then(function(snapshot) {
+      let personal = snapshot.val()
+      console.log(personal)
+      element.innerText = personal.name + " " + personal.surname + " (Logout)"
+  })
+}
+
 initLinks()
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if(user) {
+    currentUser = user
+    authorize()
+    openScreen("calendar")
+  } else {
+    openScreen("login")
+    console.log("!")
+  }
+});
+

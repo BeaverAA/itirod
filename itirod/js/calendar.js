@@ -4,10 +4,19 @@ var calendar_currentYear = null
 
 var events = {}
 
+var kek = {qwe: "1", wer:"2", ert:"3    "}
+
 function initDate() {
     let today = new Date();
     calendar_currentMonth = today.getMonth();
     calendar_currentYear = today.getFullYear();
+}
+
+function todayX() {
+    let today = new Date();
+    calendar_currentMonth = today.getMonth();
+    calendar_currentYear = today.getFullYear();
+    showCalendar(calendar_currentMonth, calendar_currentYear);
 }
 
 function next() {
@@ -50,7 +59,14 @@ function showCalendar(month, year) {
         for (let j = 0; j < 7; j++) {
         	
             if (i === 0 && j < firstDay) {
-                let cell = createDateCell(daysInPrevMoth - firstDay + j + 1, "day day2")
+                let currnetDate = daysInPrevMoth - firstDay + j + 1
+                let cell = createDateCell(currnetDate, "day day2")
+                cell.addEventListener("click", function(){
+                    selectedDate = currnetDate
+                    selectedYear = prevYear
+                    selectedMonth = prevMonth
+                    openScreen("day")
+                })
                 row.appendChild(cell);
             }
             else if (date > daysInMonth) {
@@ -58,6 +74,15 @@ function showCalendar(month, year) {
                     break;
                 }
                 let cell = createDateCell(dateInNexMoth, "day day2")
+                cell.date = dateInNexMoth
+                cell.year = (month === 11) ? year + 1 : year
+                cell.month = (month + 1) % 12
+                cell.addEventListener("click", function(e){
+                    selectedDate = e.target.date
+                    selectedYear = e.target.year
+                    selectedMonth = e.target.month
+                    openScreen("day")
+                })
                 row.appendChild(cell)
                 dateInNexMoth++;
 
@@ -66,6 +91,15 @@ function showCalendar(month, year) {
             else {
                 let cellType = "day"
                 let cell = createDateCell(date, cellType)
+                cell.date = date
+                cell.year = year
+                cell.month = month
+                cell.addEventListener("click", function(e){
+                    selectedDate = e.target.date
+                    selectedYear = e.target.year
+                    selectedMonth = e.target.month
+                    openScreen("day")
+                })
                 let fullDate = date + '.' + (month + 1) + '.' + year
                 // console.log(fullDate)
                 setBackgroundColor(cell, fullDate)
@@ -130,6 +164,7 @@ initDate()
 if (currentUser == null) {
 
 } else {
+    displayUserName()
     requestEvents(function(eventsMap){
         for (var eventsArrayName in eventsMap) {
             for (var eventNumber in eventsMap[eventsArrayName]) {

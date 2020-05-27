@@ -1,5 +1,5 @@
-let emailInput = document.getElementById("email");
-let passwordInput = document.getElementById("password");
+var emailInput = document.getElementById("email");
+var passwordInput = document.getElementById("password");
 
 function signin() {
 	let email = emailInput.value
@@ -11,11 +11,4 @@ function signin() {
 	});
 }
 
-firebase.auth().onAuthStateChanged(function(user) {
-  if(user) {
-    currentUser = user
-    openScreen("calendar")
-  } else {
-  	console.log("!")
-  }
-});
+dbChangeListenner = null

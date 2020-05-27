@@ -1,10 +1,9 @@
 
-let taskInput=document.getElementById("new-task");
-let addButton=document.getElementById("addButton");
-let container=document.getElementById("container2");
+var taskInput=document.getElementById("new-task");
+var addButton=document.getElementById("addButton");
+var container=document.getElementById("container2");
 
-let incompleteTaskHolder;
-let completedTasksHolder;
+var taskCategory = {}
 
 
 function createNewTaskElement(taskString) {
@@ -37,10 +36,14 @@ function createNewTaskElement(taskString) {
 }
 
 function addTask() {
-	var listItem=createNewTaskElement(taskInput.value);
-	incompleteTaskHolder.appendChild(listItem);
+	let title = taskInput.value
+	let task = {title: title, id: uuidv4(), completed: false, date: "No Date"}
+	var listItem=createNewTaskElement(title);
+	listItem.task = task
+	taskCategory["No Date"].ul.appendChild(listItem);
 	bindTaskEvents(listItem, taskCompleted);
 	taskInput.value="";
+	saveTaskTaskList(task)
 }
 
 function editTask() {
@@ -50,32 +53,53 @@ function editTask() {
 	var label=listItem.querySelector("label");
 	var containsClass=listItem.classList.contains("editMode");
 	if(containsClass){
-		label.innerText=editInput.value;
+		label.innerText = editInput.value
+		listItem.task.title = editInput.value
+		saveTaskTaskList(listItem.task)
 	}else{
 		editInput.value=label.innerText;
 	}
 	listItem.classList.toggle("editMode");
 }
 
+function saveTaskTaskList(task) {
+	task.type = "task"
+	console.log(event)
+	console.log('users/' + currentUser.uid + '/events/' + event.id)
+	firebase.database().ref('users/' + currentUser.uid + '/events/' + task.id).set({
+        type: "task",
+        id: task.id,
+        date: task.date,
+        completed: task.completed,
+        title: task.title
+    })
+}
+
 function deleteTask() {
 	var listItem=this.parentNode;
 	var ul=listItem.parentNode;
 	ul.removeChild(listItem);
+
+	firebase.database().ref('users/' + currentUser.uid + '/events/' + listItem.task.id).remove()
 }
 
 function taskCompleted() {
 	var listItem=this.parentNode;
-	completedTasksHolder.appendChild(listItem);
+	taskCategory["Completed"].ul.appendChild(listItem);
+	listItem.task.completed = true
+	saveTaskTaskList(listItem.task)
 	bindTaskEvents(listItem, taskIncomplete);
 }
 
 function taskIncomplete() {
 	var listItem=this.parentNode;
 	if (listItem.ownerList == null) {
-		incompleteTaskHolder.appendChild(listItem);
+		taskCategory["No Date"].ul.appendChild(listItem);
 	} else {
 		listItem.ownerList.appendChild(listItem);	
 	}
+	listItem.task.completed = false
+	saveTaskTaskList(listItem.task)
 	bindTaskEvents(listItem,taskCompleted);
 }
 
@@ -91,78 +115,75 @@ function bindTaskEvents(taskListItem,checkBoxEventHandler) {
 	checkBox.onchange=checkBoxEventHandler;
 }
 
-// for (var i = 0; i < incompleteTaskHolder.children.length; i++){
+function createDetail(title) {
+	let summaryText = title.replace(".", "/").replace(".", "/")
+	var details=document.createElement("details");
+	var summary=document.createElement("summary");
+	var ul=document.createElement("ul");
+	var summaryTextNode = document.createTextNode(summaryText);
 
-// 	bindTaskEvents(incompleteTaskHolder.children[i],taskCompleted);
-// }
+	details.setAttribute("open", "true");
 
-// for (var i = 0; i < completedTasksHolder.children.length; i++){
-// 	bindTaskEvents(completedTasksHolder.children[i],taskIncomplete);
-// }
+	summary.appendChild(summaryTextNode);
+	details.appendChild(summary);
+	details.appendChild(ul);
+	details.ul = ul
+	return details
+}
 
+function fillList(tasks) {
+	taskCategory = {}
 
-/////////////////////////////////
-var item = createNewTaskElement("Task 1");
-// da,smnflkahdlkhsadhfgkajdhgfkjasghdkjadkgkasjgkjskjhfgkjsdhfgkjdfhgkjsdfkghsdf;kgjhkfjhskzjhfgzkjd
-var details=document.createElement("details");
-var summary=document.createElement("summary");
-var ul=document.createElement("ul");
-var todayTextNode = document.createTextNode("No date");
+	taskCategory["Completed"] = createDetail("Completed")
+	let completedClass = document.createAttribute("class");
+	completedClass.value = "completed-tasks";
+	taskCategory["Completed"].ul.setAttributeNode(completedClass)
 
-incompleteTaskHolder = ul
+	taskCategory["No Date"] = createDetail("No Date")
+	for (var i in tasks) {
+		let task = tasks[i]
+		let date = task.date != null ? task.date : "No Date"
+		if (taskCategory[date] == null) {
+			taskCategory[date] = createDetail(date)
+		}
+		let category = taskCategory[date]
+		console.log(category)
+		let taskElement = createNewTaskElement(task.title)
+		taskElement.task = task
+		taskElement.ownerList = category.ul
+		if (task.completed == true) {
+			taskElement.querySelector("input[type=checkbox]").checked = true
+			taskCategory["Completed"].ul.appendChild(taskElement)
+			bindTaskEvents(taskElement, taskIncomplete)
+		} else {
+			category.ul.appendChild(taskElement)
+			bindTaskEvents(taskElement, taskCompleted);
+		}
+	}
+	addInScreen()
+}
 
-details.setAttribute("open", "true");
+function addInScreen() {
+	for (var category in taskCategory) {
+		container.appendChild(taskCategory[category])
+	}
+}
 
-summary.appendChild(todayTextNode);
-details.appendChild(summary);
-ul.appendChild(item);
-details.appendChild(ul);
-container.insertBefore(details, container.children[1]);
-item.ownerList = ul;
-bindTaskEvents(item, taskCompleted);
+if (currentUser == null) {
 
-////////////////////////////////////////// hardcode
-let todayDate = new Date();
-let date = todayDate.getDate();
-let month = todayDate.getMonth() + 1;
-var item = createNewTaskElement("Pa,smnfl");
-// da,smnflkahdlkhsadhfgkajdhgfkjasghdkjadkgkasjgkjskjhfgkjsdhfgkjdfhgkjsdfkghsdf;kgjhkfjhskzjhfgzkjd
-var details=document.createElement("details");
-var summary=document.createElement("summary");
-var ul=document.createElement("ul");
-var todayTextNode = document.createTextNode(month+"/"+date);
-
-details.setAttribute("open", "true");
-
-summary.appendChild(todayTextNode);
-details.appendChild(summary);
-ul.appendChild(item);
-details.appendChild(ul);
-container.insertBefore(details, container.children[2]);
-item.ownerList = ul;
-bindTaskEvents(item, taskCompleted);
-///////////////////////////////////
-
-
-// var item = createNewTaskElement("completed");
-// da,smnflkahdlkhsadhfgkajdhgfkjasghdkjadkgkasjgkjskjhfgkjsdhfgkjdfhgkjsdfkghsdf;kgjhkfjhskzjhfgzkjd
-var details=document.createElement("details");
-var summary=document.createElement("summary");
-var ul=document.createElement("ul");
-let ulClass = document.createAttribute("class");
-ulClass.value = "completed-tasks";
-ul.setAttributeNode(ulClass);
-var todayTextNode = document.createTextNode("Completed");
-
-completedTasksHolder = ul
-
-details.setAttribute("open", "true");
-
-summary.appendChild(todayTextNode);
-details.appendChild(summary);
-// ul.appendChild(item);
-details.appendChild(ul);
-container.insertBefore(details, container.children[3]);
-// item.ownerList = ul;
-// bindTaskEvents(item, taskCompleted);
-
+} else {
+    requestEvents(function(eventsMap){
+        let tasks = []
+        for (var dateEvents in eventsMap) {
+        	for (var i in  eventsMap[dateEvents]) {
+        		// console.log(i)
+	        	let event = eventsMap[dateEvents][i]
+	        	if (event.type === "task") {
+	        		tasks.push(event)
+	        	}
+        	}
+        }
+        console.log(tasks)
+        fillList(tasks)
+    })
+}
