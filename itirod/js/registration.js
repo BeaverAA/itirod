@@ -1,10 +1,11 @@
-var nameInput = document.getElementById("name");
-var surnameInput = document.getElementById("surname");
-var emailInput = document.getElementById("email");
-var password1Input = document.getElementById("password1");
-var password2Input = document.getElementById("password2");
 
 function register() {
+	let emailInput = document.getElementById("email");
+	let password1Input = document.getElementById("password1");
+	let password2Input = document.getElementById("password2");
+	let nameInput = document.getElementById("name");
+	let surnameInput = document.getElementById("surname");
+
 	let email = emailInput.value
 	let password1 = password1Input.value
 	let password2 = password2Input.value
@@ -25,6 +26,10 @@ function register() {
 }
 
 function saveData(user) {
+	let emailInput = document.getElementById("email");
+	let nameInput = document.getElementById("name");
+	let surnameInput = document.getElementById("surname");
+
 	let name = nameInput.value
 	let surname = surnameInput.value
 	let email = emailInput.value
@@ -35,13 +40,3 @@ function saveData(user) {
     	email: email
   	});
 }
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if(user) {
-    saveData(user)
-  } else {
-    
-  }
-});
-
-dbChangeListenner = null

@@ -1,10 +1,5 @@
 
-var taskInput=document.getElementById("new-task");
-var addButton=document.getElementById("addButton");
-var container=document.getElementById("container2");
-
 var taskCategory = {}
-
 
 function createNewTaskElement(taskString) {
 
@@ -36,6 +31,7 @@ function createNewTaskElement(taskString) {
 }
 
 function addTask() {
+	let taskInput=document.getElementById("new-task");
 	let title = taskInput.value
 	if (title == "") { return }
 	let task = {title: title, id: uuidv4(), completed: false, date: "No Date"}
@@ -104,9 +100,6 @@ function taskIncomplete() {
 	bindTaskEvents(listItem,taskCompleted);
 }
 
-addButton.onclick = addTask;
-
-
 function bindTaskEvents(taskListItem,checkBoxEventHandler) {
 	let checkBox=taskListItem.querySelector("input[type=checkbox]");
 	let editButton=taskListItem.querySelector("button.edit");
@@ -165,26 +158,33 @@ function fillList(tasks) {
 }
 
 function addInScreen() {
+	let container=document.getElementById("container2");
 	for (var category in taskCategory) {
 		container.appendChild(taskCategory[category])
 	}
 }
 
-if (currentUser == null) {
 
-} else {
-    requestEvents(function(eventsMap){
-        let tasks = []
-        for (var dateEvents in eventsMap) {
-        	for (var i in  eventsMap[dateEvents]) {
-        		// console.log(i)
-	        	let event = eventsMap[dateEvents][i]
-	        	if (event.type === "task") {
-	        		tasks.push(event)
+function activateTaskListScreen() {
+	let addButton=document.getElementById("addButton");
+	addButton.onclick = addTask;
+
+	if (currentUser == null) {
+
+	} else {
+	    requestEvents(function(eventsMap){
+	        let tasks = []
+	        for (var dateEvents in eventsMap) {
+	        	for (var i in  eventsMap[dateEvents]) {
+	        		// console.log(i)
+		        	let event = eventsMap[dateEvents][i]
+		        	if (event.type === "task") {
+		        		tasks.push(event)
+		        	}
 	        	}
-        	}
-        }
-        console.log(tasks)
-        fillList(tasks)
-    })
+	        }
+	        console.log(tasks)
+	        fillList(tasks)
+	    })
+	}
 }

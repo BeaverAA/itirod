@@ -4,8 +4,6 @@ var calendar_currentYear = null
 
 var events = {}
 
-var kek = {qwe: "1", wer:"2", ert:"3    "}
-
 function initDate() {
     let today = new Date();
     calendar_currentMonth = today.getMonth();
@@ -159,27 +157,22 @@ function addEvent(event) {
     // console.log(events)
 }
 
-initDate()
+function activateCalendarScreen() {
+    initDate()
 
-if (currentUser == null) {
+    if (currentUser == null) {
 
-} else {
-    displayUserName()
-    requestEvents(function(eventsMap){
-        for (var eventsArrayName in eventsMap) {
-            for (var eventNumber in eventsMap[eventsArrayName]) {
-                addEvent(eventsMap[eventsArrayName][eventNumber])
+    } else {
+        events = {}
+        displayUserName()
+        requestEvents(function(eventsMap){
+            for (var eventsArrayName in eventsMap) {
+                for (var eventNumber in eventsMap[eventsArrayName]) {
+                    addEvent(eventsMap[eventsArrayName][eventNumber])
+                }
             }
-        }
-        showCalendar(calendar_currentMonth, calendar_currentYear);
-    })
+            showCalendar(calendar_currentMonth, calendar_currentYear);
+        })
+    }
+
 }
-
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if(user) {
-
-  } else {
-    console.log("!")
-  }
-});

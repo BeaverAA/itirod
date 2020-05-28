@@ -1,41 +1,6 @@
 <!DOCTYPE html>
 <html id="html" lang="en">
 
-  <head id="head">
-    <meta charset="utf-8">
-    <title>Login</title>
-    <link rel='stylesheet' type='text/css' href='./../css/common.css'>
-    <link rel='stylesheet' type='text/css' href='./../css/login.css'>
-  </head>
-
-  <body>
-    <header id="header">
-      <div class="image-container">
-        <img src="./../calendar.jpg">
-      </div>
-      <nav class="topnav">
-        <div class="right-container">
-          <a class="link_internal" href="login">Sign In</a>
-          <a class="link_internal" href="registration">Sign Up</a>
-        </div>
-      </nav>
-    </header>
-
-    <main id="main" class="container">
-      <div class="title-container">
-        <h1 class="title" align="center">Login</h1>
-      </div>
-      <form onsubmit="return false" class="form1">
-        <input id="email" class="textfield" type="text" align="center" placeholder="Email">
-        <input id="password" class="textfield" type="password" align="center" placeholder="Password">
-        <button class="submit" onclick="signin()">Sign in</button>
-      </form>
-    </main>
-
-    <div id="popups">
-    	
-    </div>
-
      <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
 
@@ -63,10 +28,11 @@
       firebase.analytics();
     </script>
 
-    <div id="scripts">
-    	<script src="./js/login.js"></script>
-    </div>
-
+    <script src="./js/login.js"></script>
+    <script src="./js/calendar.js"></script>
+    <script src="./js/day.js"></script>
+    <script src="./js/registration.js"></script>
+    <script src="./js/taskList.js"></script>
     <script src="main.js"></script>
 
   </body>

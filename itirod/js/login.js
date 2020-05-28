@@ -1,7 +1,7 @@
-var emailInput = document.getElementById("email");
-var passwordInput = document.getElementById("password");
 
 function signin() {
+	let emailInput = document.getElementById("email");
+	let passwordInput = document.getElementById("password");
 	let email = emailInput.value
 	let password = passwordInput.value
 
@@ -12,4 +12,4 @@ function signin() {
 	});
 }
 
-dbChangeListenner = null
+// dbChangeListenner = null

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
   <head>
     <meta charset="utf-8">
     <title>Day</title>
@@ -23,18 +22,16 @@
         <a class="link_internal" href="taskList">Tasks</a>
       </nav>
       <div class="line-break"></div>
-      <div class="user-name">
-          Anton Bobr
-      </div>
+      <div id="user-name" class="user-name" onclick="logout()">
     </header>
 
     <main class="container">
 
       <div id="date" class="date"> 
         <time class="monthAndDay" id="monthAndDay"></time>
-        <button id="previous" class="btn" onclick="previous()"><-</button>
-        <button id="currnet" class="btn" onclick="todayX()">x</button>
-        <button id="next" class="btn" onclick="next()">-></button>
+        <button id="previous" class="btn" onclick="day_previous()"><-</button>
+        <button id="currnet" class="btn" onclick="day_todayX()">x</button>
+        <button id="next" class="btn" onclick="day_next()">-></button>
       </dib>
 
       <div id="task-wrapper" class="task-wrapper">
@@ -187,7 +184,7 @@
                 <input id="ap-date" class="appointment-input" type="text" placeholder="31.05.2020">
               </div>
               <div>
-                <input class="appointment-input" type="text" placeholder="remind in 30">
+                <input id="ap-remind" class="appointment-input" type="text" placeholder="remind in minutes">
                 <!-- <input class="appointment-input" type="text" placeholder="30"> -->
               </div>
               <div>
@@ -242,8 +239,3 @@
         </div>
       </form>
     </div>
-
-    <script src="./../js/day.js"></script>
-    
-  </body>
-</html>

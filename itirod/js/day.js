@@ -1,35 +1,7 @@
 
-var day_wrapper = document.getElementById("wrapper");
-var day_taskWrapper = document.getElementById("task-wrapper")
-var day_modal = document.getElementById("modal")
-var containerTypeButton = document.getElementById("container-type-button")
-
-var appointmentContainer = document.getElementById("container-appointment");
-var taskContainer = document.getElementById("container-task")
-var reminderContainer = document.getElementById("container-reminder")
-
-var appointmentButton = document.getElementById("appointment-button");
-var taskButton = document.getElementById("task-button")
-var reminderButton = document.getElementById("reminder-button")
-
-var taskDescription = document.getElementById("task-description")
-var taskDate = document.getElementById("task-date")
-
-var reTime = document.getElementById("re-time")
-var reDate = document.getElementById("re-date")
-
-var apDescription = document.getElementById("ap-description")
-var apStartTime = document.getElementById("ap-start-time")
-var apEndTime = document.getElementById("ap-end-time")
-var apDate = document.getElementById("ap-date")
-
-var popupTitle = document.getElementById("title")
-
 var day_month = null
 var day_year = null
 var day_date = null
-
-var global_test;
 
 // var times = ["00.00", "00.00"]
 
@@ -38,7 +10,7 @@ var popupState = 0
 var isEditMode = false
 var editableEvent = null
 
-function todayX() {
+function day_todayX() {
     let today = new Date();
     day_date = today.getDate();
     day_month = today.getMonth();
@@ -48,7 +20,7 @@ function todayX() {
     fillDay(day_date, day_month, day_year)
 }
 
-function next() {
+function day_next() {
     let daysInMonth = 32 - new Date(day_year, day_month, 32).getDate();
 
     if (day_date == daysInMonth) {
@@ -63,7 +35,7 @@ function next() {
     fillDay(day_date, day_month, day_year)
 }
 
-function previous() {
+function day_previous() {
     if (day_date == 1) {
         day_year = (day_month === 0) ? day_year - 1 : day_year;
         day_month = (day_month === 0) ? 11 : day_month - 1;
@@ -87,6 +59,7 @@ function togleModalEditEvent(type, event) {
     isEditMode = true
     editableEvent = event
     console.log(editableEvent)
+    let containerTypeButton = document.getElementById("container-type-button")
     containerTypeButton.style.display = "none"
     togleModalCreateEvent()
     if (type === 0) {
@@ -102,23 +75,49 @@ function togleModalEditEvent(type, event) {
 }
 
 function configureAppointmentPopUp(event) {
+    let apDescription = document.getElementById("ap-description")
+    let apStartTime = document.getElementById("ap-start-time")
+    let apEndTime = document.getElementById("ap-end-time")
+    let apDate = document.getElementById("ap-date")
+    let popupTitle = document.getElementById("title")
+    let apRemind = document.getElementById("ap-date")
     apDescription.value = event.description
     apStartTime.value = event.start
     apEndTime.value = event.end
     apDate.value = event.date
     popupTitle.value = event.title
+    apRemind.value = event.remind
 }
 
 function configureTaskPopUp(event) {
+    let taskDescription = document.getElementById("task-description")
+    let taskDate = document.getElementById("task-date")
+    let popupTitle = document.getElementById("title")
     taskDescription.value = event.description
     taskDate.value = event.date
     popupTitle.value = event.title
 }
 
 function configureReminderPopUp(event) {
+    let reTime = document.getElementById("re-time")
+    let reDate = document.getElementById("re-date")
+    let popupTitle = document.getElementById("title")
     reTime.value = event.time
     reDate.value = event.date
     popupTitle.value = event.title
+}
+
+function clearPopUp() {
+    document.getElementById("ap-description").value = ""
+    document.getElementById("ap-start-time").value = ""
+    document.getElementById("ap-end-time").value = ""
+    document.getElementById("ap-date").value = ""
+    document.getElementById("ap-date").value = ""
+    document.getElementById("title").value = ""
+    document.getElementById("task-description").value = ""
+    document.getElementById("task-date").value = ""
+    document.getElementById("task-description").value = ""
+    document.getElementById("task-date").value = ""
 }
 
 function togleModalCreateEvent() {
@@ -128,18 +127,27 @@ function togleModalCreateEvent() {
     } else {
         deleteButton.style.display = "none"
     }
+    let day_modal = document.getElementById("modal")
     day_modal.classList.toggle("show-modal");
 }
 
 function windowOnClick(event) {
+    let day_modal = document.getElementById("modal")
     if (event.target === day_modal) {
         togleModalCreateEvent();
+        let containerTypeButton = document.getElementById("container-type-button")
         containerTypeButton.style.display = ""
     }
 }
 
 function activateAppointmentState() {
     console.log("ap")
+    let appointmentContainer = document.getElementById("container-appointment");
+    let taskContainer = document.getElementById("container-task")
+    let reminderContainer = document.getElementById("container-reminder")
+    let appointmentButton = document.getElementById("appointment-button");
+    let taskButton = document.getElementById("task-button")
+    let reminderButton = document.getElementById("reminder-button")
     popupState = 0
     appointmentButton.style.background = "#E7A65B"
     appointmentButton.style.color = "#ffffff"
@@ -154,6 +162,12 @@ function activateAppointmentState() {
 
 function activateTaskState() {
     console.log("ta")
+    let appointmentContainer = document.getElementById("container-appointment");
+    let taskContainer = document.getElementById("container-task")
+    let reminderContainer = document.getElementById("container-reminder")
+    let appointmentButton = document.getElementById("appointment-button");
+    let taskButton = document.getElementById("task-button")
+    let reminderButton = document.getElementById("reminder-button")
     popupState = 1
     taskButton.style.background = "#3489DA"
     taskButton.style.color = "#ffffff"
@@ -168,6 +182,12 @@ function activateTaskState() {
 
 function activateReminderState() {
     console.log("re")
+    let appointmentContainer = document.getElementById("container-appointment");
+    let taskContainer = document.getElementById("container-task")
+    let reminderContainer = document.getElementById("container-reminder")
+    let appointmentButton = document.getElementById("appointment-button");
+    let taskButton = document.getElementById("task-button")
+    let reminderButton = document.getElementById("reminder-button")
     popupState = 2
     reminderButton.style.background = "#F56748"
     reminderButton.style.color = "#ffffff"
@@ -216,6 +236,7 @@ function showEvents(eventsArray) {
 function insertTasksInScreens(tasks) {
     for (var i in tasks) {
         let task = createTask(tasks[i])
+        let day_taskWrapper = document.getElementById("task-wrapper")
         day_taskWrapper.appendChild(task)
     }
 }
@@ -243,17 +264,14 @@ function insertAppointmentsAndReminders(appointments, reminders) {
     }
 
 
-    for (var i in appointmentsMapa) {
-        console.log(appointmentsMapa[i])
-        appointmentsMapa[i].sort(function(a, b){return a.end < b.end})
-        // appointmentsMapa[i].sortBy(function(a){a.start})
-        // global_test = appointmentsMapa[i]
-        // console.log(appointmentsMapa[i])
-    }
+    // for (var i in appointmentsMapa) {
+    //     console.log(appointmentsMapa[i])
+    //     appointmentsMapa[i].sort(function(a, b){return a.end < b.end})
+    // }
 
-    for (var i in remindersMapa) {
-        remindersMapa[i].sort(function(a, b){a.time < b.time})
-    }
+    // for (var i in remindersMapa) {
+    //     remindersMapa[i].sort(function(a, b){a.time < b.time})
+    // }
 
     var zIndex = 5
 
@@ -321,6 +339,7 @@ function insertAARInScreen(appointments, reminders, zIndex) {
             eventElement.style.top = top + "px"
             eventElement.style.height = height + "px"
             eventElement.style.marginTop = (-height - borderFactor) + "px"
+            let day_wrapper = document.getElementById("wrapper");
             day_wrapper.insertBefore(eventElement, day_wrapper.children[0])
 
             appointmentLeft += appointmentWidthForOne
@@ -367,6 +386,7 @@ function insertAARInScreen(appointments, reminders, zIndex) {
             eventElement.style.top = top + "px"
             eventElement.style.height = height + "em"
             eventElement.style.marginTop = (-(height * 16) - borderFactor) + "px"
+            let day_wrapper = document.getElementById("wrapper");
             day_wrapper.insertBefore(eventElement, day_wrapper.children[0])
 
             reminderLeft += reminderWidthForOne
@@ -494,6 +514,11 @@ function saveEvent() {
 }
 
 function isAppointmentValid() {
+    let apEndTime = document.getElementById("ap-end-time")
+    let apStartTime = document.getElementById("ap-start-time")
+    let apRemind = document.getElementById("ap-remind")
+    let popupTitle = document.getElementById("title")
+    let apDate = document.getElementById("ap-date")
     let startTime = isTimeValid(apStartTime.value)
     let endTime = isTimeValid(apEndTime.value)
 
@@ -524,8 +549,18 @@ function isAppointmentValid() {
         return false
     }
 
+    let remind = apRemind.value
+    let remindValue = isRemindValid(remind)
+
+    if (remindValue == false) {
+        console.log("remind error")
+        return false
+    }
+
+    let apDescription = document.getElementById("ap-description")   
     return {
         title: title,
+        remind: remindValue,
         start: startTime[0] + "." + startTime[2],
         end: endTime[0] + "." + endTime[2],
         date: date[0] + "." + date[1] + "." + date[2],
@@ -534,6 +569,8 @@ function isAppointmentValid() {
 }
 
 function isTaskValid() {
+    let taskDate = document.getElementById("task-date")
+    let popupTitle = document.getElementById("title")
     let date = isDateValid(taskDate.value)
 
     if (date == false) {
@@ -546,6 +583,7 @@ function isTaskValid() {
         return false
     }
 
+    let apDescription = document.getElementById("ap-description")
     return {
         title: title,
         date: date[0] + "." + date[1] + "." + date[2],
@@ -555,7 +593,10 @@ function isTaskValid() {
 }
 
 function isReminderValid() {
-     let time = isTimeValid(reTime.value)
+    let reTime = document.getElementById("re-time")
+    let popupTitle = document.getElementById("title")
+    let time = isTimeValid(reTime.value)
+    let reDate = document.getElementById("re-date")
 
     if (time == false) {
         return false
@@ -579,6 +620,26 @@ function isReminderValid() {
         date: date[0] + "." + date[1] + "." + date[2]
     }
     
+}
+
+
+function isRemindValid(remind) {
+    let remindString = remind.split('.')
+
+    if (remindString.length != 1) {
+        return false
+    }
+
+    let r = Number(remindString[0])
+    if (Number.isNaN(r)) {
+        return false
+    }
+
+    if (r < 0) {
+        return false
+    }
+
+    return r
 }
 
 function isTimeValid(time) {
@@ -632,10 +693,13 @@ function deleteEvent() {
 function cancelPopUp() {
     isEditMode = false
     togleModalCreateEvent();
+    let containerTypeButton = document.getElementById("container-type-button")
     containerTypeButton.style.display = ""
+    clearPopUp()
 }
 
 function saveAppointment(event) {
+    registerEmail(event.id, event.title, event.date, event.start, event.remind)
     firebase.database().ref('users/' + currentUser.uid + '/events/' + event.id).set({
         type: "appointment",
         id: event.id,
@@ -643,6 +707,7 @@ function saveAppointment(event) {
         start: event.start,
         end: event.end,
         date: event.date,
+        remind: event.remind,
         title: event.title
     })
 }
@@ -658,6 +723,7 @@ function saveTask(event) {
 }
 
 function saveReminder(event) {
+    registerEmail(event.id, event.title, event.date, event.time, 0)
     firebase.database().ref('users/' + currentUser.uid + '/events/' + event.id).set({
         type: "reminder",
         id: event.id,
@@ -669,6 +735,8 @@ function saveReminder(event) {
 
 function fillDay(day, month, year) {
     console.log(day, month, year)
+    let day_wrapper = document.getElementById("wrapper");
+    let day_taskWrapper = document.getElementById("task-wrapper")
     setTitle(day, month, year)
     while (day_taskWrapper.childElementCount > 0) {
         day_taskWrapper.removeChild(day_taskWrapper.firstChild);
@@ -683,18 +751,20 @@ function fillDay(day, month, year) {
     })
 }
 
-dbChangeListenner = null
-activateAppointmentState();
+function activateDayScreen() {
+    if (currentUser == null) {
 
-if (currentUser == null) {
-
-} else {
-    dbChangeListenner = function() {
-        day_month = selectedMonth
-        day_year = selectedYear
-        day_date = selectedDate
-        fillDay(day_date, day_month, day_year)
+    } else {
+        activateAppointmentState();
+        dbChangeListenner = function() {
+            day_month = selectedMonth
+            day_year = selectedYear
+            day_date = selectedDate
+            fillDay(day_date, day_month, day_year)
+        }
+        dbChangeListenner()
     }
-    dbChangeListenner()
 }
+
+// dbChangeListenner = null
 
