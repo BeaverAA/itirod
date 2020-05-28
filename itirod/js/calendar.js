@@ -161,7 +161,7 @@ function activateCalendarScreen() {
     initDate()
 
     if (currentUser == null) {
-
+        openScreen("login")
     } else {
         events = {}
         displayUserName()

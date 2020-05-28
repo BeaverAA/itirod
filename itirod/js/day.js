@@ -3,8 +3,6 @@ var day_month = null
 var day_year = null
 var day_date = null
 
-// var times = ["00.00", "00.00"]
-
 // 0 - appointment, 1 - task, 2-reminder
 var popupState = 0
 var isEditMode = false
@@ -80,13 +78,20 @@ function configureAppointmentPopUp(event) {
     let apEndTime = document.getElementById("ap-end-time")
     let apDate = document.getElementById("ap-date")
     let popupTitle = document.getElementById("title")
-    let apRemind = document.getElementById("ap-date")
+    let apRemind = document.getElementById("ap-remind")
+    let apGuests = document.getElementById("container-guest")
     apDescription.value = event.description
     apStartTime.value = event.start
     apEndTime.value = event.end
     apDate.value = event.date
     popupTitle.value = event.title
     apRemind.value = event.remind
+
+    if (event.guests != null) {
+        for (var i in event.guests) {
+            addNewGuest(event.guests[i])
+        }
+    }
 }
 
 function configureTaskPopUp(event) {
@@ -118,6 +123,12 @@ function clearPopUp() {
     document.getElementById("task-date").value = ""
     document.getElementById("task-description").value = ""
     document.getElementById("task-date").value = ""
+    document.getElementById("appointment-input-guest").value = ""
+
+    let guestContainer = document.getElementById("container-guest")
+    while (guestContainer.childElementCount > 0) {
+        guestContainer.removeChild(guestContainer.firstChild)
+    }
 }
 
 function togleModalCreateEvent() {
@@ -277,7 +288,7 @@ function insertAppointmentsAndReminders(appointments, reminders) {
 
 
     // console.log(appointmentsMapa)
-    var i = 1
+    var i = 0
     while (i < 25) {
         insertAARInScreen(appointmentsMapa[i], remindersMapa[i], zIndex)
         zIndex += 1
@@ -332,7 +343,9 @@ function insertAARInScreen(appointments, reminders, zIndex) {
                 min += 60 
             }
 
-            let height = hour * 50 + min * 0.8
+            let preHeight = hour * 50 + min * 0.8
+
+            let height = preHeight < 50 ? 50 : preHeight
 
             let top =  parseInt(startTime[0], 10) * 50 + parseInt(startTime[1], 10) * 0.8 + height
 
@@ -519,6 +532,7 @@ function isAppointmentValid() {
     let apRemind = document.getElementById("ap-remind")
     let popupTitle = document.getElementById("title")
     let apDate = document.getElementById("ap-date")
+    let apGuests = document.getElementById("container-guest")
     let startTime = isTimeValid(apStartTime.value)
     let endTime = isTimeValid(apEndTime.value)
 
@@ -557,9 +571,18 @@ function isAppointmentValid() {
         return false
     }
 
+    let guests = []
+    var i = 0
+    while (i < apGuests.childElementCount) {
+        let value = apGuests.children[i].getElementsByTagName("span")[0].textContent
+        guests.push(value)
+        i += 1
+    }
+
     let apDescription = document.getElementById("ap-description")   
     return {
         title: title,
+        guests: guests,
         remind: remindValue,
         start: startTime[0] + "." + startTime[2],
         end: endTime[0] + "." + endTime[2],
@@ -703,6 +726,7 @@ function saveAppointment(event) {
     firebase.database().ref('users/' + currentUser.uid + '/events/' + event.id).set({
         type: "appointment",
         id: event.id,
+        guests: event.guests,
         description: event.description,
         start: event.start,
         end: event.end,
@@ -751,10 +775,60 @@ function fillDay(day, month, year) {
     })
 }
 
+function configureGuestInput() {
+    let guestInput = document.getElementById("appointment-input-guest");
+
+    // Execute a function when the user releases a key on the keyboard
+    guestInput.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        let value = guestInput.value
+        guestInput.value = ""
+        addNewGuest(value)
+      }
+    });
+}
+
+function addNewGuest(value) {
+    if (value == "") {
+        return
+    }
+    let guestContent = document.getElementById("container-guest");
+
+    let div = document.createElement("div")
+    let span = document.createElement("span")
+    let button = document.createElement("butoon")
+
+    let spanClass = document.createAttribute("class")
+    let buttonClass = document.createAttribute("class")
+
+    spanClass.value = "guest-span"
+    buttonClass.value = "guest-button"
+
+    span.setAttributeNode(spanClass)
+    button.setAttributeNode(buttonClass)
+
+    let spanText = document.createTextNode(value)
+    let buttonText = document.createTextNode("Delete")
+
+    span.appendChild(spanText)
+    button.appendChild(buttonText)
+
+    button.onclick = function() {
+        guestContent.removeChild(button.parentNode)
+    }
+
+    div.appendChild(span)
+    div.appendChild(button)
+    guestContent.appendChild(div)
+    /////////////////
+}
+
 function activateDayScreen() {
     if (currentUser == null) {
-
+        openScreen("login")
     } else {
+        displayUserName()
         activateAppointmentState();
         dbChangeListenner = function() {
             day_month = selectedMonth
@@ -763,8 +837,6 @@ function activateDayScreen() {
             fillDay(day_date, day_month, day_year)
         }
         dbChangeListenner()
+        configureGuestInput()
     }
 }
-
-// dbChangeListenner = null
-

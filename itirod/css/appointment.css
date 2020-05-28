@@ -22,11 +22,20 @@
 	overflow-y: scroll;
 }
 
+.span-guest-container {
+	width: 60%;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    display: inline-block;
+}
+
 .guest-span {
 	color: #9C9C9C;
 }
 
 .guest-button {
+	display: inline-block;
 	background: #fff;
 	padding-left: 10px;
 	color: #9C9C9C;

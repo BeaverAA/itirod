@@ -170,8 +170,9 @@ function activateTaskListScreen() {
 	addButton.onclick = addTask;
 
 	if (currentUser == null) {
-
+		openScreen("login")
 	} else {
+		displayUserName()
 	    requestEvents(function(eventsMap){
 	        let tasks = []
 	        for (var dateEvents in eventsMap) {
