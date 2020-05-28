@@ -29,8 +29,7 @@ var currentScreen = null
 var currentUser = null
 var userEvents = null
 
-var links = null //Создаём переменную, в которой будут храниться ссылки
-var loaded = true //Переменная, которая обозначает, загрузилась ли страница
+var links = null
 
 let html = document.getElementById("html")
 
@@ -51,8 +50,12 @@ function requestEvents(callback) {
   if (userEvents == null) {
     firebase.database().ref('users/' + currentUser.uid + '/events').once('value').then(function(snapshot) {
         let events = snapshot.val()
-        normalizeEvents(events)
-        callback(userEvents)
+        let normalizeEmail = currentUser.email.split('.').join('@')
+        firebase.database().ref('guests/' + normalizeEmail + '/events/').once('value').then(function(snapshot2) {
+          let events2 = snapshot2.val()
+          normalizeEvents({events, events2})
+          callback(userEvents)
+        })
     });
   } else {
      callback(userEvents)
@@ -68,12 +71,16 @@ function authorize() {
 
   let eventsRootRef = firebase.database().ref('users/' + currentUser.uid + '/events')
   eventsRootRef.on('value', function(snapshot) {
-    let events = snapshot.val()
-    normalizeEvents(events)
     console.log("db changed")
-    if (dbChangeListenner != null) {
-      dbChangeListenner()
-    }
+    let events = snapshot.val()
+    let normalizeEmail = currentUser.email.split('.').join('@')
+    firebase.database().ref('guests/' + normalizeEmail + '/events/').once('value').then(function(snapshot2) {
+      let events2 = snapshot2.val()
+      normalizeEvents({events, events2})
+      if (dbChangeListenner != null) {
+        dbChangeListenner()
+      }
+    })
   });
 }
 
@@ -85,15 +92,18 @@ function logout() {
   });
 }
 
-function normalizeEvents(events) {
+function normalizeEvents(allEvents) {
   userEvents = {}
-  for (var eventName in events) {
-    let event = events[eventName]
-    let date = event.date != null ? event.date : "No Date"
-    if (userEvents[event.date] == null) {
-      userEvents[event.date] = []
+  for (var i in allEvents) {
+    let events = allEvents[i]
+    for (var eventName in events) {
+      let event = events[eventName]
+      let date = event.date != null ? event.date : "No Date"
+      if (userEvents[event.date] == null) {
+        userEvents[event.date] = []
+      }
+      userEvents[event.date].push(event)
     }
-    userEvents[event.date].push(event)
   }
 }
 
@@ -119,9 +129,6 @@ function openScreen(screen) {
     case "taskList":
       callback = activateTaskListScreen
       break
-    case "registration":
-      // callback = activateRegistrationScreen
-      break
   }
 
   if (screen != currentScreen) {
@@ -142,8 +149,7 @@ function SendRequest(link, callback) {
   .then(  
     function(response) {  
       if (response.status !== 200) {  
-        console.log('Looks like there was a problem. Status Code: ' +  
-          response.status);  
+        console.log('Looks like there was a problem. Status Code: ' +  response.status);  
         return;  
       }
 
@@ -155,17 +161,6 @@ function SendRequest(link, callback) {
       });  
     }  
   )  
-
-    loaded = false; //Говорим, что идёт загрузка
-
-    //Устанавливаем таймер, который покажет сообщение о загрузке, если она не завершится через 2 секунды
-    // setTimeout(ShowLoading, 2000);
-}
-
-function ShowLoading() {
-    if(!loaded) {
-   	 page.body.innerHTML = "Loading...";
-    }
 }
 
 function updatePage(response, link) {

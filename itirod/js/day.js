@@ -8,6 +8,8 @@ var popupState = 0
 var isEditMode = false
 var editableEvent = null
 
+var removeGuests = []
+
 function day_todayX() {
     let today = new Date();
     day_date = today.getDate();
@@ -63,6 +65,9 @@ function togleModalEditEvent(type, event) {
     if (type === 0) {
         activateAppointmentState()
         configureAppointmentPopUp(event)
+        if (event.owner != null) {
+            deactivateButtons()
+        }
     } else if (type === 1) {
         activateTaskState()
         configureTaskPopUp(event)
@@ -70,6 +75,20 @@ function togleModalEditEvent(type, event) {
         activateReminderState()
         configureReminderPopUp(event)
     }
+}
+
+function deactivateButtons() {
+    let saveButton = document.getElementById("event-save-button")
+    let deleteButton = document.getElementById("event-delete-button")
+    saveButton.disabled = true
+    deleteButton.disabled = true
+}
+
+function activateButtons() {
+    let saveButton = document.getElementById("event-save-button")
+    let deleteButton = document.getElementById("event-delete-button")
+    saveButton.disabled = false
+    deleteButton.disabled = false
 }
 
 function configureAppointmentPopUp(event) {
@@ -118,6 +137,7 @@ function clearPopUp() {
     document.getElementById("ap-end-time").value = ""
     document.getElementById("ap-date").value = ""
     document.getElementById("ap-date").value = ""
+    document.getElementById("ap-remind").value = ""
     document.getElementById("title").value = ""
     document.getElementById("task-description").value = ""
     document.getElementById("task-date").value = ""
@@ -274,20 +294,8 @@ function insertAppointmentsAndReminders(appointments, reminders) {
         remindersMapa[hour].push(event)
     }
 
-
-    // for (var i in appointmentsMapa) {
-    //     console.log(appointmentsMapa[i])
-    //     appointmentsMapa[i].sort(function(a, b){return a.end < b.end})
-    // }
-
-    // for (var i in remindersMapa) {
-    //     remindersMapa[i].sort(function(a, b){a.time < b.time})
-    // }
-
     var zIndex = 5
 
-
-    // console.log(appointmentsMapa)
     var i = 0
     while (i < 25) {
         insertAARInScreen(appointmentsMapa[i], remindersMapa[i], zIndex)
@@ -365,7 +373,6 @@ function insertAARInScreen(appointments, reminders, zIndex) {
     if (reminders != null) {
 
         let reminderWidthForOne = reminderWidth / reminders.length
-        // пересчитать
         var reminderLeft = 4
 
         if (appointments != null) {
@@ -382,14 +389,6 @@ function insertAARInScreen(appointments, reminders, zIndex) {
             // 1 h = 50 px
             // 1 m = 0.8 px
             let time = event.time.split(".")
-
-            // var hour = parseInt(endTime[0], 10) - parseInt(startTime[0], 10)
-            // var min = parseInt(endTime[1], 10) - parseInt(startTime[1], 10)
-            // if (min < 0) {
-            //     hour -= 1
-            //     min += 60 
-            // }
-
             let height = 1.6
 
             console.log(height)
@@ -719,10 +718,41 @@ function cancelPopUp() {
     let containerTypeButton = document.getElementById("container-type-button")
     containerTypeButton.style.display = ""
     clearPopUp()
+    activateButtons()
 }
 
 function saveAppointment(event) {
     registerEmail(event.id, event.title, event.date, event.start, event.remind)
+
+    //////////////////////
+
+    for (var i in removeGuests) {
+        let guest = removeGuests[i]
+        let id = guest.id
+        let email = guest.email
+        firebase.database().ref('guests/' + email + '/events/' + id).remove()
+    }
+
+    removeGuests = []
+
+    /////
+    let guests = event.guests
+    for (var i in guests) {
+        let normalizeEmail = guests[i].split('.').join('@')
+        firebase.database().ref('guests/' + normalizeEmail + '/events/' + event.id).set({
+            type: "appointment",
+            id: event.id,
+            guests: event.guests,
+            description: event.description,
+            start: event.start,
+            end: event.end,
+            owner: currentUser.email,
+            date: event.date,
+            remind: event.remind,
+            title: event.title
+        })
+    }
+    ////////
     firebase.database().ref('users/' + currentUser.uid + '/events/' + event.id).set({
         type: "appointment",
         id: event.id,
@@ -815,6 +845,7 @@ function addNewGuest(value) {
     button.appendChild(buttonText)
 
     button.onclick = function() {
+        removeGuests.push({email: value.split('.').join('@'), id: editableEvent.id})
         guestContent.removeChild(button.parentNode)
     }
 
