@@ -65,8 +65,10 @@ function fillWeekDate() {
         let curDate = week_date
         let curYear = week_year
         let curMoth = week_month
-        var date = week_date - day
+        var date = week_date
         if (i < day) {
+            date = week_date - day + i
+            console.log("kek", date)
             if (date <= 0) {
                 let year = (week_month === 0) ? week_year - 1 : week_year;
                 let moth = (week_month === 0) ? 11 : week_month - 1;
