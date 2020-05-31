@@ -9,6 +9,7 @@ var isEditMode = false
 var editableEvent = null
 
 var removeGuests = []
+var removeReminds = []
 
 function day_todayX() {
     let today = new Date();
@@ -61,7 +62,7 @@ function togleModalEditEvent(type, event) {
     console.log(editableEvent)
     let containerTypeButton = document.getElementById("container-type-button")
     containerTypeButton.style.display = "none"
-    togleModalCreateEvent()
+    togleModalCreateEvent("none")
     if (type === 0) {
         activateAppointmentState()
         configureAppointmentPopUp(event)
@@ -97,18 +98,24 @@ function configureAppointmentPopUp(event) {
     let apEndTime = document.getElementById("ap-end-time")
     let apDate = document.getElementById("ap-date")
     let popupTitle = document.getElementById("title")
-    let apRemind = document.getElementById("ap-remind")
-    let apGuests = document.getElementById("container-guest")
+    let apReminds = document.getElementById("ap-remind")
+    let apGuests = document.getElementById("container-reminds")
     apDescription.value = event.description
     apStartTime.value = event.start
     apEndTime.value = event.end
     apDate.value = event.date
     popupTitle.value = event.title
-    apRemind.value = event.remind
+    
 
     if (event.guests != null) {
         for (var i in event.guests) {
             addNewGuest(event.guests[i])
+        }
+    }
+
+    if (event.reminds != null) {
+        for (var i in event.reminds) {
+            addNewRemindValue(event.reminds[i])
         }
     }
 }
@@ -144,18 +151,37 @@ function clearPopUp() {
     document.getElementById("task-description").value = ""
     document.getElementById("task-date").value = ""
     document.getElementById("appointment-input-guest").value = ""
+    document.getElementById("re-time").value = ""
+    document.getElementById("re-date").value = ""
 
     let guestContainer = document.getElementById("container-guest")
     while (guestContainer.childElementCount > 0) {
         guestContainer.removeChild(guestContainer.firstChild)
     }
+
+    let remindContent = document.getElementById("container-reminds");
+    while (remindContent.childElementCount > 0) {
+        remindContent.removeChild(remindContent.firstChild)
+    }
 }
 
-function togleModalCreateEvent() {
+function togleModalCreateEvent(time, date) {
     let deleteButton = document.getElementById("event-delete-button");
     if (isEditMode) {
         deleteButton.style.display = ""
     } else {
+        document.getElementById("ap-start-time").value = time
+        document.getElementById("ap-end-time").value = time
+        document.getElementById("re-time").value = time
+        if (date == null) {
+            document.getElementById("ap-date").value = day_date + "." + (day_month + 1) + "." + day_year
+            document.getElementById("task-date").value = day_date + "." + (day_month + 1) + "." + day_year
+            document.getElementById("re-date").value = day_date + "." + (day_month + 1) + "." + day_year
+        } else {
+            document.getElementById("ap-date").value = date
+            document.getElementById("task-date").value = date
+            document.getElementById("re-date").value = date
+        }
         deleteButton.style.display = "none"
     }
     let day_modal = document.getElementById("modal")
@@ -240,7 +266,7 @@ function setTitle(day, month, year) {
     monthAndDay.appendChild(cellText)
 }
 
-function showEvents(eventsArray) {
+function showEvents(eventsArray, weekDay) {
     let appointments = []
     let tasks = []
     let reminders = []
@@ -261,18 +287,19 @@ function showEvents(eventsArray) {
         }
     }
     insertTasksInScreens(tasks)
-    insertAppointmentsAndReminders(appointments, reminders)
+    insertAppointmentsAndReminders(appointments, reminders, weekDay)
 }
 
 function insertTasksInScreens(tasks) {
     for (var i in tasks) {
         let task = createTask(tasks[i])
+        task.style.background = tasks[i].color
         let day_taskWrapper = document.getElementById("task-wrapper")
         day_taskWrapper.appendChild(task)
     }
 }
 
-function insertAppointmentsAndReminders(appointments, reminders) {
+function insertAppointmentsAndReminders(appointments, reminders, weekDay) {
     let appointmentsMapa = {}
     let remindersMapa = {}
 
@@ -298,13 +325,13 @@ function insertAppointmentsAndReminders(appointments, reminders) {
 
     var i = 0
     while (i < 25) {
-        insertAARInScreen(appointmentsMapa[i], remindersMapa[i], zIndex)
+        insertAARInScreen(appointmentsMapa[i], remindersMapa[i], zIndex, weekDay)
         zIndex += 1
         i += 1
     }
 }
 
-function insertAARInScreen(appointments, reminders, zIndex) {
+function insertAARInScreen(appointments, reminders, zIndex, weekDay) {
     if (appointments == null && reminders == null) {
         return
     }
@@ -324,7 +351,30 @@ function insertAARInScreen(appointments, reminders, zIndex) {
         reminderWidth = 95
     }
 
+    console.log(appointments, reminders)
+    if (currentScreen == 'week') {
+        if (appointmentWidth == 95) {
+            appointmentWidth = 12.5
+            console.log("only-appointment")
+        } else if (reminderWidth = 95) {
+            reminderWidth = 12.5
+            console.log("only-reminder")
+        } else {
+            appointmentWidth = 7.5
+            reminderWidth = 5
+            console.log("only-two")
+        }
+    }
+
     let borderFactor = 2
+
+    let h_coef = 50
+    let m_coef = 0.8
+
+    if (currentScreen == 'week') {
+        h_coef = 80
+        m_coef = 1.3
+    }
 
 //////////////////////// appointment
 
@@ -332,12 +382,17 @@ function insertAARInScreen(appointments, reminders, zIndex) {
         let appointmentWidthForOne = appointmentWidth / appointments.length
         var appointmentLeft = 4
 
+        if (currentScreen == 'week') {
+            appointmentLeft = 12.5 * weekDay
+        }
+
         for (var i in appointments) {
             let event = appointments[i]
             let eventElement = createAppointment(event)
             eventElement.style.zIndex = zIndex.toString()
             eventElement.style.left = appointmentLeft + "%"
             eventElement.style.width = appointmentWidthForOne + "%"
+            eventElement.style.background = event.color
 
             // 1 h = 50 px
             // 1 m = 0.8 px
@@ -351,11 +406,15 @@ function insertAARInScreen(appointments, reminders, zIndex) {
                 min += 60 
             }
 
-            let preHeight = hour * 50 + min * 0.8
+            let preHeight = hour * h_coef + min * m_coef
 
             let height = preHeight < 50 ? 50 : preHeight
 
-            let top =  parseInt(startTime[0], 10) * 50 + parseInt(startTime[1], 10) * 0.8 + height
+            let top =  parseInt(startTime[0], 10) * h_coef + parseInt(startTime[1], 10) * m_coef + height
+
+            if (currentScreen == 'week') {
+                top += 35
+            }
 
             eventElement.style.top = top + "px"
             eventElement.style.height = height + "px"
@@ -379,12 +438,21 @@ function insertAARInScreen(appointments, reminders, zIndex) {
             reminderLeft = 59
         }
 
+        if (currentScreen == 'week') {
+            if (reminderLeft == 4) {
+                reminderLeft = 12.5 * weekDay
+            } else {
+                reminderLeft = (12.5 * weekDay) + 7.5
+            }
+        }
+
         for (var i in reminders) {
             let event = reminders[i]
             let eventElement = createReminder(event)
             eventElement.style.zIndex = zIndex.toString()
             eventElement.style.left = reminderLeft + "%"
             eventElement.style.width = reminderWidthForOne + "%"
+            eventElement.style.background = event.color
 
             // 1 h = 50 px
             // 1 m = 0.8 px
@@ -393,7 +461,11 @@ function insertAARInScreen(appointments, reminders, zIndex) {
 
             console.log(height)
 
-            let top = parseInt(time[0], 10) * 50 + parseInt(time[1], 10) * 0.8 + (height * 16)
+            let top = parseInt(time[0], 10) * h_coef + parseInt(time[1], 10) * m_coef + (height * 16)
+
+            if (currentScreen == 'week') {
+                top += 35
+            }
 
             eventElement.style.top = top + "px"
             eventElement.style.height = height + "em"
@@ -493,6 +565,8 @@ function saveEvent() {
         case 0:
             event = isAppointmentValid()
             if (event != false) {
+                let color = document.getElementById("color-picker").value
+                event.color = color
                 event.id = id
                 saveAppointment(event)
             } else {
@@ -503,6 +577,8 @@ function saveEvent() {
         case 1:
             event = isTaskValid()
             if (event != false) {
+                let color = document.getElementById("color-picker").value
+                event.color = color
                 event.id = id
                 saveTask(event)
             } else {
@@ -513,6 +589,8 @@ function saveEvent() {
         case 2:
             event = isReminderValid()
             if (event != false) {
+                let color = document.getElementById("color-picker").value
+                event.color = color
                 event.id = id
                 saveReminder(event)
             } else {
@@ -528,10 +606,10 @@ function saveEvent() {
 function isAppointmentValid() {
     let apEndTime = document.getElementById("ap-end-time")
     let apStartTime = document.getElementById("ap-start-time")
-    let apRemind = document.getElementById("ap-remind")
     let popupTitle = document.getElementById("title")
     let apDate = document.getElementById("ap-date")
     let apGuests = document.getElementById("container-guest")
+    let apReminds = document.getElementById("container-reminds")
     let startTime = isTimeValid(apStartTime.value)
     let endTime = isTimeValid(apEndTime.value)
 
@@ -562,12 +640,12 @@ function isAppointmentValid() {
         return false
     }
 
-    let remind = apRemind.value
-    let remindValue = isRemindValid(remind)
-
-    if (remindValue == false) {
-        console.log("remind error")
-        return false
+    let reminds = []
+    var i = 0
+    while (i < apReminds.childElementCount) {
+        let value = apReminds.children[i].getElementsByTagName("span")[0].textContent
+        reminds.push(value)
+        i += 1
     }
 
     let guests = []
@@ -582,7 +660,7 @@ function isAppointmentValid() {
     return {
         title: title,
         guests: guests,
-        remind: remindValue,
+        reminds: reminds,
         start: startTime[0] + "." + startTime[2],
         end: endTime[0] + "." + endTime[2],
         date: date[0] + "." + date[1] + "." + date[2],
@@ -746,9 +824,10 @@ function saveAppointment(event) {
             description: event.description,
             start: event.start,
             end: event.end,
+            color: event.color,
             owner: currentUser.email,
             date: event.date,
-            remind: event.remind,
+            reminds: event.reminds,
             title: event.title
         })
     }
@@ -760,8 +839,9 @@ function saveAppointment(event) {
         description: event.description,
         start: event.start,
         end: event.end,
+        color: event.color,
         date: event.date,
-        remind: event.remind,
+        reminds: event.reminds,
         title: event.title
     })
 }
@@ -770,6 +850,7 @@ function saveTask(event) {
     firebase.database().ref('users/' + currentUser.uid + '/events/' + event.id).set({
         type: "task",
         id: event.id,
+        color: event.color,
         description: event.description,
         date: event.date,
         title: event.title
@@ -781,6 +862,7 @@ function saveReminder(event) {
     firebase.database().ref('users/' + currentUser.uid + '/events/' + event.id).set({
         type: "reminder",
         id: event.id,
+        color: event.color,
         time: event.time,
         date: event.date,
         title: event.title
@@ -805,10 +887,10 @@ function fillDay(day, month, year) {
     })
 }
 
-function configureGuestInput() {
+function configureGuestAndRemindInput() {
     let guestInput = document.getElementById("appointment-input-guest");
+    let remindInput = document.getElementById("ap-remind");
 
-    // Execute a function when the user releases a key on the keyboard
     guestInput.addEventListener("keyup", function(event) {
       if (event.keyCode === 13) {
         event.preventDefault();
@@ -817,6 +899,55 @@ function configureGuestInput() {
         addNewGuest(value)
       }
     });
+
+    remindInput.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        let value = remindInput.value
+        remindInput.value = ""
+        addNewRemindValue(value)
+      }
+    });
+}
+
+function addNewRemindValue(value) {
+    let remind = isRemindValid(value)
+    if (value == "" || remind == false) {
+        return
+    }
+
+    let remindContent = document.getElementById("container-reminds");
+
+    let div = document.createElement("div")
+    let span = document.createElement("span")
+    let button = document.createElement("butoon")
+
+    let spanClass = document.createAttribute("class")
+    let buttonClass = document.createAttribute("class")
+
+    spanClass.value = "guest-span"
+    buttonClass.value = "guest-button"
+
+    span.setAttributeNode(spanClass)
+    button.setAttributeNode(buttonClass)
+
+    let spanText = document.createTextNode(remind.toString())
+    let buttonText = document.createTextNode("Delete")
+
+    span.appendChild(spanText)
+    button.appendChild(buttonText)
+
+    button.onclick = function() {
+        if (editableEvent != null) {
+            removeReminds.push({remind: value, id: editableEvent.id})
+        }
+        remindContent.removeChild(button.parentNode)
+    }
+
+    div.appendChild(span)
+    div.appendChild(button)
+    remindContent.appendChild(div)
+    /////////////////
 }
 
 function addNewGuest(value) {
@@ -845,7 +976,9 @@ function addNewGuest(value) {
     button.appendChild(buttonText)
 
     button.onclick = function() {
-        removeGuests.push({email: value.split('.').join('@'), id: editableEvent.id})
+        if (editableEvent != null) {
+            removeGuests.push({email: value.split('.').join('@'), id: editableEvent.id})
+        }
         guestContent.removeChild(button.parentNode)
     }
 
@@ -868,6 +1001,6 @@ function activateDayScreen() {
             fillDay(day_date, day_month, day_year)
         }
         dbChangeListenner()
-        configureGuestInput()
+        configureGuestAndRemindInput()
     }
 }

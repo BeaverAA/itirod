@@ -1,9 +1,13 @@
 sdk loading
 
+460, 415 (415, 742)
+
+89 (469)
+
 banner:
 	identifier_loading_finish = 11
 	ad_info_loading_finish = 40
-	network_request_finish = 614
+	network_request_finish = 415, 742
 	sdk_configuration_loading_finish = 647
 	autograb_loading_finish = 2
 	location_loading_finish = 200
@@ -11,6 +15,7 @@ banner:
 	html_loading_finish = 1472
 	adapter_loading_finish = 3620
 	ad_loading_finish = 2929
+	mraid = 608
 
 	identifier_loading_finish = 2
 	ad_info_loading_finish = 0
@@ -21,16 +26,20 @@ banner:
 	html_loading_finish = 734
 	adapter_loading_finish = 1147
 	ad_loading_finish = 1148
+	mraid = 10
 
 
 interstitial:
+615, 104/ 782, 292
+97 / 742
+
 	identifier_loading_finish = 15
 	ad_info_loading_finish = 37
 	network_request_finish = 305
 	sdk_configuration_loading_finish = 391
 	autograb_loading_finish = 2
 	location_loading_finish = 170
-	network_request_finish = 366
+	network_request_finish = 299, 379
 	mraid_loading_finish = 220
 	html_loading_finish = 731
 	ad_loading_finish = 2143
@@ -41,7 +50,7 @@ interstitial:
 	sdk_configuration_loading_finish = 1
 	autograb_loading_finish = 1
 	location_loading_finish = 19
-	network_request_finish = 493
+	network_request_finish = 427
 	mraid_loading_finish = 21
 	html_loading_finish = 193
 	ad_loading_finish = 832
@@ -54,8 +63,7 @@ rewarded:
 	sdk_configuration_loading_finish = 339
 	autograb_loading_finish = 2
 	location_loading_finish = 154
-	network_request_finish = 385
-	network_request_finish = 226
+	network_request_finish = 557, 326, 205
 	mraid_loading_finish = 243
 	html_loading_finish = 419
 	ad_loading_finish = 1765
@@ -66,7 +74,7 @@ rewarded:
 	sdk_configuration_loading_finish = 0
 	autograb_loading_finish = 2
 	location_loading_finish = 18
-	network_request_finish = 554
+	network_request_finish = 319
 	mraid_loading_finish = 43
 	html_loading_finish = 239
 	ad_loading_finish = 982
@@ -80,11 +88,8 @@ native:
 	sdk_configuration_loading_finish = 261
 	autograb_loading_finish = 0
 	location_loading_finish = 100
-	network_request_finish = 182
-	network_request_finish = 383
-	network_request_finish = 392
+	network_request_finish = 510, 311, 253, 291
 	native_ad_loading_finish = 1170
-	network_request_finish = 228
 	adapter_loading_finish = 2561
 
 	identifier_loading_finish = 1
@@ -92,9 +97,7 @@ native:
 	sdk_configuration_loading_finish = 0
 	autograb_loading_finish = 0
 	location_loading_finish = 8
-	network_request_finish = 270
-	network_request_finish = 52
-	network_request_finish = 105
+	network_request_finish = 315, 153, 211
 	native_ad_loading_finish = 474
 	adapter_loading_finish = 1877
 

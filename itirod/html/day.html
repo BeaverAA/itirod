@@ -18,6 +18,7 @@
       </div>
       <nav class="topnav">
         <a class="link_internal" href="calendar">Calendar</a>
+        <a class="link_internal" href="year">Year</a>
         <a class="link_internal" href="day">Day</a>
         <a class="link_internal" href="taskList">Tasks</a>
       </nav>
@@ -39,122 +40,122 @@
 
       <div class="wrapper" id="wrapper">
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('00.00')">
           <hr>
           <time class="time" datetime="00:00">00.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('01.00')">
           <hr>
           <time class="time" datetime="01:00">01.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('02.00')">
           <hr>
           <time class="time" datetime="02:00">02.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('03.00')">
           <hr>
           <time class="time" datetime="03:00">03.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('04.00')">
           <hr>
           <time class="time" datetime="04:00">04.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('05.00')">
           <hr>
           <time class="time" datetime="05:00">05.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('06.00')">
           <hr>
           <time class="time" datetime="06:00">06.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('07.00')">
           <hr>
           <time class="time" datetime="07:00">07.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('08.00')">
           <hr>
           <time class="time" datetime="08:00">08.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('09.00')">
           <hr>
           <time class="time" datetime="09:00">09.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('10.00')">
           <hr>
           <time class="time" datetime="10:00">10.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('11.00')">
           <hr>
           <time class="time" datetime="11:00">11.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('12.00')">
           <hr>
           <time class="time" datetime="12:00">12.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('13.00')">
           <hr>
           <time class="time" datetime="13:00">13.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('14.00')">
           <hr>
           <time class="time" datetime="14:00">14.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('15.00')">
           <hr>
           <time class="time" datetime="15:00">15.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('16.00')">
           <hr>
           <time class="time" datetime="16:00">16.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('17.00')">
           <hr>
           <time class="time" datetime="17:00">17.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('18.00')">
           <hr>
           <time class="time" datetime="18:00">18.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('19.00')">
           <hr>
           <time class="time" datetime="19:00">19.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('20.00')">
           <hr>
           <time class="time" datetime="20:00">20.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('21.00')">
           <hr>
           <time class="time" datetime="21:00">21.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('22.00')">
           <hr>
           <time class="time" datetime="22:00">22.00</time>
         </div>
 
-        <div class="box" onclick="togleModalCreateEvent()">
+        <div class="box" onclick="togleModalCreateEvent('23.00')">
           <hr>
           <time class="time" datetime="23:00">23.00</time>
           <hr>
@@ -177,6 +178,8 @@
               <button id="reminder-button" class="type-button" onclick="activateReminderState()">reminder</button>
             </div>
 
+            <input id="color-picker" class="color-picker" type="color">
+
             <div id="container-appointment" class="container-appointment">
               <div>
                 <input id="ap-start-time" class="appointment-input" type="text" placeholder="12.00">
@@ -185,6 +188,8 @@
               </div>
               <div>
                 <input id="ap-remind" class="appointment-input" type="text" placeholder="remind in minutes">
+              </div>
+              <div id="container-reminds" class="container-guest">
               </div>
               <div>
                 <input id="appointment-input-guest" class="appointment-input-guest" type="text" placeholder="guest email">

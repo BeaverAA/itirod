@@ -1,9 +1,8 @@
 window.onpopstate = function(event) {
-  isHistoryEvent = true
-  openScreen(event.state.screen)
+  openScreen(event.state.screen, true)
 };
 
-let months = ["January", "February", "March", "April", "May", "June", "July", "August", "August", "October", "November", "December"];
+let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 let colors = {
     "000": "#ffffff",
@@ -114,7 +113,7 @@ function uuidv4() {
   });
 }
 
-function openScreen(screen) {
+function openScreen(screen, isHistoryEvent) {
   console.log(screen)
 
   let callback
@@ -122,6 +121,12 @@ function openScreen(screen) {
   switch(screen) {
     case "calendar": 
       callback = activateCalendarScreen
+      break
+    case "year": 
+      callback = activateYearScreen
+      break
+    case "week": 
+      callback = activateWeekScreen
       break
     case "day":
       callback = activateDayScreen
@@ -134,7 +139,7 @@ function openScreen(screen) {
   if (screen != currentScreen) {
     dbChangeListenner = null
     currentScreen = screen
-    SendRequest("https://newboba-itirod.web.app/html/" + screen + ".html", callback);
+    SendRequest("https://newboba-itirod.web.app/html/" + screen + ".html", callback, isHistoryEvent);
   }
 }
 
@@ -144,7 +149,7 @@ function registerEmail(id, title, date, start, remind) {
   fetch(link)
 }
 
-function SendRequest(link, callback) {
+function SendRequest(link, callback, isHistoryEvent) {
   fetch(link)
   .then(  
     function(response) {  
@@ -154,7 +159,7 @@ function SendRequest(link, callback) {
       }
 
       response.text().then(function(data) {  
-        updatePage(data, link)
+        updatePage(data, link, isHistoryEvent)
         if (callback != null) {
           callback()
         }
@@ -163,10 +168,10 @@ function SendRequest(link, callback) {
   )  
 }
 
-function updatePage(response, link) {
+function updatePage(response, link, isHistoryEvent) {
   html.innerHTML = response
   initLinks()
-  if (isHistoryEvent == false) {
+  if (isHistoryEvent != true) {
     var stateObj = {
       screen: currentScreen
     };

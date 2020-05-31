@@ -14,31 +14,31 @@ function todayX() {
     let today = new Date();
     calendar_currentMonth = today.getMonth();
     calendar_currentYear = today.getFullYear();
-    showCalendar(calendar_currentMonth, calendar_currentYear);
+    showCalendar(calendar_currentMonth, calendar_currentYear, "calendar-body");
 }
 
 function next() {
     calendar_currentYear = (calendar_currentMonth === 11) ? calendar_currentYear + 1 : calendar_currentYear;
     calendar_currentMonth = (calendar_currentMonth + 1) % 12;
-    showCalendar(calendar_currentMonth, calendar_currentYear);
+    showCalendar(calendar_currentMonth, calendar_currentYear, "calendar-body");
 }
 
 function previous() {
     calendar_currentYear = (calendar_currentMonth === 0) ? calendar_currentYear - 1 : calendar_currentYear;
     calendar_currentMonth = (calendar_currentMonth === 0) ? 11 : calendar_currentMonth - 1;
-    showCalendar(calendar_currentMonth, calendar_currentYear);
+    showCalendar(calendar_currentMonth, calendar_currentYear, "calendar-body");
 }   
 
-function showCalendar(month, year) {
+function showCalendar(month, year, calBodyName) {
 
     let firstDay = (new Date(year, month)).getDay();
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-    let prevYear = (calendar_currentMonth === 0) ? calendar_currentYear - 1 : calendar_currentYear;
-    let prevMonth = (calendar_currentMonth === 0) ? 11 : calendar_currentMonth - 1;
+    let prevYear = (month === 0) ? year - 1 : year;
+    let prevMonth = (month === 0) ? 11 : month - 1;
     let daysInPrevMoth = 32 - new Date(prevYear, prevMonth, 32).getDate();
 
-    let tbl = document.getElementById("calendar-body");
+    let tbl = document.getElementById(calBodyName);
 
     tbl.innerHTML = "";
 
@@ -93,9 +93,10 @@ function showCalendar(month, year) {
                 cell.year = year
                 cell.month = month
                 cell.addEventListener("click", function(e){
-                    selectedDate = e.target.date
-                    selectedYear = e.target.year
-                    selectedMonth = e.target.month
+                    selectedDate = cell.date
+                    selectedYear = cell.year
+                    selectedMonth = cell.month
+                    console.log("kek = ", selectedDate, selectedYear, selectedMonth)
                     openScreen("day")
                 })
                 let fullDate = date + '.' + (month + 1) + '.' + year
@@ -171,7 +172,7 @@ function activateCalendarScreen() {
                     addEvent(eventsMap[eventsArrayName][eventNumber])
                 }
             }
-            showCalendar(calendar_currentMonth, calendar_currentYear);
+            showCalendar(calendar_currentMonth, calendar_currentYear, "calendar-body");
         })
     }
 
