@@ -149,6 +149,11 @@ function registerEmail(id, title, date, start, remind) {
   fetch(link)
 }
 
+function cancelEmail(id) {
+  var link = "https://us-central1-itirod-49595.cloudfunctions.net/cancelMail?id=" + id
+  fetch(link)
+}
+
 function SendRequest(link, callback, isHistoryEvent) {
   fetch(link)
   .then(  

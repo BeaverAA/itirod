@@ -786,6 +786,7 @@ function isDateValid(date) {
 }
 
 function deleteEvent() {
+    cancelEmail(editableEvent.id)
     firebase.database().ref('users/' + currentUser.uid + '/events/' + editableEvent.id).remove()
     cancelPopUp()
 }
@@ -800,7 +801,7 @@ function cancelPopUp() {
 }
 
 function saveAppointment(event) {
-    registerEmail(event.id, event.title, event.date, event.start, event.remind)
+    registerEmail(event.id, event.title, event.date, event.start, event.reminds)
 
     //////////////////////
 
