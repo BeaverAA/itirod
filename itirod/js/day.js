@@ -100,11 +100,15 @@ function configureAppointmentPopUp(event) {
     let popupTitle = document.getElementById("title")
     let apReminds = document.getElementById("ap-remind")
     let apGuests = document.getElementById("container-reminds")
+    let colorPicker = document.getElementById("color-picker")
+    colorPicker.value = event.color
     apDescription.value = event.description
     apStartTime.value = event.start
     apEndTime.value = event.end
-    apDate.value = event.date
     popupTitle.value = event.title
+
+    let date = normalizeDate(event.date)
+    apDate.value = date
     
 
     if (event.guests != null) {
@@ -124,8 +128,11 @@ function configureTaskPopUp(event) {
     let taskDescription = document.getElementById("task-description")
     let taskDate = document.getElementById("task-date")
     let popupTitle = document.getElementById("title")
+    let colorPicker = document.getElementById("color-picker")
+    let date = normalizeDate(event.date)
+    colorPicker.value = event.color
     taskDescription.value = event.description
-    taskDate.value = event.date
+    taskDate.value = date
     popupTitle.value = event.title
 }
 
@@ -133,9 +140,27 @@ function configureReminderPopUp(event) {
     let reTime = document.getElementById("re-time")
     let reDate = document.getElementById("re-date")
     let popupTitle = document.getElementById("title")
+    let colorPicker = document.getElementById("color-picker")
+    let date = normalizeDate(event.date)
+    colorPicker.value = event.color
     reTime.value = event.time
-    reDate.value = event.date
+    reDate.value = date
     popupTitle.value = event.title
+}
+
+function normalizeDate(date) {
+    let dateArray = date.split('.')
+    let normalizeDate = dateArray[2] + "-"
+    if (dateArray[1].length == 1) {
+        normalizeDate += "0"
+    }
+    normalizeDate += dateArray[1] + "-"
+    if (dateArray[0].length == 1) {
+        normalizeDate += "0"
+    }
+    normalizeDate += dateArray[0]
+    console.log(normalizeDate)
+    return normalizeDate
 }
 
 function clearPopUp() {
@@ -174,13 +199,13 @@ function togleModalCreateEvent(time, date) {
         document.getElementById("ap-end-time").value = time
         document.getElementById("re-time").value = time
         if (date == null) {
-            document.getElementById("ap-date").value = day_date + "." + (day_month + 1) + "." + day_year
-            document.getElementById("task-date").value = day_date + "." + (day_month + 1) + "." + day_year
-            document.getElementById("re-date").value = day_date + "." + (day_month + 1) + "." + day_year
+            document.getElementById("ap-date").value = normalizeDate(day_date + "." + (day_month + 1) + "." + day_year)
+            document.getElementById("task-date").value = normalizeDate(day_date + "." + (day_month + 1) + "." + day_year)
+            document.getElementById("re-date").value = normalizeDate(day_date + "." + (day_month + 1) + "." + day_year)
         } else {
-            document.getElementById("ap-date").value = date
-            document.getElementById("task-date").value = date
-            document.getElementById("re-date").value = date
+            document.getElementById("ap-date").value = normalizeDate(date)
+            document.getElementById("task-date").value = normalizeDate(date)
+            document.getElementById("re-date").value = normalizeDate(date)
         }
         deleteButton.style.display = "none"
     }
@@ -766,13 +791,13 @@ function isTimeValid(time) {
 }
 
 function isDateValid(date) {
-    let dateNumbers = date.split('.')
+    let dateNumbers = date.split('-')
     if (dateNumbers.length != 3) {
         return false
     }
-    let d = Number(dateNumbers[0])
+    let d = Number(dateNumbers[2])
     let m = Number(dateNumbers[1])
-    let y = Number(dateNumbers[2])
+    let y = Number(dateNumbers[0])
 
     if (Number.isNaN(d) || Number.isNaN(m) || Number.isNaN(y)) {
         return false
