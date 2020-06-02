@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
   <head>
     <meta charset="utf-8">
     <title>Login</title>
@@ -14,8 +13,8 @@
       </div>
       <nav class="topnav">
         <div class="right-container">
-          <a href="./login.html">Sign In</a>
-          <a href="./registration.html">Sign Up</a>     
+          <a class="link_internal" href="login">Sign In</a>
+          <a class="link_internal" href="registration">Sign Up</a>     
         </div>
       </nav>
     </header>
@@ -24,23 +23,9 @@
       <div class="title-container">
         <h1 class="title" align="center">Login</h1>
       </div>
-      <form class="form1">
-        <input class="textfield" type="text" align="center" placeholder="Email">
-        <input class="textfield" type="password" align="center" placeholder="Password">
-        <button class="submit" onclick="test()">Sign in</button>
+      <form onsubmit="return false" class="form1">
+        <input id="email" class="textfield" type="text" align="center" placeholder="Email">
+        <input id="password" class="textfield" type="password" align="center" placeholder="Password">
+        <button class="submit" onclick="signin()">Sign in</button>
       </form>
     </main>
-    
-    <script src="./../js/login.js"></script>
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="/__/firebase/7.14.4/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
-
-    <!-- Initialize Firebase -->
-    <script src="/__/firebase/init.js"></script>
-
-  </body>
-</html>

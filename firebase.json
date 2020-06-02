@@ -1,11 +1,17 @@
 {
   "hosting": {
-  	"site": "newboba-itirod",
+    "site": "newboba-itirod",
     "public": "itirod",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }

@@ -58,6 +58,7 @@ img {
 }
 
 .user-name {
+	cursor: pointer;
 	display: flex;
 	font-size: 18px;
 	padding-top: 40px;
@@ -93,7 +94,8 @@ nav {
   }
 
   	.user-name {
-		font-size: 30px;
+		font-size: 25px;
+		width: 20%;
 	}
 
 }

@@ -1,0 +1,7 @@
+{
+	"head": "<meta charset='utf-8'><title>Calendar</title><link rel='stylesheet' type='text/css' href='./css/common.css'><link rel='stylesheet' type='text/css' href='./css/calendar.css'><link rel='stylesheet' type='text/css' href='./css/buttonAnimation.css'><link rel='stylesheet' type='text/css' href='./css/calendarDayAnimation.css'>",
+	"header": "<div class='image-container'><img src='./../calendar.jpg'></div><nav class='topnav'><a href='./calendar.html'>Calendar</a><a href='./day.html'>Day</a><a href='./taskList.html'>Tasks</a></nav><div class='line-break'></div><div id='user-name' class='user-name'>  Anton Bobr</div>",
+	"main": "<div><time class='monthAndYear' id='monthAndYear'></time><div class='buttons'>  <button id='previous' class='btn' onclick='previous()'><-</button>  <button id='currnet' class='btn' onclick='current()'>x</button>  <button id='next' class='btn' onclick='next()'>-></button></div><table id='calendar'>  <thead><tr class='weekdays'><th scope='col'>Sunday</th><th scope='col'>Monday</th><th scope='col'>Tuesday</th><th scope='col'>Wednesday</th><th scope='col'>Thursday</th><th scope='col'>Friday</th><th scope='col'>Saturday</th></tr>  </thead><tbody id='calendar-body'>  </tbody></table></div>",
+	"popups": "",
+	"scripts": "<script src='./js/calendar.js'></script>"
+}

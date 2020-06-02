@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
   <head>
     <meta charset="utf-8">
     <title>Calendar</title>
@@ -15,13 +14,15 @@
         <img src="./../calendar.jpg">
       </div>
       <nav class="topnav">
-        <a href="./calendar.html">Calendar</a>
-        <a href="./day.html">Day</a>
-        <a href="./taskList.html">Tasks</a>
+        <a class="link_internal" href="calendar">Calendar</a>
+        <a class="link_internal" href="year">Year</a>
+        <a class="link_internal" href="week">Week</a>
+        <a class="link_internal" href="day">Day</a>
+        <a class="link_internal" href="taskList">Tasks</a>
       </nav>
       <div class="line-break"></div>
-      <div class="user-name">
-          Anton Bobr
+      <div id="user-name" class="user-name" onclick="logout()">
+          
       </div>
     </header>
 
@@ -33,7 +34,7 @@
         <time class="monthAndYear" id="monthAndYear"></time>
         <div class="buttons">
           <button id="previous" class="btn" onclick="previous()"><-</button>
-          <button id="currnet" class="btn" onclick="current()">x</button>
+          <button id="currnet" class="btn" onclick="todayX()">x</button>
           <button id="next" class="btn" onclick="next()">-></button>
         </div>
         
@@ -52,23 +53,10 @@
 
           <tbody id="calendar-body">
           </tbody>
-
         </table>
-
       </div>
-
     </main>
 
-    <script src="./../js/calendar.js"></script>
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="/__/firebase/7.14.4/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
-
-    <!-- Initialize Firebase -->
-    <script src="/__/firebase/init.js"></script>
+    <script src="./js/calendar.js"></script>
     
   </body>
-</html>

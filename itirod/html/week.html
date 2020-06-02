@@ -1,0 +1,376 @@
+
+  <head>
+    <meta charset="utf-8">
+    <title>Calendar</title>
+    <link rel="stylesheet" type="text/css" href="./../css/common.css">
+    <link rel="stylesheet" type="text/css" href="./../css/week.css">
+    <link rel="stylesheet" type="text/css" href="./../css/buttonAnimation.css">
+    <link rel="stylesheet" type="text/css" href="./../css/calendarDayAnimation.css">
+    <link rel="stylesheet" type="text/css" href="./../css/popupall.css">
+    <link rel="stylesheet" type="text/css" href="./../css/appointment.css">
+    <link rel="stylesheet" type="text/css" href="./../css/task.css">
+    <link rel="stylesheet" type="text/css" href="./../css/reminder.css">
+  </head>
+  <body>
+
+    <header>
+      <div class="image-container">
+        <img src="./../calendar.jpg">
+      </div>
+      <nav class="topnav">
+        <a class="link_internal" href="calendar">Calendar</a>
+        <a class="link_internal" href="year">Year</a>
+        <a class="link_internal" href="week">Week</a>
+        <a class="link_internal" href="day">Day</a>
+        <a class="link_internal" href="taskList">Tasks</a>
+      </nav>
+      <div class="line-break"></div>
+      <div id="user-name" class="user-name" onclick="logout()">
+          
+      </div>
+    </header>
+
+
+    <main class="container">
+
+      <div>
+
+        <time class="monthAndYear" id="monthAndYear"></time>
+        <div class="buttons">
+          <button id="previous" class="btn" onclick="week_previous()"><-</button>
+          <button id="currnet" class="btn" onclick="week_todayX()">x</button>
+          <button id="next" class="btn" onclick="week_next()">-></button>
+        </div>
+        
+
+        <div id="task-wrapper" class="task-wrapper">
+        </div>
+
+        <div class="wrapper" id="wrapper">
+
+          <table id="calendar">
+            <thead>
+              <tr class="days">
+                <th id="time-col" scope="col"></th>
+                <th id="date-1" scope="col"></th>
+                <th id="date-2" scope="col"></th>
+                <th id="date-3" scope="col"></th>
+                <th id="date-4" scope="col"></th>
+                <th id="date-5" scope="col"></th>
+                <th id="date-6" scope="col"></th>
+                <th id="date-7" scope="col"></th>
+              </tr>
+            </thead>
+
+            <tbody id="calendar-body">
+              <tr class="Hour">
+                <th scope="col">00.00</th>
+                <td onclick="createEventInWeek(1, '00.00')"></td>
+                <td onclick="createEventInWeek(2, '00.00')"></td>
+                <td onclick="createEventInWeek(3, '00.00')"></td>
+                <td onclick="createEventInWeek(4, '00.00')"></td>
+                <td onclick="createEventInWeek(5, '00.00')"></td>
+                <td onclick="createEventInWeek(6, '00.00')"></td>
+                <td onclick="createEventInWeek(7, '00.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">01.00</th>
+                <td onclick="createEventInWeek(1, '01.00')"></td>
+                <td onclick="createEventInWeek(2, '01.00')"></td>
+                <td onclick="createEventInWeek(3, '01.00')"></td>
+                <td onclick="createEventInWeek(4, '01.00')"></td>
+                <td onclick="createEventInWeek(5, '01.00')"></td>
+                <td onclick="createEventInWeek(6, '01.00')"></td>
+                <td onclick="createEventInWeek(7, '01.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">02.00</th>
+                <td onclick="createEventInWeek(1, '02.00')"></td>
+                <td onclick="createEventInWeek(2, '02.00')"></td>
+                <td onclick="createEventInWeek(3, '02.00')"></td>
+                <td onclick="createEventInWeek(4, '02.00')"></td>
+                <td onclick="createEventInWeek(5, '02.00')"></td>
+                <td onclick="createEventInWeek(6, '02.00')"></td>
+                <td onclick="createEventInWeek(7, '02.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">03.00</th>
+                <td onclick="createEventInWeek(1, '03.00')"></td>
+                <td onclick="createEventInWeek(2, '03.00')"></td>
+                <td onclick="createEventInWeek(3, '03.00')"></td>
+                <td onclick="createEventInWeek(4, '03.00')"></td>
+                <td onclick="createEventInWeek(5, '03.00')"></td>
+                <td onclick="createEventInWeek(6, '03.00')"></td>
+                <td onclick="createEventInWeek(7, '03.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">04.00</th>
+                <td onclick="createEventInWeek(1, '04.00')"></td>
+                <td onclick="createEventInWeek(2, '04.00')"></td>
+                <td onclick="createEventInWeek(3, '04.00')"></td>
+                <td onclick="createEventInWeek(4, '04.00')"></td>
+                <td onclick="createEventInWeek(5, '04.00')"></td>
+                <td onclick="createEventInWeek(6, '04.00')"></td>
+                <td onclick="createEventInWeek(7, '04.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">05.00</th>
+                <td onclick="createEventInWeek(1, '05.00')"></td>
+                <td onclick="createEventInWeek(2, '05.00')"></td>
+                <td onclick="createEventInWeek(3, '05.00')"></td>
+                <td onclick="createEventInWeek(4, '05.00')"></td>
+                <td onclick="createEventInWeek(5, '05.00')"></td>
+                <td onclick="createEventInWeek(6, '05.00')"></td>
+                <td onclick="createEventInWeek(7, '05.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">06.00</th>
+                <td onclick="createEventInWeek(1, '06.00')"></td>
+                <td onclick="createEventInWeek(2, '06.00')"></td>
+                <td onclick="createEventInWeek(3, '06.00')"></td>
+                <td onclick="createEventInWeek(4, '06.00')"></td>
+                <td onclick="createEventInWeek(5, '06.00')"></td>
+                <td onclick="createEventInWeek(6, '06.00')"></td>
+                <td onclick="createEventInWeek(7, '06.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">07.00</th>
+                <td onclick="createEventInWeek(1, '07.00')"></td>
+                <td onclick="createEventInWeek(2, '07.00')"></td>
+                <td onclick="createEventInWeek(3, '07.00')"></td>
+                <td onclick="createEventInWeek(4, '07.00')"></td>
+                <td onclick="createEventInWeek(5, '07.00')"></td>
+                <td onclick="createEventInWeek(6, '07.00')"></td>
+                <td onclick="createEventInWeek(7, '07.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">08.00</th>
+                <td onclick="createEventInWeek(1, '08.00')"></td>
+                <td onclick="createEventInWeek(2, '08.00')"></td>
+                <td onclick="createEventInWeek(3, '08.00')"></td>
+                <td onclick="createEventInWeek(4, '08.00')"></td>
+                <td onclick="createEventInWeek(5, '08.00')"></td>
+                <td onclick="createEventInWeek(6, '08.00')"></td>
+                <td onclick="createEventInWeek(7, '08.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">09.00</th>
+                <td onclick="createEventInWeek(1, '09.00')"></td>
+                <td onclick="createEventInWeek(2, '09.00')"></td>
+                <td onclick="createEventInWeek(3, '09.00')"></td>
+                <td onclick="createEventInWeek(4, '09.00')"></td>
+                <td onclick="createEventInWeek(5, '09.00')"></td>
+                <td onclick="createEventInWeek(6, '09.00')"></td>
+                <td onclick="createEventInWeek(7, '09.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">10.00</th>
+                <td onclick="createEventInWeek(1, '10.00')"></td>
+                <td onclick="createEventInWeek(2, '10.00')"></td>
+                <td onclick="createEventInWeek(3, '10.00')"></td>
+                <td onclick="createEventInWeek(4, '10.00')"></td>
+                <td onclick="createEventInWeek(5, '10.00')"></td>
+                <td onclick="createEventInWeek(6, '10.00')"></td>
+                <td onclick="createEventInWeek(7, '10.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">11.00</th>
+                <td onclick="createEventInWeek(1, '11.00')"></td>
+                <td onclick="createEventInWeek(2, '11.00')"></td>
+                <td onclick="createEventInWeek(3, '11.00')"></td>
+                <td onclick="createEventInWeek(4, '11.00')"></td>
+                <td onclick="createEventInWeek(5, '11.00')"></td>
+                <td onclick="createEventInWeek(6, '11.00')"></td>
+                <td onclick="createEventInWeek(7, '11.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">12.00</th>
+                <td onclick="createEventInWeek(1, '12.00')"></td>
+                <td onclick="createEventInWeek(2, '12.00')"></td>
+                <td onclick="createEventInWeek(3, '12.00')"></td>
+                <td onclick="createEventInWeek(4, '12.00')"></td>
+                <td onclick="createEventInWeek(5, '12.00')"></td>
+                <td onclick="createEventInWeek(6, '12.00')"></td>
+                <td onclick="createEventInWeek(7, '12.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">13.00</th>
+                <td onclick="createEventInWeek(1, '13.00')"></td>
+                <td onclick="createEventInWeek(2, '13.00')"></td>
+                <td onclick="createEventInWeek(3, '13.00')"></td>
+                <td onclick="createEventInWeek(4, '13.00')"></td>
+                <td onclick="createEventInWeek(5, '13.00')"></td>
+                <td onclick="createEventInWeek(6, '13.00')"></td>
+                <td onclick="createEventInWeek(7, '13.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">14.00</th>
+                <td onclick="createEventInWeek(1, '14.00')"></td>
+                <td onclick="createEventInWeek(2, '14.00')"></td>
+                <td onclick="createEventInWeek(3, '14.00')"></td>
+                <td onclick="createEventInWeek(4, '14.00')"></td>
+                <td onclick="createEventInWeek(5, '14.00')"></td>
+                <td onclick="createEventInWeek(6, '14.00')"></td>
+                <td onclick="createEventInWeek(7, '14.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">15.00</th>
+                <td onclick="createEventInWeek(1, '15.00')"></td>
+                <td onclick="createEventInWeek(2, '15.00')"></td>
+                <td onclick="createEventInWeek(3, '15.00')"></td>
+                <td onclick="createEventInWeek(4, '15.00')"></td>
+                <td onclick="createEventInWeek(5, '15.00')"></td>
+                <td onclick="createEventInWeek(6, '15.00')"></td>
+                <td onclick="createEventInWeek(7, '15.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">16.00</th>
+                <td onclick="createEventInWeek(1, '16.00')"></td>
+                <td onclick="createEventInWeek(2, '16.00')"></td>
+                <td onclick="createEventInWeek(3, '16.00')"></td>
+                <td onclick="createEventInWeek(4, '16.00')"></td>
+                <td onclick="createEventInWeek(5, '16.00')"></td>
+                <td onclick="createEventInWeek(6, '16.00')"></td>
+                <td onclick="createEventInWeek(7, '16.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">17.00</th>
+                <td onclick="createEventInWeek(1, '17.00')"></td>
+                <td onclick="createEventInWeek(2, '17.00')"></td>
+                <td onclick="createEventInWeek(3, '17.00')"></td>
+                <td onclick="createEventInWeek(4, '17.00')"></td>
+                <td onclick="createEventInWeek(5, '17.00')"></td>
+                <td onclick="createEventInWeek(6, '17.00')"></td>
+                <td onclick="createEventInWeek(7, '17.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">18.00</th>
+                <td onclick="createEventInWeek(1, '18.00')"></td>
+                <td onclick="createEventInWeek(2, '18.00')"></td>
+                <td onclick="createEventInWeek(3, '18.00')"></td>
+                <td onclick="createEventInWeek(4, '18.00')"></td>
+                <td onclick="createEventInWeek(5, '18.00')"></td>
+                <td onclick="createEventInWeek(6, '18.00')"></td>
+                <td onclick="createEventInWeek(7, '18.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">19.00</th>
+                <td onclick="createEventInWeek(1, '19.00')"></td>
+                <td onclick="createEventInWeek(2, '19.00')"></td>
+                <td onclick="createEventInWeek(3, '19.00')"></td>
+                <td onclick="createEventInWeek(4, '19.00')"></td>
+                <td onclick="createEventInWeek(5, '19.00')"></td>
+                <td onclick="createEventInWeek(6, '19.00')"></td>
+                <td onclick="createEventInWeek(7, '19.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">20.00</th>
+                <td onclick="createEventInWeek(1, '20.00')"></td>
+                <td onclick="createEventInWeek(2, '20.00')"></td>
+                <td onclick="createEventInWeek(3, '20.00')"></td>
+                <td onclick="createEventInWeek(4, '20.00')"></td>
+                <td onclick="createEventInWeek(5, '20.00')"></td>
+                <td onclick="createEventInWeek(6, '20.00')"></td>
+                <td onclick="createEventInWeek(7, '20.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">21.00</th>
+                <td onclick="createEventInWeek(1, '21.00')"></td>
+                <td onclick="createEventInWeek(2, '21.00')"></td>
+                <td onclick="createEventInWeek(3, '21.00')"></td>
+                <td onclick="createEventInWeek(4, '21.00')"></td>
+                <td onclick="createEventInWeek(5, '21.00')"></td>
+                <td onclick="createEventInWeek(6, '21.00')"></td>
+                <td onclick="createEventInWeek(7, '21.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">22.00</th>
+                <td onclick="createEventInWeek(1, '22.00')"></td>
+                <td onclick="createEventInWeek(2, '22.00')"></td>
+                <td onclick="createEventInWeek(3, '22.00')"></td>
+                <td onclick="createEventInWeek(4, '22.00')"></td>
+                <td onclick="createEventInWeek(5, '22.00')"></td>
+                <td onclick="createEventInWeek(6, '22.00')"></td>
+                <td onclick="createEventInWeek(7, '22.00')"></td>
+              </tr>
+              <tr class="Hour">
+                <th scope="col">23.00</th>
+                <td onclick="createEventInWeek(1, '23.00')"></td>
+                <td onclick="createEventInWeek(2, '23.00')"></td>
+                <td onclick="createEventInWeek(3, '23.00')"></td>
+                <td onclick="createEventInWeek(4, '23.00')"></td>
+                <td onclick="createEventInWeek(5, '23.00')"></td>
+                <td onclick="createEventInWeek(6, '23.00')"></td>
+                <td onclick="createEventInWeek(7, '23.00')"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- <script src="./js/calendar.js"></script> -->
+    
+  </body>
+
+  <div class="modal" id="modal">
+      <form onsubmit="return false">
+        <div class="modal-content">
+            <div class="div-title">
+              <input id="title" class="input-title" type="text" placeholder="Title">
+            </div>
+
+            <div class="container-type-button" id="container-type-button">
+              <button id="appointment-button" class="type-button" onclick="activateAppointmentState()">appointment</button>
+              <button id="task-button" class="type-button" onclick="activateTaskState()">task</button>
+              <button id="reminder-button" class="type-button" onclick="activateReminderState()">reminder</button>
+            </div>
+
+            <input id="color-picker" class="color-picker" type="color">
+
+            <div id="container-appointment" class="container-appointment">
+              <div>
+                <input id="ap-start-time" class="appointment-input" type="text" placeholder="12.00">
+                <input id="ap-end-time" class="appointment-input" type="text" placeholder="13.00">
+                <input id="ap-date" class="appointment-input" type="date" placeholder="31.05.2020">
+              </div>
+              <div>
+                <input id="ap-remind" class="appointment-input" type="text" placeholder="remind in minutes">
+              </div>
+              <div id="container-reminds" class="container-guest">
+              </div>
+              <div>
+                <input id="appointment-input-guest" class="appointment-input-guest" type="text" placeholder="guest email">
+              </div>
+              <div id="container-guest" class="container-guest">
+              </div>
+              <div>
+                <textarea id="ap-description" class="description" placeholder="Description"></textarea>
+              </div>
+          </div>
+
+          <div id="container-task" class="container-task">
+            <div>
+              <input id="task-date" class="appointment-input" type="date" placeholder="31.05.2020">
+            </div>
+            <div>
+                <textarea id="task-description" class="description" placeholder="Description"></textarea>
+              </div>
+          </div>
+
+          <div id="container-reminder" class="container-reminder">
+            <div>
+              <input id="re-time" class="appointment-input" type="text" placeholder="12.00">
+              <input id="re-date" class="appointment-input" type="date" placeholder="31.05.2020">
+            </div>
+          </div>
+
+          <div class="container-result-button">
+            <button id="event-delete-button" class="result-button" onclick="deleteEvent()">Delete</button>
+            <button class="result-button" onclick="cancelPopUp()">Cancel</button>
+            <button id="event-save-button" class="result-button" onclick="saveEvent()">Ok</button>
+          </div>
+
+        </div>
+      </form>
+    </div>

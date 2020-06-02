@@ -1,0 +1,95 @@
+
+table{
+	display: inline-table;
+	width: 20%;
+	padding-top: 15px;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-bottom: 25px;
+}
+
+table tr, table tbody{
+  	display: grid;
+  	grid-column: 1 / -1;
+ 	grid-template-columns: repeat(7, 1fr);
+}
+
+.monthAndYear{
+	text-align: center;
+ 	grid-column: 1 / -1;
+  	font-size: 25px;
+ 	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: block;
+}
+
+table td, table th{
+	padding: 5px;
+	box-sizing:border-box;
+	border: 1px solid #8B8585;
+}
+
+table td {
+	min-height: 20px;
+  	display: flex;
+  	flex-direction: column;
+}
+
+.container {
+	text-align: center;
+	background-color: #FFFFFF;
+   	margin-top: 40px;
+   	margin-left: 3%;
+   	margin-right: 3%;
+    border-radius: 1.5em;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.weekdays {
+	background: #79D6D6;  
+}
+
+.weekdays th {
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 20px;
+	border: none;
+	padding: 10px 6px;
+	color: #000000;
+	font-size: 13px;
+}
+
+.day {
+	cursor: pointer;
+  	display: flex;
+  	flex-direction: column;
+  	position: relative;
+}
+
+.day2{
+  	background: #D3D3D3;
+}
+
+.date{
+	text-align: center;
+	margin-bottom: 5px;
+	padding: 4px;
+	background: #333;
+	color: #fff;
+	width: 20px;
+	border-radius: 50%;
+  	flex: 0 0 auto;
+  	align-self: flex-end;
+}
+
+.buttons {
+	text-align: center;
+}
+
+.btn {
+	height: 56px;
+	width: 56px;
+	border-radius: 50%;
+	background-color: #79D6D6;
+}

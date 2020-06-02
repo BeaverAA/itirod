@@ -1,38 +1,49 @@
-let today = new Date();
-let currentMonth = today.getMonth();
-let currentYear = today.getFullYear();
 
-let months = ["January", "February", "March", "April", "May", "June", "July", "August", "August", "October", "November", "December"];
+var calendar_currentMonth = null
+var calendar_currentYear = null
 
-let monthAndYear = document.getElementById("monthAndYear");
-showCalendar(currentMonth, currentYear);
+var events = {}
 
+function initDate() {
+    let today = new Date();
+    calendar_currentMonth = today.getMonth();
+    calendar_currentYear = today.getFullYear();
+}
+
+function todayX() {
+    let today = new Date();
+    calendar_currentMonth = today.getMonth();
+    calendar_currentYear = today.getFullYear();
+    showCalendar(calendar_currentMonth, calendar_currentYear, "calendar-body");
+}
 
 function next() {
-    currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
-    currentMonth = (currentMonth + 1) % 12;
-    showCalendar(currentMonth, currentYear);
+    calendar_currentYear = (calendar_currentMonth === 11) ? calendar_currentYear + 1 : calendar_currentYear;
+    calendar_currentMonth = (calendar_currentMonth + 1) % 12;
+    showCalendar(calendar_currentMonth, calendar_currentYear, "calendar-body");
 }
 
 function previous() {
-    currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-    currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-    showCalendar(currentMonth, currentYear);
+    calendar_currentYear = (calendar_currentMonth === 0) ? calendar_currentYear - 1 : calendar_currentYear;
+    calendar_currentMonth = (calendar_currentMonth === 0) ? 11 : calendar_currentMonth - 1;
+    showCalendar(calendar_currentMonth, calendar_currentYear, "calendar-body");
 }   
 
-function showCalendar(month, year) {
+function showCalendar(month, year, calBodyName) {
 
     let firstDay = (new Date(year, month)).getDay();
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-    let prevYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-    let prevMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+    let prevYear = (month === 0) ? year - 1 : year;
+    let prevMonth = (month === 0) ? 11 : month - 1;
     let daysInPrevMoth = 32 - new Date(prevYear, prevMonth, 32).getDate();
 
-    let tbl = document.getElementById("calendar-body");
+    let tbl = document.getElementById(calBodyName);
 
     tbl.innerHTML = "";
 
+
+    let monthAndYear = document.getElementById("monthAndYear");
     monthAndYear.innerHTML = months[month] + " " + year;
 
     let date = 1;
@@ -46,7 +57,14 @@ function showCalendar(month, year) {
         for (let j = 0; j < 7; j++) {
         	
             if (i === 0 && j < firstDay) {
-                let cell = createDateCell(daysInPrevMoth - firstDay + j + 1, "day day2")
+                let currnetDate = daysInPrevMoth - firstDay + j + 1
+                let cell = createDateCell(currnetDate, "day day2")
+                cell.addEventListener("click", function(){
+                    selectedDate = currnetDate
+                    selectedYear = prevYear
+                    selectedMonth = prevMonth
+                    openScreen("day")
+                })
                 row.appendChild(cell);
             }
             else if (date > daysInMonth) {
@@ -54,6 +72,15 @@ function showCalendar(month, year) {
                     break;
                 }
                 let cell = createDateCell(dateInNexMoth, "day day2")
+                cell.date = dateInNexMoth
+                cell.year = (month === 11) ? year + 1 : year
+                cell.month = (month + 1) % 12
+                cell.addEventListener("click", function(e){
+                    selectedDate = e.target.date
+                    selectedYear = e.target.year
+                    selectedMonth = e.target.month
+                    openScreen("day")
+                })
                 row.appendChild(cell)
                 dateInNexMoth++;
 
@@ -62,7 +89,19 @@ function showCalendar(month, year) {
             else {
                 let cellType = "day"
                 let cell = createDateCell(date, cellType)
-                setBackgroundColor(cell, date)
+                cell.date = date
+                cell.year = year
+                cell.month = month
+                cell.addEventListener("click", function(e){
+                    selectedDate = cell.date
+                    selectedYear = cell.year
+                    selectedMonth = cell.month
+                    console.log("kek = ", selectedDate, selectedYear, selectedMonth)
+                    openScreen("day")
+                })
+                let fullDate = date + '.' + (month + 1) + '.' + year
+                // console.log(fullDate)
+                setBackgroundColor(cell, fullDate)
                 row.appendChild(cell)   
                 date++
             }
@@ -91,14 +130,50 @@ function createDateCell(date, cellType) {
 }
 
 function setBackgroundColor(cell, date) {
-    let color = colorForDate(date)
-    cell.style.background = color
+    // console.log(date)
+    var color = events[date]
+    // console.log(color)
+    if (color == null) {
+        color = '000'
+    }
+    cell.style.background = colors[color]
 }
 
-function colorForDate(date) {
-    if (date === today.getDate()) {
-        console.log(date)
-        return "linear-gradient(rgba(124, 173, 250, 1), rgba(245, 103, 72, 0.65), rgba(255, 197, 130, 0.65))"
+function addEvent(event) {
+    // console.log(event)
+    let date = event.date
+    var value = events[date];
+    if (value == null) {
+        value = '000'
     }
-    return "#ffffff"
+
+    if (event.type == 'appointment') {
+        value = '1' + value.substr(1, 2)
+    } else if (event.type == 'task') {
+        value = value.substr(0, 1) + '1' + value.substr(2, 1)
+    } else {
+        value = value.substr(0, 2) + '1'
+    }
+    events[date] = value
+    // console.log(events)
+}
+
+function activateCalendarScreen() {
+    initDate()
+
+    if (currentUser == null) {
+        openScreen("login")
+    } else {
+        events = {}
+        displayUserName()
+        requestEvents(function(eventsMap){
+            for (var eventsArrayName in eventsMap) {
+                for (var eventNumber in eventsMap[eventsArrayName]) {
+                    addEvent(eventsMap[eventsArrayName][eventNumber])
+                }
+            }
+            showCalendar(calendar_currentMonth, calendar_currentYear, "calendar-body");
+        })
+    }
+
 }
